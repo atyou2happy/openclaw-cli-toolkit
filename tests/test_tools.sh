@@ -60,7 +60,7 @@ echo ""
 blue "Network tools..."
 test_tool "httpie" "http" "--version"
 test_tool "curlie" "curlie" "--version"
-test_tool "dog" "dog" "--version"
+test_tool "doggo" "doggo" "--version"
 echo ""
 
 blue "Git tools..."
