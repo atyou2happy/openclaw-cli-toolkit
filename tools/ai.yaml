@@ -1,0 +1,66 @@
+category: ai
+description: "AI-assisted CLI tools for coding and shell interaction"
+tools:
+  - name: aider
+    package: aider-chat
+    binary: aider
+    description: "AI pair programming in your terminal - edits code with LLMs"
+    homepage: "https://github.com/paul-gauthier/aider"
+    license: Apache-2.0
+    install_methods:
+      - method: pip
+        package: aider-chat
+      - method: brew
+        package: aider
+    openclaw_usage:
+      replace: "manual AI-assisted coding"
+      examples:
+        - "aider                            # start interactive session"
+        - "aider file1.py file2.py          # add files to context"
+        - "aider --model gpt-4              # specify model"
+        - "aider --yes-always               # auto-accept changes"
+      benefits: "AI pair programming, Git integration, multi-file edits, multiple LLM support"
+    config: []
+
+  - name: llm
+    package: llm
+    binary: llm
+    description: "CLI tool for running LLM prompts from Simon Willison"
+    homepage: "https://github.com/simonw/llm"
+    license: Apache-2.0
+    install_methods:
+      - method: pip
+        package: llm
+      - method: brew
+        package: llm
+    openclaw_usage:
+      replace: "API calls to LLMs"
+      examples:
+        - "llm 'explain this code'          # quick prompt"
+        - "llm -m gpt-4 'complex prompt'    # specify model"
+        - "cat file.py | llm 'review this'   # pipe input"
+        - "llm -s 'summarize' < article.txt  # system prompt"
+        - "llm --save prompt 'template'       # save as template"
+      benefits: "Multi-provider LLM access, conversation history, templates, embeddings"
+    config: []
+
+  - name: sgpt
+    package: shell-gpt
+    binary: sgpt
+    description: "Shell-GPT - use GPT from terminal for shell commands and code"
+    homepage: "https://github.com/TheR1D/shell_gpt"
+    license: MIT
+    install_methods:
+      - method: pip
+        package: shell-gpt
+      - method: brew
+        package: shell-gpt
+    openclaw_usage:
+      replace: "searching StackOverflow"
+      examples:
+        - "sgpt 'list all python files'     # get shell command"
+        - "sgpt --shell 'find big files'    # shell command mode"
+        - "sgpt --code 'sort dict by value' # code mode"
+        - "sgpt -s 'my error message'       # explain error"
+      benefits: "Shell command generation, code generation, chat mode, reusability"
+    config: []

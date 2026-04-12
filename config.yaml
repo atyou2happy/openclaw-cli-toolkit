@@ -1,0 +1,177 @@
+# OpenClaw CLI Toolkit Configuration
+# Edit this file to customize which tools are installed.
+# Run: ./install.sh to apply changes.
+
+# Installation preferences
+installation:
+  package_manager_priority:
+    - apt
+    - brew
+    - cargo
+    - pip
+  parallel: false
+  max_jobs: 4
+
+# Categories to install (set enabled: false to skip)
+categories:
+  search:
+    enabled: true
+    tools:
+      ripgrep:
+        enabled: true
+      fd:
+        enabled: true
+      the_silver_searcher:
+        enabled: false
+      ack:
+        enabled: false
+
+  viewer:
+    enabled: true
+    tools:
+      bat:
+        enabled: true
+      eza:
+        enabled: true
+      lsd:
+        enabled: false
+      tree:
+        enabled: true
+
+  data:
+    enabled: true
+    tools:
+      jq:
+        enabled: true
+      yq:
+        enabled: true
+      miller:
+        enabled: true
+      csvkit:
+        enabled: false
+      fx:
+        enabled: false
+      dasel:
+        enabled: false
+
+  system:
+    enabled: true
+    tools:
+      btop:
+        enabled: true
+      bottom:
+        enabled: false
+      dust:
+        enabled: true
+      duf:
+        enabled: true
+      procs:
+        enabled: true
+      hyperfine:
+        enabled: true
+
+  network:
+    enabled: true
+    tools:
+      httpie:
+        enabled: true
+      curlie:
+        enabled: false
+      dog:
+        enabled: true
+      nali:
+        enabled: false
+      wget2:
+        enabled: false
+
+  git:
+    enabled: true
+    tools:
+      delta:
+        enabled: true
+      lazygit:
+        enabled: true
+      tig:
+        enabled: true
+      gh:
+        enabled: true
+
+  terminal:
+    enabled: true
+    tools:
+      fzf:
+        enabled: true
+      zoxide:
+        enabled: true
+      tmux:
+        enabled: true
+      starship:
+        enabled: true
+
+  dev:
+    enabled: true
+    tools:
+      shellcheck:
+        enabled: true
+      shfmt:
+        enabled: true
+      hadolint:
+        enabled: true
+      actionlint:
+        enabled: false
+
+  security:
+    enabled: true
+    tools:
+      age:
+        enabled: true
+      sops:
+        enabled: true
+      pass:
+        enabled: false
+
+  archive:
+    enabled: true
+    tools:
+      zstd:
+        enabled: true
+      ouch:
+        enabled: false
+      p7zip:
+        enabled: true
+
+  docs:
+    enabled: true
+    tools:
+      pandoc:
+        enabled: true
+      glow:
+        enabled: true
+      poppler-utils:
+        enabled: true
+      chafa:
+        enabled: false
+
+  download:
+    enabled: true
+    tools:
+      aria2:
+        enabled: true
+      rclone:
+        enabled: false
+
+  ai:
+    enabled: false
+    tools:
+      aider:
+        enabled: false
+      llm:
+        enabled: false
+      sgpt:
+        enabled: false
+
+# Shell configuration
+shell:
+  aliases: true
+  integrations: true
+  backup_existing: true

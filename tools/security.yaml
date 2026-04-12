@@ -1,0 +1,68 @@
+category: security
+description: "Security and encryption tools"
+tools:
+  - name: age
+    package: age
+    binary: age
+    description: "Simple, modern and secure file encryption tool"
+    homepage: "https://github.com/FiloSottile/age"
+    license: BSD-3-Clause
+    install_methods:
+      - method: apt
+        package: age
+      - method: brew
+        package: age
+      - method: cargo
+        package: age
+    openclaw_usage:
+      replace: "gpg for file encryption"
+      examples:
+        - "age -r pubkey.txt -o encrypted.age file.txt     # encrypt"
+        - "age -i key.txt -d encrypted.age > file.txt      # decrypt"
+        - "age -p -o encrypted.age file.txt                 # passphrase encrypt"
+        - "tar czf - dir/ | age -r pubkey.txt -o backup.age # encrypt tarball"
+      benefits: "Simple UX, no config files, SSH key compatible, multiple recipients"
+    config: []
+
+  - name: sops
+    package: sops
+    binary: sops
+    description: "Secrets management for encrypted files (YAML/JSON/ENV/Binary)"
+    homepage: "https://github.com/getsops/sops"
+    license: MPL-2.0
+    install_methods:
+      - method: apt
+        package: sops
+      - method: brew
+        package: sops
+    openclaw_usage:
+      replace: "manual secret management"
+      examples:
+        - "sops -e secrets.yaml > secrets.encrypted.yaml   # encrypt"
+        - "sops -d secrets.encrypted.yaml                    # decrypt"
+        - "sops --age-keyfile key.txt -e secrets.yaml"
+        - "sops -d --output secrets.yaml secrets.enc.yaml"
+      benefits: "Encrypt specific values, diff encrypted files, integrate with age/GCP/AWS"
+    config: []
+
+  - name: pass
+    package: pass
+    binary: pass
+    description: "Standard Unix password manager"
+    homepage: "https://www.passwordstore.org/"
+    license: GPL-2.0
+    install_methods:
+      - method: apt
+        package: pass
+      - method: brew
+        package: pass
+    openclaw_usage:
+      replace: "plaintext password files"
+      examples:
+        - "pass insert github.com/user      # store password"
+        - "pass github.com/user              # retrieve password"
+        - "pass -c github.com/user           # copy to clipboard"
+        - "pass ls                            # list passwords"
+        - "pass generate email/new 20         # generate password"
+      benefits: "GPG-encrypted passwords, Git versioning, extensibility"
+    config: []

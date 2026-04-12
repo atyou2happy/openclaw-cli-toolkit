@@ -1,0 +1,110 @@
+category: git
+description: "Git enhancement tools - better diff, log, and workflow"
+tools:
+  - name: delta
+    package: git-delta
+    binary: delta
+    description: "Syntax-highlighting pager for git, diff, and grep output"
+    homepage: "https://github.com/dandavison/delta"
+    license: MIT
+    install_methods:
+      - method: apt
+        package: git-delta
+      - method: brew
+        package: git-delta
+      - method: cargo
+        package: git-delta
+    openclaw_usage:
+      replace: "git diff pager"
+      examples:
+        - "git diff | delta               # use as pager"
+        - "delta file1 file2               # diff two files"
+        - "git log -p | delta              # enhanced log"
+        - "git show HEAD | delta           # show commit"
+      benefits: "Side-by-side diff, syntax highlighting, line numbers, navigate hunks"
+    config:
+      - file: ~/.gitconfig
+        content: |
+          [core.pager]
+              delta
+          [interactive.diffFilter]
+              delta --color-only
+          [delta]
+              navigate = true
+              side-by-side = true
+              line-numbers = true
+              syntax-theme = "Dracula"
+
+  - name: lazygit
+    package: lazygit
+    binary: lazygit
+    description: "Simple terminal UI for git commands"
+    homepage: "https://github.com/jesseduffield/lazygit"
+    license: MIT
+    install_methods:
+      - method: apt
+        package: lazygit
+      - method: brew
+        package: lazygit
+    openclaw_usage:
+      replace: "git CLI for interactive tasks"
+      examples:
+        - "lazygit                         # launch TUI"
+      benefits: "Visual git interface, easy staging/unstaging, branch management, interactive rebase"
+    config:
+      - file: ~/.config/lazygit/config.yml
+        content: |
+          gui:
+            showIcons: true
+            theme:
+              activeBorderColor:
+                - green
+                - bold
+          git:
+            paging:
+              colorArg: always
+              pager: delta
+
+  - name: tig
+    package: tig
+    binary: tig
+    description: "Text-mode interface for git, fast and lightweight"
+    homepage: "https://github.com/jonas/tig"
+    license: GPL-2.0
+    install_methods:
+      - method: apt
+        package: tig
+      - method: brew
+        package: tig
+    openclaw_usage:
+      replace: "git log viewer"
+      examples:
+        - "tig                             # view git log"
+        - "tig status                      # view status"
+        - "tig README.md                   # view file history"
+        - "tig -S 'pattern'                # search in history"
+      benefits: "Fast ncurses-based git viewer, keybindings, view diffs/blame/log"
+    config: []
+
+  - name: gh
+    package: gh
+    binary: gh
+    description: "GitHub CLI - work with GitHub from the command line"
+    homepage: "https://github.com/cli/cli"
+    license: MIT
+    install_methods:
+      - method: apt
+        package: gh
+      - method: brew
+        package: gh
+    openclaw_usage:
+      replace: "GitHub web UI"
+      examples:
+        - "gh pr list                      # list pull requests"
+        - "gh pr create --fill              # create PR"
+        - "gh issue create                  # create issue"
+        - "gh repo clone owner/repo         # clone repo"
+        - "gh run list                      # list workflow runs"
+        - "gh api repos/owner/repo/releases # API call"
+      benefits: "Full GitHub API access, PR/issue management, CI/CD integration, API wrapper"
+    config: []

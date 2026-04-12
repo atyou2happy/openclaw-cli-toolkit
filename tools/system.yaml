@@ -1,0 +1,134 @@
+category: system
+description: "System monitoring and performance tools"
+tools:
+  - name: btop
+    package: btop
+    binary: btop
+    description: "Modern and colorful system monitor with full feature set"
+    homepage: "https://github.com/aristocratos/btop"
+    license: Apache-2.0
+    install_methods:
+      - method: apt
+        package: btop
+      - method: brew
+        package: btop
+    openclaw_usage:
+      replace: "top/htop"
+      examples:
+        - "btop                           # interactive system monitor"
+      benefits: "Full system overview, disk/network/process stats, GPU support, mouse friendly"
+    config: []
+
+  - name: bottom
+    package: bottom
+    binary: btm
+    description: "Yet another cross-platform graphical process/system monitor"
+    homepage: "https://github.com/ClementTsang/bottom"
+    license: MIT
+    install_methods:
+      - method: apt
+        package: bottom
+      - method: brew
+        package: bottom
+      - method: cargo
+        package: bottom
+    openclaw_usage:
+      replace: "top/htop"
+      examples:
+        - "btm                            # interactive monitor"
+      benefits: "Cross-platform, widget-based, customizable layout"
+    config: []
+
+  - name: dust
+    package: dust
+    binary: dust
+    description: "More intuitive version of du in Rust"
+    homepage: "https://github.com/bootandy/dust"
+    license: Apache-2.0
+    install_methods:
+      - method: apt
+        package: dust
+      - method: brew
+        package: dust
+      - method: cargo
+        package: du-dust
+    openclaw_usage:
+      replace: "du -sh"
+      examples:
+        - "dust                           # disk usage tree"
+        - "dust -d 3                      # max depth 3"
+        - "dust -s                        # sort by size"
+        - "dust /path/to/dir              # specific directory"
+        - "dust -r                        # reverse sort"
+      benefits: "Visual disk usage, tree view, instant overview of large directories"
+    config: []
+
+  - name: duf
+    package: duf
+    binary: duf
+    description: "Disk Usage/Free Utility - better df alternative"
+    homepage: "https://github.com/muesli/duf"
+    license: MIT
+    install_methods:
+      - method: apt
+        package: duf
+      - method: brew
+        package: duf
+      - method: cargo
+        package: duf
+    openclaw_usage:
+      replace: "df -h"
+      examples:
+        - "duf                            # show all mounts"
+        - "duf /home                      # specific mount"
+        - "duf -json                      # JSON output"
+        - "duf -only local                # only local filesystems"
+      benefits: "Colorized output, device type grouping, inode info, JSON export"
+    config: []
+
+  - name: procs
+    package: procs
+    binary: procs
+    description: "Modern replacement for ps written in Rust"
+    homepage: "https://github.com/dalance/procs"
+    license: MIT
+    install_methods:
+      - method: apt
+        package: procs
+      - method: brew
+        package: procs
+      - method: cargo
+        package: procs
+    openclaw_usage:
+      replace: "ps aux"
+      examples:
+        - "procs                          # list all processes"
+        - "procs python                   # search by name"
+        - "procs --tree                   # tree view"
+        - "procs --watch                  # live monitoring"
+        - "procs -s rss                   # sort by RSS"
+      benefits: "Colored output, keyword search, tree view, container awareness"
+    config: []
+
+  - name: hyperfine
+    package: hyperfine
+    binary: hyperfine
+    description: "Command-line benchmarking tool"
+    homepage: "https://github.com/sharkdp/hyperfine"
+    license: MIT
+    install_methods:
+      - method: apt
+        package: hyperfine
+      - method: brew
+        package: hyperfine
+      - method: cargo
+        package: hyperfine
+    openclaw_usage:
+      replace: "time command"
+      examples:
+        - "hyperfine 'rg pattern' 'ag pattern'    # benchmark commands"
+        - "hyperfine --warmup 3 'fd test'         # with warmup"
+        - "hyperfine --export-markdown out.md 'cmd'"
+        - "hyperfine -L size 10,100,1000 'cmd {size}'"
+      benefits: "Statistical analysis, warmup runs, export to multiple formats, parameterized benchmarks"
+    config: []

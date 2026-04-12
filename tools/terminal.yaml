@@ -1,0 +1,123 @@
+category: terminal
+description: "Terminal enhancement tools - fuzzy finder, navigation, multiplexer, prompt"
+tools:
+  - name: fzf
+    package: fzf
+    binary: fzf
+    description: "General-purpose command-line fuzzy finder"
+    homepage: "https://github.com/junegunn/fzf"
+    license: MIT
+    install_methods:
+      - method: apt
+        package: fzf
+      - method: brew
+        package: fzf
+    openclaw_usage:
+      replace: "interactive selection"
+      examples:
+        - "fzf                             # fuzzy find files"
+        - "vim $(fzf)                      # open selected file"
+        - "history | fzf                   # search command history"
+        - "ps aux | fzf                    # search processes"
+        - "grep -rl 'pattern' | fzf        # fuzzy filter grep results"
+        - "fd | fzf --preview 'bat --color=always {}'"
+      benefits: "Fuzzy matching, preview window, multi-select, pipe-friendly, key bindings"
+    config:
+      - file: ~/.bashrc.d/fzf.sh
+        content: |
+          export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+          export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+          export FZF_CTRL_T_COMMAND='$FZF_DEFAULT_COMMAND'
+          export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
+
+  - name: zoxide
+    package: zoxide
+    binary: zoxide
+    description: "Smarter cd command, inspired by z and autojump"
+    homepage: "https://github.com/ajeetdsouza/zoxide"
+    license: MIT
+    install_methods:
+      - method: apt
+        package: zoxide
+      - method: brew
+        package: zoxide
+      - method: cargo
+        package: zoxide
+    openclaw_usage:
+      replace: "cd"
+      examples:
+        - "z project                       # jump to project dir"
+        - "zi                              # interactive selection"
+        - "z /path/to/deep/dir             # normal cd still works"
+        - "z proj src                      # jump by partial match"
+      benefits: "Learn from usage patterns, partial matching, fzf integration"
+    config:
+      - file: ~/.bashrc.d/zoxide.sh
+        content: |
+          eval "$(zoxide init bash --cmd z)"
+
+  - name: tmux
+    package: tmux
+    binary: tmux
+    description: "Terminal multiplexer - manage multiple terminals in one session"
+    homepage: "https://github.com/tmux/tmux"
+    license: ISC
+    install_methods:
+      - method: apt
+        package: tmux
+      - method: brew
+        package: tmux
+    openclaw_usage:
+      replace: "multiple terminal windows/tabs"
+      examples:
+        - "tmux new -s work                # new named session"
+        - "tmux ls                         # list sessions"
+        - "tmux attach -t work             # attach to session"
+        - "tmux kill-session -t work       # kill session"
+      benefits: "Persistent sessions, split panes, session management, remote resilience"
+    config:
+      - file: ~/.tmux.conf
+        content: |
+          set -g mouse on
+          set -g default-terminal "screen-256color"
+          set -g history-limit 10000
+          bind | split-window -h
+          bind - split-window -v
+          set -g base-index 1
+          setw -g pane-base-index 1
+
+  - name: starship
+    package: starship
+    binary: starship
+    description: "Minimal, blazing-fast, and customizable prompt for any shell"
+    homepage: "https://github.com/starship/starship"
+    license: ISC
+    install_methods:
+      - method: apt
+        package: starship
+      - method: brew
+        package: starship
+      - method: cargo
+        package: starship
+    openclaw_usage:
+      replace: "PS1 prompt"
+      examples:
+        - "starship                       # prompt is automatic after init"
+      benefits: "Git branch/status, language versions, execution time, cross-shell"
+    config:
+      - file: ~/.config/starship.toml
+        content: |
+          [character]
+          success_symbol = "[>](bold green)"
+          error_symbol = "[x](bold red)"
+          
+          [git_branch]
+          format = "[$symbol$branch]($style) "
+          
+          [directory]
+          truncation_length = 3
+          truncate_to_repo = true
+          
+          [cmd_duration]
+          min_time = 2_000
+          format = "took [$duration]($style) "

@@ -1,0 +1,92 @@
+category: docs
+description: "Document processing and viewing tools"
+tools:
+  - name: pandoc
+    package: pandoc
+    binary: pandoc
+    description: "Universal document converter - markdown, HTML, PDF, DOCX, and more"
+    homepage: "https://github.com/jgm/pandoc"
+    license: GPL-2.0
+    install_methods:
+      - method: apt
+        package: pandoc
+      - method: brew
+        package: pandoc
+    openclaw_usage:
+      replace: "manual document conversion"
+      examples:
+        - "pandoc README.md -o README.html          # MD to HTML"
+        - "pandoc README.md -o README.pdf            # MD to PDF"
+        - "pandoc README.md -o README.docx           # MD to DOCX"
+        - "pandoc -f markdown -t rst README.md      # MD to RST"
+        - "pandoc -s README.md -o slides.html --slide-level 2"
+        - "pandoc -f html -t markdown page.html      # HTML to MD"
+      benefits: "Universal format converter, templates, filters, citations, math support"
+    config: []
+
+  - name: glow
+    package: glow
+    binary: glow
+    description: "Render markdown on the CLI with pizzazz"
+    homepage: "https://github.com/charmbracelet/glow"
+    license: MIT
+    install_methods:
+      - method: apt
+        package: glow
+      - method: brew
+        package: glow
+      - method: cargo
+        package: glow
+    openclaw_usage:
+      replace: "cat *.md"
+      examples:
+        - "glow README.md                  # render markdown"
+        - "glow -p README.md               # pager mode"
+        - "glow -w 80 README.md            # set width"
+        - "glow .                          # browse local files"
+        - "echo '# Hello' | glow -         # pipe mode"
+      benefits: "Beautiful markdown rendering, local file browser, TUI mode, syntax highlighting"
+    config: []
+
+  - name: poppler-utils
+    package: poppler-utils
+    binary: pdftotext
+    description: "PDF rendering library utilities - text extraction, conversion"
+    homepage: "https://poppler.freedesktop.org/"
+    license: GPL-2.0
+    install_methods:
+      - method: apt
+        package: poppler-utils
+      - method: brew
+        package: poppler
+    openclaw_usage:
+      replace: "manual PDF text extraction"
+      examples:
+        - "pdftotext document.pdf -           # extract text to stdout"
+        - "pdftotext document.pdf output.txt   # extract to file"
+        - "pdftotext -layout document.pdf -    # preserve layout"
+        - "pdfinfo document.pdf                # PDF metadata"
+        - "pdftoppm document.pdf output        # PDF to images"
+      benefits: "Text extraction, PDF info, page conversion, command-line PDF operations"
+    config: []
+
+  - name: chafa
+    package: chafa
+    binary: chafa
+    description: "Terminal image and video viewer - converts images to Unicode/ASCII art"
+    homepage: "https://github.com/hpjansson/chafa"
+    license: LGPL-3.0
+    install_methods:
+      - method: apt
+        package: chafa
+      - method: brew
+        package: chafa
+    openclaw_usage:
+      replace: "image file identification"
+      examples:
+        - "chafa image.png                 # view image in terminal"
+        - "chafa --symbols block image.png # block character mode"
+        - "chafa --size 80x24 image.png    # specific size"
+        - "chafa --format sixel image.png  # sixel protocol"
+      benefits: "View images in terminal, no GUI needed, supports many formats"
+    config: []

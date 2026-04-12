@@ -1,0 +1,104 @@
+category: viewer
+description: "File viewing and directory listing tools - better alternatives to cat and ls"
+tools:
+  - name: bat
+    package: bat
+    binary: bat
+    description: "Cat clone with syntax highlighting, Git integration and line numbers"
+    homepage: "https://github.com/sharkdp/bat"
+    license: MIT
+    install_methods:
+      - method: apt
+        package: bat
+      - method: brew
+        package: bat
+      - method: cargo
+        package: bat
+    openclaw_usage:
+      replace: cat
+      examples:
+        - "bat file.py                  # view with syntax highlighting"
+        - "bat -A file.txt              # show non-printable chars"
+        - "bat -n file.py               # show line numbers only"
+        - "bat -diff file1 file2        # compare files"
+        - "bat -l json data.json        # force language highlight"
+        - "bat --style=plain file.txt   # plain output (like cat)"
+      benefits: "Syntax highlighting, Git integration, built-in pager, non-printable char visualization"
+    config:
+      - file: ~/.config/bat/config
+        content: |
+          --theme="TwoDark"
+          --style="full"
+          --italic-text=always
+          --map-syntax "*.conf:INI"
+          --map-syntax ".gitignore:Git Ignore"
+
+  - name: eza
+    package: eza
+    binary: eza
+    description: "Modern, maintained replacement for ls with tree view and Git status"
+    homepage: "https://github.com/eza-community/eza"
+    license: MIT
+    install_methods:
+      - method: apt
+        package: eza
+      - method: brew
+        package: eza
+      - method: cargo
+        package: eza
+    openclaw_usage:
+      replace: ls
+      examples:
+        - "eza                          # list files with colors"
+        - "eza -la                      # long list with hidden files"
+        - "eza -T -L 2                  # tree view, 2 levels deep"
+        - "eza -l --git                 # show Git status"
+        - "eza -lS                      # sort by size"
+        - "eza -l --time-style=long-iso # long ISO date format"
+        - "eza -l --octal-permissions   # show numeric permissions"
+      benefits: "Colorized output, Git integration, tree view, hyperlinks, file type icons"
+    config: []
+
+  - name: lsd
+    package: lsd
+    binary: lsd
+    description: "Next gen ls command with icons and various display modes"
+    homepage: "https://github.com/lsd-rs/lsd"
+    license: MIT
+    install_methods:
+      - method: apt
+        package: lsd
+      - method: brew
+        package: lsd
+      - method: cargo
+        package: lsd
+    openclaw_usage:
+      replace: ls
+      examples:
+        - "lsd                          # list with icons"
+        - "lsd -la                      # long format all files"
+        - "lsd --tree -L 2              # tree view"
+        - "lsd -l --date relative       # relative dates"
+      benefits: "Icons, tree view, colorized output, configurable"
+    config: []
+
+  - name: tree
+    package: tree
+    binary: tree
+    description: "Recursive directory listing program"
+    homepage: "https://gitlab.com/OldManProgrammer/unix-tree"
+    license: MIT
+    install_methods:
+      - method: apt
+        package: tree
+      - method: brew
+        package: tree
+    openclaw_usage:
+      replace: "find . -type d"
+      examples:
+        - "tree -L 2                    # show 2 levels"
+        - "tree -I 'node_modules|.git'  # exclude directories"
+        - "tree -d                      # directories only"
+        - "tree -J                      # JSON output"
+      benefits: "Visual directory structure, configurable output formats"
+    config: []

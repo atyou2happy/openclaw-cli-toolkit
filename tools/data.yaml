@@ -1,0 +1,136 @@
+category: data
+description: "Data processing tools - JSON, YAML, CSV, and structured data manipulation"
+tools:
+  - name: jq
+    package: jq
+    binary: jq
+    description: "Lightweight and flexible command-line JSON processor"
+    homepage: "https://github.com/jqlang/jq"
+    license: MIT
+    install_methods:
+      - method: apt
+        package: jq
+      - method: brew
+        package: jq
+    openclaw_usage:
+      replace: "python -m json.tool"
+      examples:
+        - "jq '.' file.json                          # pretty print"
+        - "jq '.items[].name' file.json              # extract array field"
+        - "jq -r '.url' file.json                    # raw string output"
+        - "jq 'keys' file.json                       # list keys"
+        - "jq '. | select(.age > 30)' file.json      # filter objects"
+        - "jq -s 'sort_by(.age) | reverse' *.json    # sort multiple files"
+        - "jq -n '{count: [inputs] | length}' *.json  # count across files"
+        - "jq 'map_values(. + 1)' file.json          # transform all values"
+      benefits: "Powerful query language, streaming, zero-dependency, universal JSON tool"
+    config: []
+
+  - name: yq
+    package: yq
+    binary: yq
+    description: "Portable command-line YAML, JSON, XML, CSV, TSV processor"
+    homepage: "https://github.com/mikefarah/yq"
+    license: MIT
+    install_methods:
+      - method: brew
+        package: yq
+      - method: pip
+        package: yq
+    openclaw_usage:
+      replace: "manual YAML editing"
+      examples:
+        - "yq '.' file.yaml                    # pretty print YAML"
+        - "yq '.name' file.yaml                # extract field"
+        - "yq '.items[0].name' file.yaml       # array access"
+        - "yq -i '.version = \"2.0\"' file.yaml # in-place edit"
+        - "yq eval '.a.b.c = \"new\"' file.yaml # set nested value"
+        - "yq -o json '.' file.yaml            # convert YAML to JSON"
+        - "yq -o yaml '.' file.json            # convert JSON to YAML"
+      benefits: "Read/write YAML/JSON/XML/CSV, jq-like syntax, format conversion"
+    config: []
+
+  - name: miller
+    package: miller
+    binary: mlr
+    description: "Miller is like awk, sed, cut, join, and sort for name-indexed data such as CSV, TSV, and tabular JSON"
+    homepage: "https://github.com/johnkerl/miller"
+    license: MIT
+    install_methods:
+      - method: apt
+        package: miller
+      - method: brew
+        package: miller
+    openclaw_usage:
+      replace: "awk for CSV"
+      examples:
+        - "mlr --csv cat data.csv                   # display CSV"
+        - "mlr --csv sort -f name data.csv           # sort by field"
+        - "mlr --csv filter '$age > 30' data.csv     # filter rows"
+        - "mlr --csv cut -f name,age data.csv        # select columns"
+        - "mlr --csv stats1 -a sum,mean -f age data.csv"
+        - "mlr --csv --from data.csv put '$ratio = $a / $b'"
+      benefits: "CSV/TSV/JSON processing, statistics, joins, reshaping, format conversion"
+    config: []
+
+  - name: csvkit
+    package: csvkit
+    binary: csvcut
+    description: "A suite of command-line tools for working with CSV"
+    homepage: "https://github.com/wireservice/csvkit"
+    license: MIT
+    install_methods:
+      - method: pip
+        package: csvkit
+    openclaw_usage:
+      replace: "manual CSV processing"
+      examples:
+        - "csvcut -n data.csv                       # list column names"
+        - "csvcut -c 1,3 data.csv                   # select columns"
+        - "csvgrep -c 2 -m 'pattern' data.csv       # grep in CSV"
+        - "csvstat data.csv                          # statistics"
+        - "csvjson data.csv                          # convert to JSON"
+        - "csvlook data.csv                          # pretty table view"
+      benefits: "Complete CSV toolkit, SQL-like queries, format conversion"
+    config: []
+
+  - name: fx
+    package: fx
+    binary: fx
+    description: "Terminal JSON viewer and processor"
+    homepage: "https://github.com/antonmedv/fx"
+    license: MIT
+    install_methods:
+      - method: brew
+        package: fx
+      - method: pip
+        package: fx
+    openclaw_usage:
+      replace: "jq for interactive use"
+      examples:
+        - "fx data.json                     # interactive viewer"
+        - "fx data.json '.items'            # extract field"
+        - "cat data.json | fx .             # pipe mode"
+      benefits: "Interactive JSON explorer, JavaScript expressions, mouse support"
+    config: []
+
+  - name: dasel
+    package: dasel
+    binary: dasel
+    description: "Select, put and delete data from JSON, TOML, YAML, XML and CSV files"
+    homepage: "https://github.com/TomWright/dasel"
+    license: MIT
+    install_methods:
+      - method: brew
+        package: dasel
+      - method: cargo
+        package: dasel
+    openclaw_usage:
+      replace: "jq + yq + toml manipulation"
+      examples:
+        - "dasel select -f data.json '.name'          # select from JSON"
+        - "dasel put string -f data.yaml '.name' 'new' # update YAML"
+        - "dasel select -f data.toml '.database.host' # select from TOML"
+        - "dasel delete -f data.json '.temp'           # delete field"
+      benefits: "Unified interface for JSON/YAML/TOML/XML/CSV, single binary"
+    config: []

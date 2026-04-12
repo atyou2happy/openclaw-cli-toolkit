@@ -1,0 +1,112 @@
+category: network
+description: "Network tools - HTTP clients, DNS lookup, and network diagnostics"
+tools:
+  - name: httpie
+    package: httpie
+    binary: http
+    description: "Modern, user-friendly command-line HTTP client for the API era"
+    homepage: "https://github.com/httpie/httpie"
+    license: BSD-3-Clause
+    install_methods:
+      - method: apt
+        package: httpie
+      - method: brew
+        package: httpie
+      - method: pip
+        package: httpie
+    openclaw_usage:
+      replace: "curl"
+      examples:
+        - "http GET https://api.example.com/users      # GET request"
+        - "http POST https://api.example.com name=John  # POST JSON"
+        - "http PUT https://api.example.com/1 age:=30   # PUT with number"
+        - "http :8000/api                               # localhost shorthand"
+        - "http --download https://example.com/file.zip  # download file"
+        - "http --session=logged-in https://api.com/auth token:abc"
+        - "http --verbose GET https://api.example.com    # verbose output"
+      benefits: "Intuitive syntax, JSON support, sessions, auth, colored output, multipart forms"
+    config: []
+
+  - name: curlie
+    package: curlie
+    binary: curlie
+    description: "The power of curl, the ease of use of httpie"
+    homepage: "https://github.com/rs/curlie"
+    license: MIT
+    install_methods:
+      - method: brew
+        package: curlie
+      - method: pip
+        package: curlie
+    openclaw_usage:
+      replace: "curl"
+      examples:
+        - "curlie GET https://api.example.com/users"
+        - "curlie POST https://api.example.com name=John"
+        - "curlie -H 'Authorization: Bearer TOKEN' GET https://api.com"
+      benefits: "curl features with httpie UX, lightweight Go binary"
+    config: []
+
+  - name: dog
+    package: dog
+    binary: dog
+    description: "A command-line DNS client (dog-dns)"
+    homepage: "https://github.com/ogham/dog"
+    license: EUPL-1.2
+    install_methods:
+      - method: apt
+        package: dog
+      - method: brew
+        package: dog
+    openclaw_usage:
+      replace: "dig/nslookup"
+      examples:
+        - "dog example.com                # DNS lookup"
+        - "dog example.com A AAAA MX     # multiple record types"
+        - "dog example.com @8.8.8.8      # use specific DNS server"
+        - "dog -J example.com             # JSON output"
+        - "dog example.com NS +short     # short output"
+      benefits: "Colorized output, JSON support, multiple record types, modern interface"
+    config: []
+
+  - name: nali
+    package: nali
+    binary: nali
+    description: "Query IP geographic information and CDN provider from CLI"
+    homepage: "https://github.com/zu1k/nali"
+    license: MIT
+    install_methods:
+      - method: brew
+        package: nali
+      - method: cargo
+        package: nali
+    openclaw_usage:
+      replace: "whois/geoip lookup"
+      examples:
+        - "nali 8.8.8.8                   # lookup IP info"
+        - "nali 1.1.1.1 114.114.114.114   # multiple IPs"
+        - "ping google.com | nali         # pipe through nali"
+        - "curl ip.sb | nali              # check own IP location"
+      benefits: "IP geolocation, CDN detection, pipe-friendly, Chinese-friendly"
+    config: []
+
+  - name: wget2
+    package: wget2
+    binary: wget2
+    description: "Successor of GNU Wget with improved performance and features"
+    homepage: "https://gitlab.com/gnuwget/wget2"
+    license: GPL-3.0
+    install_methods:
+      - method: apt
+        package: wget2
+      - method: brew
+        package: wget2
+    openclaw_usage:
+      replace: "wget"
+      examples:
+        - "wget2 https://example.com/file.tar.gz"
+        - "wget2 -m https://example.com       # mirror site"
+        - "wget2 -c https://example.com/file   # continue download"
+        - "wget2 -r -l 2 https://example.com   # recursive, depth 2"
+      benefits: "Multi-threaded, HTTP/2 support, better performance than wget"
+    config: []

@@ -1,0 +1,67 @@
+category: archive
+description: "Compression and archive tools"
+tools:
+  - name: zstd
+    package: zstd
+    binary: zstd
+    description: "Fast real-time compression algorithm, replacing gzip/xz"
+    homepage: "https://github.com/facebook/zstd"
+    license: BSD-3-Clause
+    install_methods:
+      - method: apt
+        package: zstd
+      - method: brew
+        package: zstd
+    openclaw_usage:
+      replace: "gzip/xz/bzip2"
+      examples:
+        - "zstd file.txt                   # compress"
+        - "zstd -d file.txt.zst            # decompress"
+        - "tar --zstd -cf archive.tar.zst dir/"
+        - "zstd -19 file.txt               # max compression"
+        - "zstd -T0 file.txt               # multi-threaded"
+        - "tar -I zstd -cf archive.tar.zst dir/"
+      benefits: "Faster than gzip, better ratio than xz, multi-threaded, streaming"
+    config: []
+
+  - name: ouch
+    package: ouch
+    binary: ouch
+    description: "Painless compression and decompression in the terminal"
+    homepage: "https://github.com/ouch-org/ouch"
+    license: MIT
+    install_methods:
+      - method: brew
+        package: ouch
+      - method: cargo
+        package: ouch
+    openclaw_usage:
+      replace: "tar/unzip/gzip/7z etc."
+      examples:
+        - "ouch compress file.txt file.gz   # compress"
+        - "ouch decompress archive.tar.gz   # decompress"
+        - "ouch compress dir/ output.tar.zst"
+        - "ouch list archive.zip            # list contents"
+      benefits: "Universal decompression, auto-detects format, simple interface"
+    config: []
+
+  - name: p7zip
+    package: p7zip-full
+    binary: 7z
+    description: "7-Zip file archiver with high compression ratio"
+    homepage: "https://p7zip.sourceforge.net/"
+    license: LGPL-2.1
+    install_methods:
+      - method: apt
+        package: p7zip-full
+      - method: brew
+        package: p7zip
+    openclaw_usage:
+      replace: "unzip for .7z files"
+      examples:
+        - "7z a archive.7z dir/             # create archive"
+        - "7z x archive.7z                  # extract"
+        - "7z l archive.7z                  # list contents"
+        - "7z a -mx=9 archive.7z dir/       # max compression"
+      benefits: "High compression ratio, multi-format support, password protection"
+    config: []

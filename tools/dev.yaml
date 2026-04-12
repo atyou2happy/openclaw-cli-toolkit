@@ -1,0 +1,90 @@
+category: dev
+description: "Development tools - linting, formatting, and code quality"
+tools:
+  - name: shellcheck
+    package: shellcheck
+    binary: shellcheck
+    description: "Static analysis tool for shell scripts"
+    homepage: "https://github.com/koalaman/shellcheck"
+    license: GPL-3.0
+    install_methods:
+      - method: apt
+        package: shellcheck
+      - method: brew
+        package: shellcheck
+      - method: cargo
+        package: shellcheck
+    openclaw_usage:
+      replace: "manual bash script review"
+      examples:
+        - "shellcheck script.sh            # check script"
+        - "shellcheck -S warning script.sh  # severity threshold"
+        - "shellcheck -f json script.sh     # JSON output"
+        - "shellcheck -e SC2086 script.sh   # exclude specific check"
+        - "shellcheck **/*.sh               # check all shell scripts"
+      benefits: "Catches common bugs, suggests fixes, CI/CD integration, comprehensive checks"
+    config: []
+
+  - name: shfmt
+    package: shfmt
+    binary: shfmt
+    description: "Shell parser, formatter, and interpreter"
+    homepage: "https://github.com/mvdan/sh"
+    license: BSD-3-Clause
+    install_methods:
+      - method: apt
+        package: shfmt
+      - method: brew
+        package: shfmt
+    openclaw_usage:
+      replace: "manual shell script formatting"
+      examples:
+        - "shfmt -w script.sh              # format in place"
+        - "shfmt -l .                      # list files needing formatting"
+        - "shfmt -d script.sh              # diff output"
+        - "shfmt -i 4 -ci script.sh        # 4-space indent, switch cases"
+        - "shfmt -ln bash script.sh        # language variant"
+      benefits: "Consistent formatting, supports bash/dash/mksh, editor integration"
+    config: []
+
+  - name: hadolint
+    package: hadolint
+    binary: hadolint
+    description: "Dockerfile linter, validates inline bash"
+    homepage: "https://github.com/hadolint/hadolint"
+    license: GPL-3.0
+    install_methods:
+      - method: brew
+        package: hadolint
+      - method: pip
+        package: hadolint
+    openclaw_usage:
+      replace: "manual Dockerfile review"
+      examples:
+        - "hadolint Dockerfile             # lint Dockerfile"
+        - "hadolint -f json Dockerfile      # JSON output"
+        - "hadolint --ignore DL3008 Dockerfile"
+        - "hadolint Dockerfile */Dockerfile"
+      benefits: "Dockerfile best practices, catches common mistakes, CI/CD ready"
+    config: []
+
+  - name: actionlint
+    package: actionlint
+    binary: actionlint
+    description: "Static checker for GitHub Actions workflow files"
+    homepage: "https://github.com/rhysd/actionlint"
+    license: MIT
+    install_methods:
+      - method: brew
+        package: actionlint
+      - method: cargo
+        package: actionlint
+    openclaw_usage:
+      replace: "manual workflow YAML review"
+      examples:
+        - "actionlint                      # check all workflows"
+        - "actionlint .github/workflows/ci.yml"
+        - "actionlint -verbose             # verbose output"
+        - "actionlint -shellcheck          # integrate shellcheck"
+      benefits: "Catches workflow bugs, validates expressions, shellcheck integration"
+    config: []

@@ -1,0 +1,100 @@
+category: search
+description: "File search and content search tools - faster alternatives to grep and find"
+tools:
+  - name: ripgrep
+    package: ripgrep
+    binary: rg
+    description: "Extremely fast text search tool using Rust regex engine, replaces grep"
+    homepage: "https://github.com/BurntSushi/ripgrep"
+    license: MIT
+    install_methods:
+      - method: apt
+        package: ripgrep
+        min_version: "13.0"
+      - method: brew
+        package: ripgrep
+      - method: cargo
+        package: ripgrep
+    openclaw_usage:
+      replace: grep
+      examples:
+        - "rg 'pattern' /path          # recursive search"
+        - "rg -l 'pattern'             # list filenames only"
+        - "rg -t py 'pattern'          # search only Python files"
+        - "rg -i 'pattern'             # case-insensitive search"
+        - "rg -C 3 'pattern'           # show 3 lines context"
+        - "rg --json 'pattern'         # JSON output for parsing"
+        - "rg -c 'pattern'             # count matches per file"
+      benefits: "5-10x faster than grep, respects .gitignore, Unicode support, colored output"
+    config:
+      - file: ~/.ripgreprc
+        content: |
+          --smart-case
+          --max-columns=150
+          --max-columns-preview
+
+  - name: fd
+    package: fd-find
+    binary: fd
+    description: "Simple, fast and user-friendly alternative to find"
+    homepage: "https://github.com/sharkdp/fd"
+    license: MIT
+    install_methods:
+      - method: apt
+        package: fd-find
+      - method: brew
+        package: fd
+      - method: cargo
+        package: fd-find
+    openclaw_usage:
+      replace: find
+      examples:
+        - "fd 'pattern'                  # find files matching pattern"
+        - "fd -e py 'test'              # find .py files with 'test'"
+        - "fd -t f -e json              # find all JSON files"
+        - "fd -t d 'src'                # find directories named src"
+        - "fd -H 'hidden'               # include hidden files"
+        - "fd -x rm '{}'                # execute command on results"
+        - "fd --changed-within 7d       # files modified in last 7 days"
+      benefits: "Intuitive syntax, parallel execution, respects .gitignore, colorized output"
+    config: []
+
+  - name: the_silver_searcher
+    package: silversearcher-ag
+    binary: ag
+    description: "Fast code search tool similar to ack but faster"
+    homepage: "https://github.com/ggreer/the_silver_searcher"
+    license: Apache-2.0
+    install_methods:
+      - method: apt
+        package: silversearcher-ag
+      - method: brew
+        package: the_silver_searcher
+    openclaw_usage:
+      replace: grep
+      examples:
+        - "ag 'pattern' /path           # search in path"
+        - "ag -l 'pattern'              # list filenames"
+        - "ag -G '\\.py$' 'pattern'     # search only Python files"
+      benefits: "Very fast, respects .gitignore, .agignore support"
+    config: []
+
+  - name: ack
+    package: ack
+    binary: ack
+    description: "Grep-like search tool optimized for programmers"
+    homepage: "https://beyondgrep.com/"
+    license: Artistic-2.0
+    install_methods:
+      - method: apt
+        package: ack
+      - method: pip
+        package: ack
+    openclaw_usage:
+      replace: grep
+      examples:
+        - "ack 'pattern'                # search source code"
+        - "ack --python 'pattern'       # search only Python files"
+        - "ack -i 'pattern'             # case-insensitive"
+      benefits: "File-type aware, defaults to searching source code only"
+    config: []

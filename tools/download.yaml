@@ -1,0 +1,56 @@
+category: download
+description: "Download and file transfer tools"
+tools:
+  - name: aria2
+    package: aria2
+    binary: aria2c
+    description: "Multi-protocol & multi-source download utility with resuming"
+    homepage: "https://github.com/aria2/aria2"
+    license: GPL-2.0
+    install_methods:
+      - method: apt
+        package: aria2
+      - method: brew
+        package: aria2
+    openclaw_usage:
+      replace: "wget/curl for downloads"
+      examples:
+        - "aria2c https://example.com/file.zip         # single download"
+        - "aria2c -x 16 https://example.com/file.zip    # 16 connections"
+        - "aria2c -c https://example.com/file.zip        # continue download"
+        - "aria2c -i urls.txt                            # batch download"
+        - "aria2c -d /output -o file.zip URL             # specify output"
+        - "aria2c --torrent-file=file.torrent            # BitTorrent"
+      benefits: "Multi-connection, multi-protocol (HTTP/FTP/BT/Metalink), resume, batch"
+    config:
+      - file: ~/.aria2/aria2.conf
+        content: |
+          max-connection-per-server=16
+          min-split-size=1M
+          split=16
+          continue=true
+          max-concurrent-downloads=5
+          dir=${HOME}/Downloads
+
+  - name: rclone
+    package: rclone
+    binary: rclone
+    description: "Manage files on cloud storage (rsync for cloud)"
+    homepage: "https://github.com/rclone/rclone"
+    license: MIT
+    install_methods:
+      - method: apt
+        package: rclone
+      - method: brew
+        package: rclone
+    openclaw_usage:
+      replace: "cloud storage web UI / aws cli / gcloud"
+      examples:
+        - "rclone ls remote:bucket             # list cloud files"
+        - "rclone copy local/ remote:bucket/    # upload"
+        - "rclone sync remote:bucket/ local/    # sync download"
+        - "rclone mount remote:bucket /mnt      # mount as filesystem"
+        - "rclone size remote:bucket            # check total size"
+        - "rclone config                        # configure remote"
+      benefits: "40+ cloud providers, encryption, bandwidth control, mount support"
+    config: []
