@@ -1,116 +1,72 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-CONFIGURATOR_VERSION="1.0.0"
+# shellcheck disable=SC2034
+CONFIGURATOR_VERSION="2.0.0"
+# shellcheck disable=SC2034
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-TOOLS_DIR="$(dirname "$SCRIPT_DIR")/tools"
-CONFIG_DIR="$HOME/.config/openclaw-toolkit"
-
-DRY_RUN=false
-
-_info()    { echo -e "\033[34m[CONFIG]\033[0m $*"; }
-_success() { echo -e "\033[32m[OK]\033[0m $*"; }
-_warn()    { echo -e "\033[33m[WARN]\033[0m $*"; }
-
-ensure_dir() {
-    local dir="$1"
-    if [[ "$DRY_RUN" == "true" ]]; then
-        _info "[DRY-RUN] mkdir -p $dir"
-        return
-    fi
-    mkdir -p "$dir"
-}
-
-write_config_file() {
-    local filepath="$1"
-    local content="$2"
-
-    if [[ "$DRY_RUN" == "true" ]]; then
-        _info "[DRY-RUN] write $filepath"
-        return
-    fi
-
-    local dir
-    dir="$(dirname "$filepath")"
-    mkdir -p "$dir"
-
-    if [[ -f "$filepath" ]]; then
-        local backup="${filepath}.bak.$(date +%s)"
-        cp "$filepath" "$backup"
-        _warn "Backed up existing $filepath to $backup"
-    fi
-
-    echo "$content" > "$filepath"
-    _success "Written: $filepath"
-}
+CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/openclaw-toolkit"
 
 setup_bat_config() {
-    if ! command -v bat &>/dev/null; then return; fi
-    write_config_file "$HOME/.config/bat/config" "--theme=\"TwoDark\"
---style=\"full\"
+	if ! command -v bat &>/dev/null; then return; fi
+	write_config_file "${XDG_CONFIG_HOME:-$HOME/.config}/bat/config" '--theme="TwoDark"
+--style="full"
 --italic-text=always
---map-syntax=\"*.conf:INI\"
---map-syntax=\".gitignore:Git Ignore\""
+--map-syntax="*.conf:INI"
+--map-syntax=".gitignore:Git Ignore"'
 }
 
 setup_ripgrep_config() {
-    if ! command -v rg &>/dev/null; then return; fi
-    write_config_file "$HOME/.ripgreprc" "--smart-case
+	if ! command -v rg &>/dev/null; then return; fi
+	write_config_file "$HOME/.ripgreprc" '--smart-case
 --max-columns=150
---max-columns-preview"
+--max-columns-preview'
 
-    if ! grep -q "RIPGREP_CONFIG_PATH" "$HOME/.bashrc" 2>/dev/null; then
-        if [[ "$DRY_RUN" != "true" ]]; then
-            echo '' >> "$HOME/.bashrc"
-            echo 'export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"' >> "$HOME/.bashrc"
-            _success "Added RIPGREP_CONFIG_PATH to .bashrc"
-        fi
-    fi
+	# shellcheck disable=SC2016
+	append_to_shell_rc "RIPGREP_CONFIG_PATH" 'export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"'
 }
 
 setup_fzf_config() {
-    if ! command -v fzf &>/dev/null; then return; fi
-    ensure_dir "$HOME/.bashrc.d"
+	if ! command -v fzf &>/dev/null; then return; fi
+	local rc_d
+	rc_d="$(shell_rc_d_dir)"
 
-    write_config_file "$HOME/.bashrc.d/fzf.sh" 'export FZF_DEFAULT_OPTS='"'"'--height 40% --layout=reverse --border'"'"'
+	# shellcheck disable=SC2016
+	write_config_file "$rc_d/fzf.sh" 'export FZF_DEFAULT_OPTS='"'"'--height 40% --layout=reverse --border'"'"'
 export FZF_DEFAULT_COMMAND='"'"'fd --type f --hidden --follow --exclude .git'"'"'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND='"'"'fd --type d --hidden --follow --exclude .git'"'"''
 
-    if ! grep -q "fzf.sh" "$HOME/.bashrc" 2>/dev/null; then
-        if [[ "$DRY_RUN" != "true" ]]; then
-            echo '' >> "$HOME/.bashrc"
-            echo '[ -f "$HOME/.bashrc.d/fzf.sh" ] && source "$HOME/.bashrc.d/fzf.sh"' >> "$HOME/.bashrc"
-            _success "Added fzf config to .bashrc"
-        fi
-    fi
+	append_to_shell_rc "fzf.sh" "[ -f \"${rc_d}/fzf.sh\" ] && source \"${rc_d}/fzf.sh\""
 }
 
 setup_zoxide_config() {
-    if ! command -v zoxide &>/dev/null; then return; fi
-    ensure_dir "$HOME/.bashrc.d"
+	if ! command -v zoxide &>/dev/null; then return; fi
+	local rc_d
+	rc_d="$(shell_rc_d_dir)"
 
-    write_config_file "$HOME/.bashrc.d/zoxide.sh" 'eval "$(zoxide init bash --cmd z)"'
+	local init_cmd
+	# shellcheck disable=SC2016
+	case "${SHELL_TYPE:-bash}" in
+	zsh) init_cmd='eval "$(zoxide init zsh --cmd z)"' ;;
+	fish) init_cmd='zoxide init fish --cmd z | source' ;;
+	*) init_cmd='eval "$(zoxide init bash --cmd z)"' ;;
+	esac
 
-    if ! grep -q "zoxide.sh" "$HOME/.bashrc" 2>/dev/null; then
-        if [[ "$DRY_RUN" != "true" ]]; then
-            echo '' >> "$HOME/.bashrc"
-            echo '[ -f "$HOME/.bashrc.d/zoxide.sh" ] && source "$HOME/.bashrc.d/zoxide.sh"' >> "$HOME/.bashrc"
-            _success "Added zoxide init to .bashrc"
-        fi
-    fi
+	write_config_file "$rc_d/zoxide.sh" "$init_cmd"
+	append_to_shell_rc "zoxide.sh" "[ -f \"${rc_d}/zoxide.sh\" ] && source \"${rc_d}/zoxide.sh\""
 }
 
 setup_starship_config() {
-    if ! command -v starship &>/dev/null; then return; fi
-    ensure_dir "$HOME/.config"
+	if ! command -v starship &>/dev/null; then return; fi
 
-    write_config_file "$HOME/.config/starship.toml" '[character]
+	# shellcheck disable=SC2016
+	write_config_file "$HOME/.config/starship.toml" '[character]
 success_symbol = "[>](bold green)"
 error_symbol = "[x](bold red)"
 
 [git_branch]
-format = "[\$symbol\$branch](\$style) "
+format = "[$symbol$branch]($style) "
 
 [directory]
 truncation_length = 3
@@ -118,52 +74,51 @@ truncate_to_repo = true
 
 [cmd_duration]
 min_time = 2_000
-format = "took [\$duration](\$style) "'
+format = "took [$duration]($style) "'
 
-    if ! grep -q "starship init" "$HOME/.bashrc" 2>/dev/null; then
-        if [[ "$DRY_RUN" != "true" ]]; then
-            echo '' >> "$HOME/.bashrc"
-            echo 'eval "$(starship init bash)"' >> "$HOME/.bashrc"
-            _success "Added starship init to .bashrc"
-        fi
-    fi
+	local init_cmd
+	# shellcheck disable=SC2016
+	case "${SHELL_TYPE:-bash}" in
+	zsh) init_cmd='eval "$(starship init zsh)"' ;;
+	fish) init_cmd='starship init fish | source' ;;
+	*) init_cmd='eval "$(starship init bash)"' ;;
+	esac
+	append_to_shell_rc "starship init" "$init_cmd"
 }
 
 setup_delta_config() {
-    if ! command -v delta &>/dev/null; then return; fi
+	if ! command -v delta &>/dev/null; then return; fi
 
-    if ! git config --global core.pager &>/dev/null; then
-        if [[ "$DRY_RUN" != "true" ]]; then
-            git config --global core.pager delta
-            git config --global interactive.diffFilter "delta --color-only"
-            git config --global delta.navigate true
-            git config --global delta.side-by-side true
-            git config --global delta.line-numbers true
-            _success "Configured git to use delta as pager"
-        else
-            _info "[DRY-RUN] git config --global for delta"
-        fi
-    fi
+	if ! git config --global core.pager &>/dev/null; then
+		if [[ "${DRY_RUN:-false}" != "true" ]]; then
+			git config --global core.pager delta
+			git config --global interactive.diffFilter "delta --color-only"
+			git config --global delta.navigate true
+			git config --global delta.side-by-side true
+			git config --global delta.line-numbers true
+			_success "Configured git to use delta as pager"
+		else
+			_info "[DRY-RUN] git config --global for delta"
+		fi
+	fi
 }
 
 setup_tmux_config() {
-    if ! command -v tmux &>/dev/null; then return; fi
+	if ! command -v tmux &>/dev/null; then return; fi
 
-    write_config_file "$HOME/.tmux.conf" 'set -g mouse on
+	write_config_file "$HOME/.tmux.conf" 'set -g mouse on
 set -g default-terminal "screen-256color"
 set -g history-limit 10000
 bind | split-window -h
 bind - split-window -v
 set -g base-index 1
 setw -g pane-base-index 1'
-
 }
 
 setup_lazygit_config() {
-    if ! command -v lazygit &>/dev/null; then return; fi
-    ensure_dir "$HOME/.config/lazygit"
+	if ! command -v lazygit &>/dev/null; then return; fi
 
-    write_config_file "$HOME/.config/lazygit/config.yml" 'gui:
+	write_config_file "$HOME/.config/lazygit/config.yml" 'gui:
   showIcons: true
   theme:
     activeBorderColor:
@@ -176,10 +131,10 @@ git:
 }
 
 setup_aria2_config() {
-    if ! command -v aria2c &>/dev/null; then return; fi
-    ensure_dir "$HOME/.aria2"
+	if ! command -v aria2c &>/dev/null; then return; fi
 
-    write_config_file "$HOME/.aria2/aria2.conf" 'max-connection-per-server=16
+	# shellcheck disable=SC2016
+	write_config_file "$HOME/.aria2/aria2.conf" 'max-connection-per-server=16
 min-split-size=1M
 split=16
 continue=true
@@ -188,74 +143,70 @@ dir=${HOME}/Downloads'
 }
 
 setup_aliases() {
-    ensure_dir "$HOME/.bashrc.d"
+	local rc_d
+	rc_d="$(shell_rc_d_dir)"
+	local aliases_file="$rc_d/openclaw-aliases.sh"
+	local content="#!/bin/bash"
 
-    local aliases_file="$HOME/.bashrc.d/openclaw-aliases.sh"
-    local content="#!/bin/bash\n"
+	if command -v bat &>/dev/null; then
+		content+=$'\n'"alias cat='bat --style=plain'"
+		content+=$'\n'"alias catn='bat --style=full'"
+	fi
 
-    if command -v bat &>/dev/null; then
-        content+="alias cat='bat --style=plain'\n"
-        content+="alias catn='bat --style=full'\n"
-    fi
+	if command -v eza &>/dev/null; then
+		content+=$'\n'"alias ls='eza'"
+		content+=$'\n'"alias ll='eza -la'"
+		content+=$'\n'"alias lt='eza -T -L 2'"
+		content+=$'\n'"alias la='eza -la'"
+	fi
 
-    if command -v eza &>/dev/null; then
-        content+="alias ls='eza'\n"
-        content+="alias ll='eza -la'\n"
-        content+="alias lt='eza -T -L 2'\n"
-        content+="alias la='eza -la'\n"
-    fi
+	if command -v dust &>/dev/null; then
+		content+=$'\n'"alias du='dust'"
+	fi
 
-    if command -v dust &>/dev/null; then
-        content+="alias du='dust'\n"
-    fi
+	if command -v duf &>/dev/null; then
+		content+=$'\n'"alias df='duf'"
+	fi
 
-    if command -v duf &>/dev/null; then
-        content+="alias df='duf'\n"
-    fi
+	if command -v procs &>/dev/null; then
+		content+=$'\n'"alias ps='procs'"
+	fi
 
-    if command -v procs &>/dev/null; then
-        content+="alias ps='procs'\n"
-    fi
+	if command -v http &>/dev/null; then
+		content+=$'\n'"alias https='http --default-scheme=https'"
+	fi
 
-    if command -v http &>/dev/null; then
-        content+="alias https='http --default-scheme=https'\n"
-    fi
-
-    write_config_file "$aliases_file" "$(echo -e "$content")"
-
-    if ! grep -q "openclaw-aliases.sh" "$HOME/.bashrc" 2>/dev/null; then
-        if [[ "$DRY_RUN" != "true" ]]; then
-            echo '' >> "$HOME/.bashrc"
-            echo '[ -f "$HOME/.bashrc.d/openclaw-aliases.sh" ] && source "$HOME/.bashrc.d/openclaw-aliases.sh"' >> "$HOME/.bashrc"
-            _success "Added openclaw aliases to .bashrc"
-        fi
-    fi
+	write_config_file "$aliases_file" "$content"
+	append_to_shell_rc "openclaw-aliases.sh" "[ -f \"${aliases_file}\" ] && source \"${aliases_file}\""
 }
 
 configure_all() {
-    _info "Configuring tools..."
+	_info "Configuring tools..."
 
-    ensure_dir "$CONFIG_DIR"
-    ensure_dir "$HOME/.bashrc.d"
+	ensure_dir "$CONFIG_DIR"
 
-    setup_ripgrep_config
-    setup_bat_config
-    setup_fzf_config
-    setup_zoxide_config
-    setup_starship_config
-    setup_delta_config
-    setup_tmux_config
-    setup_lazygit_config
-    setup_aria2_config
-    setup_aliases
+	local rc_d
+	rc_d="$(shell_rc_d_dir)"
+	ensure_dir "$rc_d"
 
-    _success "Tool configuration complete"
-    echo ""
-    _info "Note: Restart your shell or run 'source ~/.bashrc' to apply changes"
+	setup_ripgrep_config
+	setup_bat_config
+	setup_fzf_config
+	setup_zoxide_config
+	setup_starship_config
+	setup_delta_config
+	setup_tmux_config
+	setup_lazygit_config
+	setup_aria2_config
+	setup_aliases
+
+	_success "Tool configuration complete"
+	echo ""
+	_info "Note: Restart your shell or run 'source $(shell_rc_file)' to apply changes"
 }
 
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
-    echo "This script is meant to be sourced, not run directly."
-    echo "Use install.sh as the entry point."
-    exit 1
+	echo "This script is meant to be sourced, not run directly."
+	echo "Use install.sh as the entry point."
+	exit 1
 fi

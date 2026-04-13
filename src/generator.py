@@ -5,10 +5,11 @@ Reads all YAML tool definitions from the tools/ directory and produces
 a unified openclaw-tools.yaml that OpenClaw agents can directly read.
 """
 
-import os
+import shutil
 import sys
-import yaml
 from pathlib import Path
+
+import yaml
 
 SCRIPT_DIR = Path(__file__).parent.resolve()
 PROJECT_DIR = SCRIPT_DIR.parent
@@ -18,14 +19,15 @@ OUTPUT_FILE = PROJECT_DIR / "openclaw-tools.yaml"
 
 def load_tool_definitions(tools_dir: Path) -> list[dict]:
     """Load all tool YAML definitions from the tools directory."""
-    all_tools = []
+    all_tools: list[dict] = []
     for yaml_file in sorted(tools_dir.glob("*.yaml")):
         try:
             with open(yaml_file, "r", encoding="utf-8") as f:
                 data = yaml.safe_load(f)
             if data and "tools" in data:
+                category = data.get("category", yaml_file.stem)
                 for tool in data["tools"]:
-                    tool["_category"] = data.get("category", yaml_file.stem)
+                    tool["_category"] = category
                     tool["_source_file"] = yaml_file.name
                     all_tools.append(tool)
         except Exception as e:
@@ -35,8 +37,6 @@ def load_tool_definitions(tools_dir: Path) -> list[dict]:
 
 def check_tool_installed(binary: str) -> bool:
     """Check if a tool binary is available on the system."""
-    import shutil
-
     return shutil.which(binary) is not None
 
 
@@ -78,9 +78,11 @@ def generate_openclaw_entry(tool: dict) -> dict:
     return entry
 
 
-def generate_output(tools: list[dict], output_file: Path, only_installed: bool = False):
+def generate_output(
+    tools: list[dict], output_file: Path, only_installed: bool = False
+) -> dict:
     """Generate the openclaw-tools.yaml output file."""
-    openclaw_tools = []
+    openclaw_tools: list[dict] = []
 
     for tool in tools:
         binary = tool.get("binary", tool.get("name", ""))
@@ -89,11 +91,11 @@ def generate_output(tools: list[dict], output_file: Path, only_installed: bool =
         entry = generate_openclaw_entry(tool)
         openclaw_tools.append(entry)
 
-    categories = sorted(set(t.get("_category", "other") for t in tools))
+    categories = sorted(set(e.get("category", "other") for e in openclaw_tools))
 
     output = {
         "meta": {
-            "version": "1.0.0",
+            "version": "2.0.0",
             "description": "OpenClaw CLI Toolkit - Tool definitions for AI agent usage",
             "generated_by": "openclaw-cli-toolkit generator.py",
             "total_tools": len(openclaw_tools),
@@ -113,24 +115,27 @@ def generate_output(tools: list[dict], output_file: Path, only_installed: bool =
     return output
 
 
-def main():
+def main() -> None:
     only_installed = "--installed-only" in sys.argv
     output_file = OUTPUT_FILE
+    tools_dir = TOOLS_DIR
 
     for i, arg in enumerate(sys.argv):
         if arg == "--output" and i + 1 < len(sys.argv):
             output_file = Path(sys.argv[i + 1])
+        if arg == "--tools-dir" and i + 1 < len(sys.argv):
+            tools_dir = Path(sys.argv[i + 1])
 
-    if not TOOLS_DIR.exists():
-        print(f"[ERROR] Tools directory not found: {TOOLS_DIR}", file=sys.stderr)
+    if not tools_dir.exists():
+        print(f"[ERROR] Tools directory not found: {tools_dir}", file=sys.stderr)
         sys.exit(1)
 
-    tools = load_tool_definitions(TOOLS_DIR)
+    tools = load_tool_definitions(tools_dir)
     if not tools:
         print("[ERROR] No tool definitions found", file=sys.stderr)
         sys.exit(1)
 
-    print(f"[INFO] Loaded {len(tools)} tool definitions from {TOOLS_DIR}")
+    print(f"[INFO] Loaded {len(tools)} tool definitions from {tools_dir}")
     generate_output(tools, output_file, only_installed)
 
 

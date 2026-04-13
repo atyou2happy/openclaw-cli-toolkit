@@ -47,25 +47,25 @@ tools:
       benefits: "curl features with httpie UX, lightweight Go binary"
     config: []
 
-  - name: dog
-    package: dog
-    binary: dog
-    description: "A command-line DNS client (dog-dns)"
-    homepage: "https://github.com/ogham/dog"
-    license: EUPL-1.2
+  - name: doggo
+    package: doggo
+    binary: doggo
+    description: "Command-line DNS client for the new generation (successor of dog)"
+    homepage: "https://github.com/mr-karan/doggo"
+    license: GPL-3.0
     install_methods:
-      - method: apt
-        package: dog
       - method: brew
-        package: dog
+        package: doggo
+      - method: go
+        package: github.com/mr-karan/doggo/cmd/doggo@latest
     openclaw_usage:
       replace: "dig/nslookup"
       examples:
-        - "dog example.com                # DNS lookup"
-        - "dog example.com A AAAA MX     # multiple record types"
-        - "dog example.com @8.8.8.8      # use specific DNS server"
-        - "dog -J example.com             # JSON output"
-        - "dog example.com NS +short     # short output"
+        - "doggo example.com                # DNS lookup"
+        - "doggo example.com A AAAA MX     # multiple record types"
+        - "doggo example.com @8.8.8.8      # use specific DNS server"
+        - "doggo -J example.com             # JSON output"
+        - "doggo example.com NS +short     # short output"
       benefits: "Colorized output, JSON support, multiple record types, modern interface"
     config: []
 

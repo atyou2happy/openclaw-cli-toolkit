@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install shellcheck
+        run: sudo apt-get update && sudo apt-get install -y shellcheck
+      - name: Run shellcheck
+        run: shellcheck -s bash install.sh uninstall.sh src/*.sh tests/*.sh
+
+  syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check bash syntax
+        run: bash -n install.sh && bash -n uninstall.sh && for f in src/*.sh; do bash -n "$f"; done
+      - name: Check python syntax
+        run: python3 -m py_compile src/generator.py
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y python3-yaml
+      - name: Run install test
+        run: bash tests/test_install.sh
+      - name: Run generator
+        run: python3 src/generator.py --output /tmp/test-tools.yaml && test -f /tmp/test-tools.yaml
+
+  dry-run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y python3-yaml
+      - name: Dry run install
+        run: bash install.sh --dry-run
