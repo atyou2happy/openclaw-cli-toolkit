@@ -1,0 +1,45 @@
+category: database
+description: "Database CLI tools — query, inspect, and lint databases"
+tools:
+  - name: sqlite3
+    package: sqlite3
+    binary: sqlite3
+    description: "CLI for SQLite databases — the most common embedded database engine"
+    homepage: "https://www.sqlite.org/"
+    license: blessing
+    install_methods:
+      - method: apt
+        package: sqlite3
+      - method: brew
+        package: sqlite
+    openclaw_usage:
+      replace: "GUI database tools for SQLite"
+      examples:
+        - "sqlite3 data.db '.tables'                 # list tables"
+        - "sqlite3 data.db 'SELECT * FROM users;'    # run query"
+        - "sqlite3 data.db '.schema users'           # show table schema"
+        - "sqlite3 data.db '.dump' > backup.sql      # export database"
+        - "sqlite3 new.db < backup.sql               # import database"
+        - "sqlite3 :memory: 'SELECT 1+1;'            # in-memory query"
+      benefits: "Zero-config embedded DB, create/test databases instantly, single-file databases"
+
+  - name: usql
+    package: usql
+    binary: usql
+    description: "Universal SQL CLI — single tool for PostgreSQL, MySQL, SQLite, CockroachDB, and more"
+    homepage: "https://github.com/xo/usql"
+    license: MIT
+    install_methods:
+      - method: brew
+        package: usql
+      - method: go
+        package: github.com/xo/usql@latest
+    openclaw_usage:
+      replace: "psql, mysql, sqlite3 — one CLI for all databases"
+      examples:
+        - "usql sqlite://data.db                      # connect to SQLite"
+        - "usql pg://user:pass@localhost/mydb          # connect to Postgres"
+        - "usql my://user:pass@localhost/mydb          # connect to MySQL"
+        - "usql \\dt                                  # list tables (Postgres)"
+        - "usql \\copy users TO 'users.csv' CSV        # export to CSV"
+      benefits: "Single CLI for all SQL databases, consistent interface, connection string based"

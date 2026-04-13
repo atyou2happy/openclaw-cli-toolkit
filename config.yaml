@@ -25,6 +25,8 @@ categories:
         enabled: false
       ack:
         enabled: false
+      ast-grep:
+        enabled: true
 
   viewer:
     enabled: true
@@ -53,6 +55,8 @@ categories:
         enabled: false
       dasel:
         enabled: false
+      jo:
+        enabled: true
 
   system:
     enabled: true
@@ -69,6 +73,12 @@ categories:
         enabled: true
       hyperfine:
         enabled: true
+      watchexec:
+        enabled: true
+      tokei:
+        enabled: true
+      parallel:
+        enabled: true
 
   network:
     enabled: true
@@ -83,6 +93,8 @@ categories:
         enabled: false
       wget2:
         enabled: false
+      gping:
+        enabled: true
 
   git:
     enabled: true
@@ -94,6 +106,8 @@ categories:
       tig:
         enabled: true
       gh:
+        enabled: true
+      difftastic:
         enabled: true
 
   terminal:
@@ -107,6 +121,8 @@ categories:
         enabled: true
       starship:
         enabled: true
+      direnv:
+        enabled: true
 
   dev:
     enabled: true
@@ -119,6 +135,12 @@ categories:
         enabled: true
       actionlint:
         enabled: false
+      ruff:
+        enabled: true
+      just:
+        enabled: true
+      uv:
+        enabled: true
 
   security:
     enabled: true
@@ -159,6 +181,8 @@ categories:
         enabled: true
       rclone:
         enabled: false
+      rsync:
+        enabled: true
 
   ai:
     enabled: false
@@ -206,6 +230,44 @@ categories:
       xmlstarlet:
         enabled: true
       weasyprint:
+        enabled: true
+      yamllint:
+        enabled: true
+      taplo:
+        enabled: true
+
+  container:
+    enabled: true
+    tools:
+      docker:
+        enabled: true
+      docker-compose:
+        enabled: true
+
+  database:
+    enabled: true
+    tools:
+      sqlite3:
+        enabled: true
+      usql:
+        enabled: true
+
+  media:
+    enabled: true
+    tools:
+      imagemagick:
+        enabled: true
+      exiftool:
+        enabled: true
+      ffmpeg:
+        enabled: false
+
+  diagram:
+    enabled: true
+    tools:
+      d2:
+        enabled: true
+      graphviz:
         enabled: true
 
 # Shell configuration

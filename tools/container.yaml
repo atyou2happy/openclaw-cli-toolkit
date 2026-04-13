@@ -1,0 +1,45 @@
+category: container
+description: "Container and orchestration tools — build, run, and manage containers"
+tools:
+  - name: docker
+    package: docker.io
+    binary: docker
+    description: "Build, run, and manage containers — the industry standard container runtime"
+    homepage: "https://github.com/moby/moby"
+    license: Apache-2.0
+    install_methods:
+      - method: apt
+        package: docker.io
+      - method: brew
+        package: docker
+    openclaw_usage:
+      replace: "manual environment setup, VM provisioning"
+      examples:
+        - "docker build -t myapp .                     # build image"
+        - "docker run -p 8080:80 myapp                 # run container"
+        - "docker compose up -d                        # start stack"
+        - "docker exec -it container bash              # shell into container"
+        - "docker logs -f container                    # follow logs"
+        - "docker system prune -f                      # clean up"
+      benefits: "Isolated reproducible environments, test code in clean setups, run databases/redis for integration tests"
+
+  - name: docker-compose
+    package: docker-compose-v2
+    binary: docker
+    description: "Multi-container orchestration — define and run multi-service applications"
+    homepage: "https://github.com/docker/compose"
+    license: Apache-2.0
+    install_methods:
+      - method: apt
+        package: docker-compose-v2
+      - method: brew
+        package: docker-compose
+    openclaw_usage:
+      replace: "manual multi-service setup"
+      examples:
+        - "docker compose up -d                       # start all services"
+        - "docker compose up -d db redis              # start specific services"
+        - "docker compose logs -f app                 # follow app logs"
+        - "docker compose down -v                     # stop and remove volumes"
+        - "docker compose ps                          # list running services"
+      benefits: "Define multi-service stacks (app+db+cache) in a single YAML, one command to start/stop"

@@ -121,3 +121,23 @@ tools:
           [cmd_duration]
           min_time = 2_000
           format = "took [$duration]($style) "
+
+  - name: direnv
+    package: direnv
+    binary: direnv
+    description: "Auto-set environment variables per directory — load/unload .envrc on cd"
+    homepage: "https://github.com/direnv/direnv"
+    license: MIT
+    install_methods:
+      - method: apt
+        package: direnv
+      - method: brew
+        package: direnv
+    openclaw_usage:
+      replace: "manual source .env, virtualenv activate"
+      examples:
+        - "echo 'export API_KEY=xxx' > .envrc       # set project env"
+        - "echo 'layout python' > .envrc            # auto venv"
+        - "direnv allow .                            # approve .envrc"
+        - "direnv deny .                             # revoke"
+      benefits: "Auto-load environment per project, Python/Node/Rust layout support, no more manual source"

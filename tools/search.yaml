@@ -98,3 +98,23 @@ tools:
         - "ack -i 'pattern'             # case-insensitive"
       benefits: "File-type aware, defaults to searching source code only"
     config: []
+
+  - name: ast-grep
+    package: ast-grep
+    binary: sg
+    description: "Search and replace code using AST patterns — structural code search beyond regex"
+    homepage: "https://github.com/ast-grep/ast-grep"
+    license: MIT
+    install_methods:
+      - method: brew
+        package: ast-grep
+      - method: cargo
+        package: ast-grep
+    openclaw_usage:
+      replace: "regex-based code search"
+      examples:
+        - "sg -p 'console.log($A)' -l ts            # find all console.log"
+        - "sg -p '$F($A, $B, $C)' -l py              # 3+ arg function calls"
+        - "sg -p 'try { $$$ } catch(e) { $$$ }' -l js # try without catch body"
+        - "sg -r 'console.log($A)' -> 'console.info($A)' -l ts  # replace"
+      benefits: "AST-aware code search — match balanced braces, nested structures, and syntax patterns regex cannot"

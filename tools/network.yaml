@@ -110,3 +110,24 @@ tools:
         - "wget2 -r -l 2 https://example.com   # recursive, depth 2"
       benefits: "Multi-threaded, HTTP/2 support, better performance than wget"
     config: []
+
+  - name: gping
+    package: gping
+    binary: gping
+    description: "Ping with a real-time graph — visual network diagnostics in the terminal"
+    homepage: "https://github.com/orf/gping"
+    license: MIT
+    install_methods:
+      - method: apt
+        package: gping
+      - method: brew
+        package: gping
+      - method: cargo
+        package: gping
+    openclaw_usage:
+      replace: "ping"
+      examples:
+        - "gping google.com                         # ping with graph"
+        - "gping google.com cloudflare.com          # ping multiple hosts"
+        - "gping --buffer 30 google.com             # 30 data points"
+      benefits: "Real-time latency graph, compare multiple hosts, visual network diagnostics"

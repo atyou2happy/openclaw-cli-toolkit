@@ -9,7 +9,8 @@
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"/></a>
-  <img src="https://img.shields.io/badge/Tools-67+-brightgreen.svg" alt="Tools: 67+"/>
+  <img src="https://img.shields.io/badge/Tools-87+-brightgreen.svg" alt="Tools: 87+"/>
+  <img src="https://img.shields.io/badge/Categories-19-blue.svg" alt="19 Categories"/>
   <img src="https://img.shields.io/badge/Shell-Bash%20%7C%20Zsh%20%7C%20Fish-orange.svg" alt="Shell Support"/>
   <a href="README_CN.md">中文文档</a>
 </p>
@@ -29,7 +30,8 @@ Every tool is:
 
 ## Features
 
-- **15 categories** of tools — search, viewing, data, system, network, git, terminal, dev, security, archive, docs, download, ai, latex, formats (PDF/Excel/CSV/JSON/Markdown/HTML/XML), formats, latex
+- **19 categories** of tools — search, viewing, data, system, network, git,              terminal, dev, security, archive, docs, download, ai, latex, formats,
+             container, database, media, diagram, container, database, media, diagram, formats, latex
 - **One-click install** — automatic system detection (WSL2 / Linux / macOS)
 - **Config-driven** — `config.yaml` controls exactly which tools get installed
 - **Shell-aware** — auto-detects bash / zsh / fish and configures accordingly
@@ -125,7 +127,11 @@ openclaw-cli-toolkit/
 │   ├── download.yaml
 │   ├── ai.yaml
 │   ├── latex.yaml
-│   └── formats.yaml
+│   ├── formats.yaml
+│   ├── container.yaml
+│   ├── database.yaml
+│   ├── media.yaml
+│   └── diagram.yaml
 ├── tests/
 │   ├── test_install.sh     # Structure & syntax tests
 │   └── test_tools.sh       # Tool functionality tests
@@ -179,7 +185,11 @@ openclaw-cli-toolkit/
 | ⬇️ Download | aria2 | wget |
 | 🤖 AI | llm, sgpt, aider | — |
 | 📝 LaTeX | tectonic, chktex, latexmk | pdflatex + manual builds |
-| 📄 Formats | qpdf, weasyprint, visidata, xsv, gron, htmlq, tidy, xmllint, xmlstarlet, lychee | manual format processing |
+| 📄 Formats | qpdf, weasyprint, visidata, xsv, gron, yamllint, taplo, htmlq, tidy, xmllint, xmlstarlet, lychee | manual format processing |
+| 🐳 Container | docker, docker-compose | manual environment setup |
+| 🗄️ Database | sqlite3, usql | GUI database tools |
+| 🎨 Media | imagemagick, exiftool, ffmpeg | GUI media editors |
+| 📐 Diagram | d2, graphviz | manual diagram drawing |
 
 **Installation priority**: `apt` > `brew` > `cargo` > `pip` > `go install`
 

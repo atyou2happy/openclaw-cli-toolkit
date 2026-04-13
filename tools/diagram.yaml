@@ -1,0 +1,42 @@
+category: diagram
+description: "Diagram and chart generation tools — text-to-diagram"
+tools:
+  - name: d2
+    package: d2
+    binary: d2
+    description: "Declarative diagram language — generate professional diagrams from text descriptions"
+    homepage: "https://github.com/terrastruct/d2"
+    license: MPL-2.0
+    install_methods:
+      - method: brew
+        package: d2
+      - method: go
+        package: oss.terraquest.io/d2@latest
+    openclaw_usage:
+      replace: "manual diagram drawing tools"
+      examples:
+        - "d2 diagram.d2 out.svg                    # generate SVG"
+        - "d2 diagram.d2 out.png                    # generate PNG"
+        - "d2 --watch diagram.d2 out.svg            # live reload"
+        - "d2 --layout elk diagram.d2 out.svg       # ELK layout engine"
+      benefits: "Text-to-diagram for architecture, flowcharts, sequence diagrams — no GUI needed, version control friendly"
+
+  - name: graphviz
+    package: graphviz
+    binary: dot
+    description: "Graph visualization software — generate graphs, trees, and state machines from DOT language"
+    homepage: "https://graphviz.org/"
+    license: EPL-1.0
+    install_methods:
+      - method: apt
+        package: graphviz
+      - method: brew
+        package: graphviz
+    openclaw_usage:
+      replace: "manual graph/diagram drawing"
+      examples:
+        - "dot -Tpng graph.dot -o graph.png         # DOT to PNG"
+        - "dot -Tsvg graph.dot -o graph.svg         # DOT to SVG"
+        - "neato -Tpng layout.dot -o layout.png     # force-directed layout"
+        - "twopi -Tpng radial.dot -o radial.png     # radial layout"
+      benefits: "Generate call graphs, dependency trees, state machines, class diagrams from DOT language"

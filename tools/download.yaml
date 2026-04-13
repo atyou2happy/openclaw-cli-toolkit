@@ -54,3 +54,24 @@ tools:
         - "rclone config                        # configure remote"
       benefits: "40+ cloud providers, encryption, bandwidth control, mount support"
     config: []
+
+  - name: rsync
+    package: rsync
+    binary: rsync
+    description: "Fast incremental file transfer and synchronization — the standard for remote file sync"
+    homepage: "https://rsync.samba.org/"
+    license: GPL-3.0
+    install_methods:
+      - method: apt
+        package: rsync
+      - method: brew
+        package: rsync
+    openclaw_usage:
+      replace: "scp, cp for large/remote file sync"
+      examples:
+        - "rsync -avz src/ dest/                    # sync directories"
+        - "rsync -avz --dry-run src/ dest/          # preview changes"
+        - "rsync -avz --delete src/ dest/           # mirror (delete extras)"
+        - "rsync -avz local/ user@host:remote/      # sync to remote"
+        - "rsync -avz --exclude '.git' src/ dest/   # exclude patterns"
+      benefits: "Incremental transfer, delta compression, resume support, exclude patterns — the gold standard for file sync"

@@ -108,3 +108,24 @@ tools:
         - "gh api repos/owner/repo/releases # API call"
       benefits: "Full GitHub API access, PR/issue management, CI/CD integration, API wrapper"
     config: []
+
+  - name: difftastic
+    package: difftastic
+    binary: difft
+    description: "Structural diff that understands code syntax — compare files by AST, not just lines"
+    homepage: "https://github.com/Wilfred/difftastic"
+    license: MIT
+    install_methods:
+      - method: apt
+        package: difftastic
+      - method: brew
+        package: difftastic
+      - method: cargo
+        package: difftastic
+    openclaw_usage:
+      replace: "diff, git diff for code"
+      examples:
+        - "difft old.rs new.rs                       # structural diff"
+        - "difft --side-by-side a.py b.py            # side-by-side view"
+        - "GIT_EXTERNAL_DIFF=difft git diff          # use as git diff"
+      benefits: "Understands code syntax — detects moved blocks, renames, formatting changes that line-based diffs miss"

@@ -5,6 +5,46 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - 2026-04-13
+
+### Added — 4 New Categories
+
+- **Container** (`tools/container.yaml`):
+  - `docker` — build, run, manage containers (apt, brew)
+  - `docker-compose` — multi-container orchestration (apt, brew)
+- **Database** (`tools/database.yaml`):
+  - `sqlite3` — CLI for SQLite databases (apt, brew)
+  - `usql` — universal SQL CLI for all database backends (brew, go)
+- **Media** (`tools/media.yaml`):
+  - `imagemagick` — image processing Swiss army knife (apt, brew)
+  - `exiftool` — read/write EXIF metadata in images/PDFs (apt, brew)
+  - `ffmpeg` — audio/video record, convert, stream (apt, brew) [disabled]
+- **Diagram** (`tools/diagram.yaml`):
+  - `d2` — text-to-diagram language (brew, go)
+  - `graphviz` — graph visualization with DOT language (apt, brew)
+
+### Added — 12 Tools in Existing Categories
+
+- **search**: `ast-grep` — AST-aware structural code search (brew, cargo)
+- **git**: `difftastic` — structural diff that understands code syntax (apt, brew, cargo)
+- **dev**: `ruff` — fast Python linter+formatter (apt, brew, pip, cargo)
+- **dev**: `just` — modern Make alternative command runner (apt, brew, cargo)
+- **dev**: `uv` — ultra-fast Python package manager (brew, pip, cargo)
+- **formats**: `yamllint` — YAML linter (apt, brew, pip)
+- **formats**: `taplo` — TOML toolkit (brew, cargo)
+- **data**: `jo` — generate JSON from shell (apt, brew)
+- **system**: `watchexec` — execute commands on file change (brew, cargo)
+- **system**: `tokei` — count lines of code by language (apt, brew, cargo)
+- **system**: `parallel` — GNU parallel batch processing (apt, brew)
+- **terminal**: `direnv` — auto-set env vars per directory (apt, brew)
+- **network**: `gping` — ping with real-time graph (apt, brew, cargo)
+- **download**: `rsync` — fast incremental file sync (apt, brew)
+
+### Changed
+
+- **BREAKING**: version bumped to 3.0.0 due to scope expansion (19 categories, 87 tools)
+- Now **19 categories, 87 tools** total
+
 ## [2.5.0] - 2026-04-13
 
 ### Added

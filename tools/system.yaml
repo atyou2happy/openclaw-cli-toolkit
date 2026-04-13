@@ -132,3 +132,66 @@ tools:
         - "hyperfine -L size 10,100,1000 'cmd {size}'"
       benefits: "Statistical analysis, warmup runs, export to multiple formats, parameterized benchmarks"
     config: []
+
+  - name: watchexec
+    package: watchexec-cli
+    binary: watchexec
+    description: "Execute commands when files change — modern alternative to watch + inotifywait"
+    homepage: "https://github.com/watchexec/watchexec"
+    license: Apache-2.0
+    install_methods:
+      - method: brew
+        package: watchexec
+      - method: cargo
+        package: watchexec-cli
+    openclaw_usage:
+      replace: "watch, inotifywait, nodemon"
+      examples:
+        - "watchexec -e py 'pytest'                  # run tests on Python change"
+        - "watchexec -e rs 'cargo build'             # rebuild on Rust change"
+        - "watchexec -r 'python app.py'              # restart on any change"
+        - "watchexec -w src -e go 'go test ./...'    # watch specific dir"
+      benefits: "File change detection, restart processes, debouncing, filter by extension, meta restarts"
+
+  - name: tokei
+    package: tokei
+    binary: tokei
+    description: "Count lines of code by language — fast, accurate codebase statistics"
+    homepage: "https://github.com/XAMPPRocky/tokei"
+    license: MIT
+    install_methods:
+      - method: apt
+        package: tokei
+      - method: brew
+        package: tokei
+      - method: cargo
+        package: tokei
+    openclaw_usage:
+      replace: "cloc, wc -l"
+      examples:
+        - "tokei                                     # count all code"
+        - "tokei src/                                # count in directory"
+        - "tokei --sort lines                        # sort by lines"
+        - "tokei -o json                             # JSON output"
+        - "tokei --exclude '*.generated.*' .         # exclude patterns"
+      benefits: "Accurate language detection, blazing fast (Rust), JSON output, ignore support, comparison mode"
+
+  - name: parallel
+    package: parallel
+    binary: parallel
+    description: "Execute shell jobs in parallel — GNU parallel for batch processing"
+    homepage: "https://www.gnu.org/software/parallel/"
+    license: GPL-3.0
+    install_methods:
+      - method: apt
+        package: parallel
+      - method: brew
+        package: parallel
+    openclaw_usage:
+      replace: "xargs, for loops, sequential batch processing"
+      examples:
+        - "parallel gzip ::: *.log                  # compress in parallel"
+        - "parallel -j 4 'curl {}' ::: urls.txt     # 4 parallel HTTP calls"
+        - "ls *.jpg | parallel convert {} {.}.png   # batch image convert"
+        - "parallel 'echo processing {}' ::: {1..100} # parallel range"
+      benefits: "Parallel execution of any command, job control, progress bars, resume support, replace xargs"

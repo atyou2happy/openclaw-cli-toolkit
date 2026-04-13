@@ -134,3 +134,24 @@ tools:
         - "dasel delete -f data.json '.temp'           # delete field"
       benefits: "Unified interface for JSON/YAML/TOML/XML/CSV, single binary"
     config: []
+
+  - name: jo
+    package: jo
+    binary: jo
+    description: "Generate JSON from shell — create JSON objects and arrays from the command line"
+    homepage: "https://github.com/jpmens/jo"
+    license: MIT
+    install_methods:
+      - method: apt
+        package: jo
+      - method: brew
+        package: jo
+    openclaw_usage:
+      replace: "manual JSON construction, echo+jq for building JSON"
+      examples:
+        - "jo name=John age=30                      # {\"name\":\"John\",\"age\":30}"
+        - "jo -a 1 2 3                               # [1,2,3]"
+        - "jo user=$(jo name=John age=30)            # nested object"
+        - "jo -a $(jo name=a) $(jo name=b)           # array of objects"
+        - "jo flag:=true                             # boolean"
+      benefits: "Build JSON from shell variables — the inverse of jq, perfect for constructing API payloads and test data"

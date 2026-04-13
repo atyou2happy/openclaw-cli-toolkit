@@ -1,0 +1,66 @@
+category: media
+description: "Image, video, and media processing tools"
+tools:
+  - name: imagemagick
+    package: imagemagick
+    binary: magick
+    description: "Image processing Swiss army knife — convert, resize, crop, compose, and filter images"
+    homepage: "https://github.com/ImageMagick/ImageMagick"
+    license: Apache-2.0
+    install_methods:
+      - method: apt
+        package: imagemagick
+      - method: brew
+        package: imagemagick
+    openclaw_usage:
+      replace: "GUI image editors for batch/automated processing"
+      examples:
+        - "magick convert input.png -resize 800x600 output.jpg   # resize"
+        - "magick convert *.jpg -append combined.png              # merge images"
+        - "magick identify image.png                               # image info"
+        - "magick convert input.pdf[0] page1.png                  # PDF to image"
+        - "magick convert -size 100x100 xc:red red.png            # create solid image"
+        - "magick mogrify -resize 50% *.jpg                       # batch resize"
+      benefits: "Convert between 200+ formats, resize, crop, composite, batch processing, PDF to image"
+
+  - name: exiftool
+    package: libimage-exiftool-perl
+    binary: exiftool
+    description: "Read, write, and edit EXIF metadata in images, PDFs, and other file types"
+    homepage: "https://exiftool.org/"
+    license: Artistic-1.0
+    install_methods:
+      - method: apt
+        package: libimage-exiftool-perl
+      - method: brew
+        package: exiftool
+    openclaw_usage:
+      replace: "manual metadata inspection"
+      examples:
+        - "exiftool photo.jpg                       # show all metadata"
+        - "exiftool -GPSPosition photo.jpg           # extract GPS"
+        - "exiftool -all= photo.jpg                  # strip all metadata"
+        - "exiftool -Artist='Me' photo.jpg           # set metadata"
+        - "exiftool -r -ext jpg .                    # recursive on directory"
+      benefits: "Read/write EXIF, IPTC, XMP metadata, strip sensitive data, batch operations"
+
+  - name: ffmpeg
+    package: ffmpeg
+    binary: ffmpeg
+    description: "Record, convert, and stream audio and video — the multimedia framework"
+    homepage: "https://ffmpeg.org/"
+    license: LGPL-2.1
+    install_methods:
+      - method: apt
+        package: ffmpeg
+      - method: brew
+        package: ffmpeg
+    openclaw_usage:
+      replace: "GUI video/audio converters"
+      examples:
+        - "ffmpeg -i input.mp4 -c:v libx264 output.mp4    # transcode video"
+        - "ffmpeg -i input.mp4 -vn -acodec copy output.aac # extract audio"
+        - "ffmpeg -i input.mp4 -ss 00:01:00 -t 30 clip.mp4 # cut 30s clip"
+        - "ffmpeg -i input.mp4 -vf scale=1280:-1 out.mp4   # scale video"
+        - "ffmpeg -i input.wav -b:a 192k output.mp3        # audio convert"
+      benefits: "Convert any audio/video format, record, stream, filter, extract, concatenate"

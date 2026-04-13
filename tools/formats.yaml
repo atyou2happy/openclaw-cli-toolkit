@@ -262,3 +262,45 @@ tools:
         - "weasyprint --stylesheet print.css doc.html out.pdf  # custom CSS"
         - "weasyprint --presentational-hints doc.html out.pdf  # use HTML hints"
       benefits: "High-quality HTML/CSS-to-PDF with full CSS support, @page rules, page breaks, headers/footers, and print media queries"
+
+  - name: yamllint
+    package: yamllint
+    binary: yamllint
+    description: "YAML linter — checks syntax, formatting, and common errors in YAML files"
+    homepage: "https://github.com/adrienverge/yamllint"
+    license: GPL-3.0
+    install_methods:
+      - method: apt
+        package: yamllint
+      - method: brew
+        package: yamllint
+      - method: pip
+        package: yamllint
+    openclaw_usage:
+      replace: "manual YAML validation"
+      examples:
+        - "yamllint .                                # lint all YAML"
+        - "yamllint docker-compose.yml               # lint single file"
+        - "yamllint -d relaxed .                     # relaxed mode"
+        - "yamllint -f parsable .                    # machine-readable output"
+      benefits: "Catch YAML errors before they break CI/CD — line length, trailing spaces, key duplicates, indentation"
+
+  - name: taplo
+    package: taplo-cli
+    binary: taplo
+    description: "TOML toolkit — format, lint, and validate TOML files"
+    homepage: "https://github.com/tamasfe/taplo"
+    license: MIT
+    install_methods:
+      - method: brew
+        package: taplo
+      - method: cargo
+        package: taplo-cli
+    openclaw_usage:
+      replace: "manual TOML editing and validation"
+      examples:
+        - "taplo format Cargo.toml                   # format TOML"
+        - "taplo check .                             # lint all TOML"
+        - "taplo fmt --check .                       # check formatting"
+        - "taplo get Cargo.toml package.name          # get value"
+      benefits: "TOML formatting, linting, validation, and querying — essential for Rust projects and modern configs"

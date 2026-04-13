@@ -88,3 +88,73 @@ tools:
         - "actionlint -shellcheck          # integrate shellcheck"
       benefits: "Catches workflow bugs, validates expressions, shellcheck integration"
     config: []
+
+  - name: ruff
+    package: ruff
+    binary: ruff
+    description: "Extremely fast Python linter and formatter — replaces flake8, isort, black, and more"
+    homepage: "https://github.com/astral-sh/ruff"
+    license: MIT
+    install_methods:
+      - method: apt
+        package: ruff
+      - method: brew
+        package: ruff
+      - method: pip
+        package: ruff
+      - method: cargo
+        package: ruff
+    openclaw_usage:
+      replace: "flake8 + isort + black + pylint"
+      examples:
+        - "ruff check .                              # lint Python"
+        - "ruff check --fix .                        # auto-fix issues"
+        - "ruff format .                              # format Python"
+        - "ruff check --select E501,F401 .           # specific rules"
+      benefits: "100x faster than flake8, combines linting+formatting, 700+ rules, auto-fix, compatible with existing configs"
+
+  - name: just
+    package: just
+    binary: just
+    description: "Command runner — modern Make alternative with a cleaner, more readable syntax"
+    homepage: "https://github.com/casey/just"
+    license: MIT
+    install_methods:
+      - method: apt
+        package: just
+      - method: brew
+        package: just
+      - method: cargo
+        package: just
+    openclaw_usage:
+      replace: "make, Makefile"
+      examples:
+        - "just                                      # list available recipes"
+        - "just test                                 # run test recipe"
+        - "just build release                        # with arguments"
+        - "just -l                                    # list recipes"
+        - "just --edit                                # edit justfile"
+      benefits: "Readable justfiles, no Make quirks, argument support, dotenv integration, listing recipes"
+
+  - name: uv
+    package: uv
+    binary: uv
+    description: "Ultra-fast Python package manager — replaces pip, venv, pip-tools, and pyenv"
+    homepage: "https://github.com/astral-sh/uv"
+    license: MIT
+    install_methods:
+      - method: brew
+        package: uv
+      - method: pip
+        package: uv
+      - method: cargo
+        package: uv
+    openclaw_usage:
+      replace: "pip + venv + pip-tools"
+      examples:
+        - "uv pip install requests                   # install package (10-100x faster)"
+        - "uv venv                                    # create virtualenv"
+        - "uv pip compile requirements.in            # lock dependencies"
+        - "uv pip sync requirements.txt              # sync exact versions"
+        - "uv run --with pyyaml python3 script.py    # run with deps"
+      benefits: "10-100x faster than pip, unified tool for install/venv/lock, drop-in pip replacement"
