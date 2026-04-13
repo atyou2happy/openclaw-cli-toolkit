@@ -180,6 +180,24 @@ categories:
       latexmk:
         enabled: true
 
+  formats:
+    enabled: true
+    tools:
+      qpdf:
+        enabled: true
+      img2pdf:
+        enabled: true
+      visidata:
+        enabled: true
+      xsv:
+        enabled: true
+      gron:
+        enabled: true
+      markdownlint-cli:
+        enabled: true
+      lychee:
+        enabled: true
+
 # Shell configuration
 shell:
   aliases: true

@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.0] - 2026-04-13
+
+### Added
+- **Formats category** with 7 tools covering PDF, Excel, CSV, JSON, and Markdown:
+  - `qpdf` — PDF merge, split, rotate, encrypt, decrypt (apt, brew)
+  - `img2pdf` — lossless image-to-PDF conversion (pip, apt)
+  - `visidata` — interactive terminal data viewer for xlsx/csv/json/sqlite and 40+ formats (pip, apt, brew)
+  - `xsv` — fast CSV/TSV toolkit: index, slice, join, stats (cargo, brew)
+  - `gron` — flatten JSON for grep-friendly searching (apt, brew, cargo)
+  - `markdownlint-cli` — Markdown linting and style checking (brew, pip)
+  - `lychee` — fast async link checker for Markdown/HTML (cargo, brew)
+- Now **15 categories, 62 tools** total
+
 ## [2.2.0] - 2026-04-13
 
 ### Added

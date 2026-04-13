@@ -1,0 +1,154 @@
+category: formats
+description: "Document format processing tools — PDF, Excel, CSV, JSON, Markdown"
+tools:
+  - name: qpdf
+    package: qpdf
+    binary: qpdf
+    description: "PDF manipulation toolkit — merge, split, rotate, encrypt, linearize, and inspect PDFs"
+    homepage: "https://github.com/qpdf/qpdf"
+    license: Apache-2.0
+    install_methods:
+      - method: apt
+        package: qpdf
+      - method: brew
+        package: qpdf
+    openclaw_usage:
+      replace: "manual PDF manipulation tools"
+      examples:
+        - "qpdf --merge a.pdf b.pdf --output merged.pdf    # merge PDFs"
+        - "qpdf --split-pages input.pdf output-%d.pdf      # split into pages"
+        - "qpdf --rotate=+90:1,3 input.pdf rotated.pdf     # rotate pages"
+        - "qpdf --encrypt user-pass owner-pass 256 -- input.pdf enc.pdf  # encrypt"
+        - "qpdf --decrypt encrypted.pdf decrypted.pdf       # decrypt"
+        - "qpdf --check input.pdf                           # inspect/validate"
+      benefits: "PDF merge, split, rotate, encrypt, decrypt, linearize, and validate — all from CLI"
+
+  - name: img2pdf
+    package: img2pdf
+    binary: img2pdf
+    description: "Lossless image-to-PDF converter — JPEG/PNG/TIFF/GIF to PDF without re-encoding"
+    homepage: "https://github.com/josch/img2pdf"
+    license: LGPL-3.0
+    install_methods:
+      - method: pip
+        package: img2pdf
+      - method: apt
+        package: img2pdf
+    openclaw_usage:
+      replace: "libreoffice/convert for image-to-PDF"
+      examples:
+        - "img2pdf img.jpg -o output.pdf                     # single image"
+        - "img2pdf *.jpg -o album.pdf                        # multiple images"
+        - "img2pdf --pagesize A4 img.png -o page.pdf         # A4 page size"
+        - "img2pdf --imgsize 10cmx15cm photo.jpg -o out.pdf  # custom size"
+      benefits: "Lossless image-to-PDF conversion (JPEG pixels copied directly, no re-compression)"
+
+  - name: visidata
+    package: visidata
+    binary: vd
+    description: "Terminal spreadsheet viewer and data explorer — reads xlsx, csv, json, sqlite, HTML tables, and 40+ formats"
+    homepage: "https://github.com/saulpw/visidata"
+    license: GPL-3.0
+    install_methods:
+      - method: pip
+        package: visidata
+      - method: apt
+        package: visidata
+      - method: brew
+        package: visidata
+    openclaw_usage:
+      replace: "excel GUI, manual CSV inspection"
+      examples:
+        - "vd data.xlsx                       # open Excel file"
+        - "vd data.csv                        # open CSV"
+        - "vd data.json                       # open JSON"
+        - "vd database.sqlite                 # open SQLite"
+        - "vd *.csv                           # browse multiple files"
+        - "vd -b data.csv -f csv -o out.json  # batch convert CSV to JSON"
+      benefits: "Interactive TUI data viewer for 40+ formats including xlsx/csv/json/sql — filter, sort, pivot, aggregate"
+
+  - name: xsv
+    package: xsv
+    binary: xsv
+    description: "Fast CSV/TSV command-line toolkit — index, slice, join, stats, search, and convert"
+    homepage: "https://github.com/BurntSushi/xsv"
+    license: MIT
+    install_methods:
+      - method: cargo
+        package: xsv
+      - method: brew
+        package: xsv
+    openclaw_usage:
+      replace: "awk/sort/cut for CSV processing"
+      examples:
+        - "xsv index data.csv                  # create index for fast access"
+        - "xsv slice data.csv -s 100 -l 50     # slice rows 100-149"
+        - "xsv select name,email data.csv      # select columns"
+        - "xsv join id a.csv id b.csv           # join two CSVs"
+        - "xsv stats data.csv                   # compute statistics"
+        - "xsv search -s name 'pattern' data.csv # search in column"
+        - "xsv frequency data.csv               # frequency table"
+      benefits: "Blazing-fast CSV operations — indexing, slicing, joining, stats, dedup, and search in Rust"
+
+  - name: gron
+    package: gron
+    binary: gron
+    description: "Flatten JSON for grep-friendly searching — makes JSON a line-oriented format"
+    homepage: "https://github.com/tomnomnom/gron"
+    license: MIT
+    install_methods:
+      - method: apt
+        package: gron
+      - method: brew
+        package: gron
+      - method: cargo
+        package: gron
+    openclaw_usage:
+      replace: "jq '.key.subkey' for exploration"
+      examples:
+        - "gron data.json                     # flatten JSON"
+        - "gron data.json | grep 'author'     # grep for keys"
+        - "gron data.json | grep 'price' | gron -u  # extract subset"
+        - "curl -s api/endpoint | gron        # flatten API response"
+      benefits: "Turn JSON into grep-able lines, then unflatten back — perfect for exploring unknown JSON structures"
+
+  - name: markdownlint-cli
+    package: markdownlint-cli
+    binary: markdownlint
+    description: "Markdown linting and style checking — enforces consistent Markdown formatting"
+    homepage: "https://github.com/igorshubovych/markdownlint-cli"
+    license: MIT
+    install_methods:
+      - method: brew
+        package: markdownlint-cli
+      - method: pip
+        package: markdownlint-cli
+    openclaw_usage:
+      replace: "manual Markdown style review"
+      examples:
+        - "markdownlint .                           # lint all Markdown files"
+        - "markdownlint README.md                   # lint single file"
+        - "markdownlint --fix .                     # auto-fix issues"
+        - "markdownlint --config .markdownlintrc .  # custom config"
+      benefits: "Catch Markdown style issues — heading order, trailing spaces, line length, blank lines, link format"
+
+  - name: lychee
+    package: lychee
+    binary: lychee
+    description: "Fast link checker for Markdown, HTML, and plain text — validates URLs and local links"
+    homepage: "https://github.com/lycheeverse/lychee"
+    license: MIT
+    install_methods:
+      - method: cargo
+        package: lychee
+      - method: brew
+        package: lychee
+    openclaw_usage:
+      replace: "manual link verification"
+      examples:
+        - "lychee README.md                    # check links in file"
+        - "lychee .                            # check all links in repo"
+        - "lychee --exclude-mail *.md          # skip mailto links"
+        - "lychee --max-redirects 3 README.md  # limit redirects"
+        - "lychee --format json README.md      # JSON output"
+      benefits: "Fast async link checking for Markdown/HTML — finds broken URLs, supports rate limiting and retries"
