@@ -205,6 +205,8 @@ categories:
         enabled: true
       xmlstarlet:
         enabled: true
+      weasyprint:
+        enabled: true
 
 # Shell configuration
 shell:

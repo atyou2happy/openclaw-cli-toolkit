@@ -240,3 +240,25 @@ tools:
         - "xmlstarlet val data.xml                        # validate"
         - "xmlstarlet tr transform.xsl data.xml           # apply XSLT"
       benefits: "Full XML editing, selection, validation, XSLT transformation, and formatting — ed/sel/val/tr in one tool"
+
+  - name: weasyprint
+    package: weasyprint
+    binary: weasyprint
+    description: "Visual rendering engine for HTML/CSS to PDF — supports CSS Paged Media, @page rules, and print layout"
+    homepage: "https://github.com/Kozea/WeasyPrint"
+    license: BSD-3-Clause
+    install_methods:
+      - method: pip
+        package: weasyprint
+      - method: brew
+        package: weasyprint
+    openclaw_usage:
+      replace: "wkhtmltopdf, browser print-to-PDF"
+      examples:
+        - "weasyprint page.html output.pdf              # HTML to PDF"
+        - "weasyprint https://example.com output.pdf    # URL to PDF"
+        - "weasyprint - <<'EOF' output.pdf              # stdin to PDF"
+        - "weasyprint doc.html - > doc.pdf              # stdout PDF"
+        - "weasyprint --stylesheet print.css doc.html out.pdf  # custom CSS"
+        - "weasyprint --presentational-hints doc.html out.pdf  # use HTML hints"
+      benefits: "High-quality HTML/CSS-to-PDF with full CSS support, @page rules, page breaks, headers/footers, and print media queries"

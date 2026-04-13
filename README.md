@@ -9,7 +9,7 @@
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"/></a>
-  <img src="https://img.shields.io/badge/Tools-66+-brightgreen.svg" alt="Tools: 66+"/>
+  <img src="https://img.shields.io/badge/Tools-67+-brightgreen.svg" alt="Tools: 67+"/>
   <img src="https://img.shields.io/badge/Shell-Bash%20%7C%20Zsh%20%7C%20Fish-orange.svg" alt="Shell Support"/>
   <a href="README_CN.md">中文文档</a>
 </p>
@@ -179,7 +179,7 @@ openclaw-cli-toolkit/
 | ⬇️ Download | aria2 | wget |
 | 🤖 AI | llm, sgpt, aider | — |
 | 📝 LaTeX | tectonic, chktex, latexmk | pdflatex + manual builds |
-| 📄 Formats | qpdf, visidata, xsv, gron, htmlq, tidy, xmllint, xmlstarlet, lychee | manual format processing |
+| 📄 Formats | qpdf, weasyprint, visidata, xsv, gron, htmlq, tidy, xmllint, xmlstarlet, lychee | manual format processing |
 
 **Installation priority**: `apt` > `brew` > `cargo` > `pip` > `go install`
 
