@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # shellcheck disable=SC2034
-STATE_VERSION="2.0.0"
+STATE_VERSION="$(cat "$(dirname "${BASH_SOURCE[0]}")/../VERSION" | tr -d '[:space:]')"
 STATE_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/openclaw-toolkit"
 STATE_FILE="$STATE_DIR/state"
 

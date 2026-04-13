@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # shellcheck disable=SC2034
-DETECTOR_VERSION="2.0.0"
+DETECTOR_VERSION="$(cat "$(dirname "${BASH_SOURCE[0]}")/../VERSION" | tr -d '[:space:]')"
 
 DETECTED_OS=""
 DETECTED_DISTRO=""

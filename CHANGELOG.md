@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2026-04-13
+
+### Added
+- `VERSION` file — single source of truth for version number
+- `.gitignore` — exclude generated files, caches, OS files
+- `.editorconfig` — unify coding style (tabs for shell, spaces for Python/YAML)
+
+### Changed
+- All scripts now read version from `VERSION` file (no more hardcoded version in 6 files)
+- README.md and README_CN.md rewritten with standard open-source layout (badges, architecture, project structure, contributing)
+- Development process files (proposal.md, design.md, tasks.md) moved to `docs/dev/`
+
+### Removed
+- `src/openclaw-tools.yaml` — duplicate generated file removed (root-level one is the canonical copy)
+
 ## [2.0.0] - 2026-04-13
 
 ### Added

@@ -1,0 +1,28 @@
+# Generated files
+openclaw-tools.yaml
+
+# State files
+.state/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+.ruff_cache/
+.mypy_cache/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Install log
+/tmp/openclaw-toolkit-install.log
+
+# Backup files
+*.bak.*

@@ -15,6 +15,11 @@ SCRIPT_DIR = Path(__file__).parent.resolve()
 PROJECT_DIR = SCRIPT_DIR.parent
 TOOLS_DIR = PROJECT_DIR / "tools"
 OUTPUT_FILE = PROJECT_DIR / "openclaw-tools.yaml"
+VERSION_FILE = PROJECT_DIR / "VERSION"
+
+
+def get_version() -> str:
+    return VERSION_FILE.read_text().strip() if VERSION_FILE.exists() else "0.0.0"
 
 
 def load_tool_definitions(tools_dir: Path) -> list[dict]:
@@ -95,7 +100,7 @@ def generate_output(
 
     output = {
         "meta": {
-            "version": "2.0.0",
+            "version": get_version(),
             "description": "OpenClaw CLI Toolkit - Tool definitions for AI agent usage",
             "generated_by": "openclaw-cli-toolkit generator.py",
             "total_tools": len(openclaw_tools),

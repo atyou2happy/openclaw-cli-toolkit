@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-VERSION="2.0.0"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+VERSION="$(cat "$SCRIPT_DIR/VERSION" | tr -d '[:space:]')"
 
 source "$SCRIPT_DIR/src/common.sh"
 source "$SCRIPT_DIR/src/state.sh"

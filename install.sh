@@ -2,8 +2,8 @@
 # shellcheck disable=SC2034
 set -euo pipefail
 
-VERSION="2.0.0"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+VERSION="$(cat "$SCRIPT_DIR/VERSION" | tr -d '[:space:]')"
 SRC_DIR="$SCRIPT_DIR/src"
 TOOLS_DIR="$SCRIPT_DIR/tools"
 CONFIG_FILE="$SCRIPT_DIR/config.yaml"

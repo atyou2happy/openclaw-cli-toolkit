@@ -34,7 +34,10 @@ jobs:
       - name: Run install test
         run: bash tests/test_install.sh
       - name: Run generator
-        run: python3 src/generator.py --output /tmp/test-tools.yaml && test -f /tmp/test-tools.yaml
+        run: |
+          python3 src/generator.py --output /tmp/test-tools.yaml
+          test -f /tmp/test-tools.yaml
+          grep -q "version:" /tmp/test-tools.yaml
 
   dry-run:
     runs-on: ubuntu-latest
