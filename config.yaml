@@ -197,6 +197,14 @@ categories:
         enabled: true
       lychee:
         enabled: true
+      htmlq:
+        enabled: true
+      tidy:
+        enabled: true
+      libxml2-utils:
+        enabled: true
+      xmlstarlet:
+        enabled: true
 
 # Shell configuration
 shell:

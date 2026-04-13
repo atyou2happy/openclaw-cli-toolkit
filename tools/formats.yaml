@@ -1,5 +1,5 @@
 category: formats
-description: "Document format processing tools — PDF, Excel, CSV, JSON, Markdown"
+description: "Document format processing tools — PDF, Excel, CSV, JSON, Markdown, HTML, XML"
 tools:
   - name: qpdf
     package: qpdf
@@ -152,3 +152,91 @@ tools:
         - "lychee --max-redirects 3 README.md  # limit redirects"
         - "lychee --format json README.md      # JSON output"
       benefits: "Fast async link checking for Markdown/HTML — finds broken URLs, supports rate limiting and retries"
+
+  - name: htmlq
+    package: htmlq
+    binary: htmlq
+    description: "HTML parser with CSS selectors — like jq but for HTML, extract elements and attributes"
+    homepage: "https://github.com/mgdm/htmlq"
+    license: MIT
+    install_methods:
+      - method: cargo
+        package: htmlq
+      - method: brew
+        package: htmlq
+    openclaw_usage:
+      replace: "grep/sed for HTML parsing"
+      examples:
+        - "htmlq 'a' -a href page.html              # extract all links"
+        - "htmlq 'h1' --text page.html               # extract h1 text"
+        - "htmlq 'img' -a src page.html              # extract image URLs"
+        - "htmlq '.post' --text page.html            # extract by class"
+        - "htmlq '#main' -a innerHTML page.html      # extract inner HTML"
+        - "curl -s example.com | htmlq 'title' --text # parse live page"
+      benefits: "Parse HTML with familiar CSS selectors — extract text, attributes, and elements from any HTML"
+
+  - name: tidy
+    package: tidy
+    binary: tidy
+    description: "HTML/XHTML/XML formatter, validator, and cleaner — fix malformed markup automatically"
+    homepage: "https://github.com/htacg/tidy-html5"
+    license: MIT
+    install_methods:
+      - method: apt
+        package: tidy
+      - method: brew
+        package: tidy-html5
+    openclaw_usage:
+      replace: "manual HTML formatting and validation"
+      examples:
+        - "tidy -i -m page.html                  # indent and modify in-place"
+        - "tidy -o clean.html messy.html         # clean and output"
+        - "tidy -q -e page.html                  # validate (errors only)"
+        - "tidy --show-body-only yes page.html   # clean body only"
+        - "tidy -xml -i data.xml                 # format XML"
+        - "tidy -asxhtml page.html               # convert HTML to XHTML"
+      benefits: "Auto-fix malformed HTML/XHTML/XML, validate, pretty-print, and convert between formats"
+
+  - name: libxml2-utils
+    package: libxml2-utils
+    binary: xmllint
+    description: "XML validator and XPath query tool — validate, lint, query, and format XML documents"
+    homepage: "https://gitlab.gnome.org/GNOME/libxml2"
+    license: MIT
+    install_methods:
+      - method: apt
+        package: libxml2-utils
+      - method: brew
+        package: libxml2
+    openclaw_usage:
+      replace: "manual XML validation and inspection"
+      examples:
+        - "xmllint --noout data.xml             # validate well-formedness"
+        - "xmllint --schema schema.xsd data.xml # validate against XSD"
+        - "xmllint --xpath '//item/@id' data.xml # XPath query"
+        - "xmllint --format data.xml             # pretty-print XML"
+        - "xmllint --c14n data.xml               # canonical XML output"
+        - "xmllint --shell data.xml              # interactive XML shell"
+      benefits: "XML validation, XPath queries, pretty-printing, and canonical form — the standard XML Swiss army knife"
+
+  - name: xmlstarlet
+    package: xmlstarlet
+    binary: xmlstarlet
+    description: "XML transformation toolkit — edit, select, validate, transform, and query XML documents"
+    homepage: "https://xmlstar.sourceforge.net/"
+    license: MIT
+    install_methods:
+      - method: apt
+        package: xmlstarlet
+      - method: brew
+        package: xmlstarlet
+    openclaw_usage:
+      replace: "manual XML editing and XSLT processing"
+      examples:
+        - "xmlstarlet sel -t -v '//name' data.xml        # select values"
+        - "xmlstarlet ed -d '//removed' data.xml         # delete elements"
+        - "xmlstarlet ed -s //root -t elem -n new -v val  # add elements"
+        - "xmlstarlet fo data.xml                         # format XML"
+        - "xmlstarlet val data.xml                        # validate"
+        - "xmlstarlet tr transform.xsl data.xml           # apply XSLT"
+      benefits: "Full XML editing, selection, validation, XSLT transformation, and formatting — ed/sel/val/tr in one tool"

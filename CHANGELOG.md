@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.0] - 2026-04-13
+
+### Added
+- **HTML/XML tools** added to formats category (4 tools):
+  - `htmlq` — HTML parser with CSS selectors, extract elements and attributes (cargo, brew)
+  - `tidy` — HTML/XHTML/XML formatter, validator, and cleaner (apt, brew)
+  - `xmllint` (libxml2-utils) — XML validator, XPath query, and pretty-printer (apt, brew)
+  - `xmlstarlet` — XML transformation toolkit: edit, select, validate, XSLT (apt, brew)
+- Now **15 categories, 66 tools** total
+
 ## [2.3.0] - 2026-04-13
 
 ### Added

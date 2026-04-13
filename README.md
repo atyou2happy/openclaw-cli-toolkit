@@ -9,7 +9,7 @@
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"/></a>
-  <img src="https://img.shields.io/badge/Tools-62+-brightgreen.svg" alt="Tools: 62+"/>
+  <img src="https://img.shields.io/badge/Tools-66+-brightgreen.svg" alt="Tools: 66+"/>
   <img src="https://img.shields.io/badge/Shell-Bash%20%7C%20Zsh%20%7C%20Fish-orange.svg" alt="Shell Support"/>
   <a href="README_CN.md">中文文档</a>
 </p>
@@ -29,7 +29,7 @@ Every tool is:
 
 ## Features
 
-- **15 categories** of tools — search, viewing, data, system, network, git,              terminal, dev, security, archive, docs, download, ai, latex, formats, formats, latex
+- **15 categories** of tools — search, viewing, data, system, network, git, terminal, dev, security, archive, docs, download, ai, latex, formats (PDF/Excel/CSV/JSON/Markdown/HTML/XML), formats, latex
 - **One-click install** — automatic system detection (WSL2 / Linux / macOS)
 - **Config-driven** — `config.yaml` controls exactly which tools get installed
 - **Shell-aware** — auto-detects bash / zsh / fish and configures accordingly
@@ -179,7 +179,7 @@ openclaw-cli-toolkit/
 | ⬇️ Download | aria2 | wget |
 | 🤖 AI | llm, sgpt, aider | — |
 | 📝 LaTeX | tectonic, chktex, latexmk | pdflatex + manual builds |
-| 📄 Formats | qpdf, visidata, xsv, gron, lychee | manual format processing |
+| 📄 Formats | qpdf, visidata, xsv, gron, htmlq, tidy, xmllint, xmlstarlet, lychee | manual format processing |
 
 **Installation priority**: `apt` > `brew` > `cargo` > `pip` > `go install`
 
