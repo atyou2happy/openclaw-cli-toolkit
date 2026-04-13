@@ -9,7 +9,7 @@
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"/></a>
-  <img src="https://img.shields.io/badge/Tools-52+-brightgreen.svg" alt="Tools: 52+"/>
+  <img src="https://img.shields.io/badge/Tools-55+-brightgreen.svg" alt="Tools: 55+"/>
   <img src="https://img.shields.io/badge/Shell-Bash%20%7C%20Zsh%20%7C%20Fish-orange.svg" alt="Shell Support"/>
   <a href="README_CN.md">中文文档</a>
 </p>
@@ -29,7 +29,7 @@ Every tool is:
 
 ## Features
 
-- **13 categories** of tools — search, viewing, data, system, network, git, terminal, dev, security, archive, docs, download, AI
+- **14 categories** of tools — search, viewing, data, system, network, git,              terminal, dev, security, archive, docs, download, ai, latex, latex
 - **One-click install** — automatic system detection (WSL2 / Linux / macOS)
 - **Config-driven** — `config.yaml` controls exactly which tools get installed
 - **Shell-aware** — auto-detects bash / zsh / fish and configures accordingly
@@ -123,7 +123,8 @@ openclaw-cli-toolkit/
 │   ├── archive.yaml
 │   ├── docs.yaml
 │   ├── download.yaml
-│   └── ai.yaml
+│   ├── ai.yaml
+│   └── latex.yaml
 ├── tests/
 │   ├── test_install.sh     # Structure & syntax tests
 │   └── test_tools.sh       # Tool functionality tests
@@ -176,6 +177,7 @@ openclaw-cli-toolkit/
 | 📄 Docs | pandoc, glow, poppler-utils | manual conversion |
 | ⬇️ Download | aria2 | wget |
 | 🤖 AI | llm, sgpt, aider | — |
+| 📝 LaTeX | tectonic, chktex, latexmk | pdflatex + manual builds |
 
 **Installation priority**: `apt` > `brew` > `cargo` > `pip` > `go install`
 

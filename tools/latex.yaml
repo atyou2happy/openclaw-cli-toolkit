@@ -1,0 +1,65 @@
+category: latex
+description: "LaTeX compilation and linting tools"
+tools:
+  - name: tectonic
+    package: tectonic
+    binary: tectonic
+    description: "Modern self-contained LaTeX engine - no TeX Live needed, auto-downloads packages"
+    homepage: "https://github.com/tectonic-typesetting/tectonic"
+    license: MIT
+    install_methods:
+      - method: brew
+        package: tectonic
+      - method: cargo
+        package: tectonic
+    openclaw_usage:
+      replace: "pdflatex + manual TeX Live management"
+      examples:
+        - "tectonic document.tex                  # compile to PDF"
+        - "tectonic -X new my-paper                # create new project"
+        - "tectonic -X build                       # build project"
+        - "tectonic -k keep document.tex           # keep intermediate files"
+        - "tectonic --outfmt html document.tex     # compile to HTML"
+      benefits: "Zero-config LaTeX compilation, automatic package downloading, reproducible builds, no TeX Live needed"
+
+  - name: chktex
+    package: chktex
+    binary: chktex
+    description: "LaTeX syntax and style checker - finds typographic errors in LaTeX sources"
+    homepage: "https://savannah.nongnu.org/projects/chktex/"
+    license: GPL-2.0
+    install_methods:
+      - method: apt
+        package: chktex
+      - method: brew
+        package: chktex
+    openclaw_usage:
+      replace: "manual LaTeX proofreading"
+      examples:
+        - "chktex document.tex                   # check LaTeX file"
+        - "chktex -n1 document.tex               # suppress warning #1"
+        - "chktex -q document.tex                # quiet mode"
+        - "chktex -v2 document.tex               # verbose mode"
+      benefits: "Catch typographic errors, style violations, common LaTeX mistakes before compilation"
+
+  - name: latexmk
+    package: latexmk
+    binary: latexmk
+    description: "Automate LaTeX builds - runs pdflatex/xelatex the correct number of times"
+    homepage: "https://ctan.org/pkg/latexmk"
+    license: GPL-2.0
+    install_methods:
+      - method: apt
+        package: latexmk
+      - method: brew
+        package: latexmk
+    openclaw_usage:
+      replace: "manual repeated pdflatex runs"
+      examples:
+        - "latexmk -pdf document.tex             # compile to PDF"
+        - "latexmk -xelatex document.tex         # use XeLaTeX engine"
+        - "latexmk -lualatex document.tex        # use LuaLaTeX engine"
+        - "latexmk -c document.tex               # clean auxiliary files"
+        - "latexmk -C document.tex               # clean all output"
+        - "latexmk -pvc document.tex             # preview + auto-recompile on change"
+      benefits: "Automatic multi-pass compilation, handles references/bibliography/index, continuous preview mode"

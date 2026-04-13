@@ -170,6 +170,16 @@ categories:
       sgpt:
         enabled: false
 
+  latex:
+    enabled: true
+    tools:
+      tectonic:
+        enabled: true
+      chktex:
+        enabled: true
+      latexmk:
+        enabled: true
+
 # Shell configuration
 shell:
   aliases: true
