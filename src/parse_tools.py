@@ -2,6 +2,12 @@
 
 Usage: python3 parse_tools.py <tools_dir> [config_file]
 Output: name\tbinary\tpackage\tmethods\tcategory (one line per tool)
+
+Each method can optionally override the package:
+  - method: github_release
+    package: xo/usql#usql_static=usql
+  Produces: "github_release:xo/usql#usql_static=usql" in the methods column.
+If no per-method package, just the method name is emitted.
 """
 
 import sys
@@ -33,7 +39,13 @@ def parse_tools(tools_dir: Path, config_file: str = "") -> None:
                 binary = t.get("binary", "")
                 pkg = t.get("package", "")
                 methods = " ".join(
-                    m.get("method", "") for m in t.get("install_methods", [])
+                    m.get("method", "")
+                    + (
+                        ":" + m["package"]
+                        if m.get("package") and m.get("method")
+                        else ""
+                    )
+                    for m in t.get("install_methods", [])
                 )
                 print(f"{name}\t{binary}\t{pkg}\t{methods}\t{category}")
         except Exception:

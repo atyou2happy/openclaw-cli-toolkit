@@ -141,3 +141,48 @@ tools:
         - "direnv allow .                            # approve .envrc"
         - "direnv deny .                             # revoke"
       benefits: "Auto-load environment per project, Python/Node/Rust layout support, no more manual source"
+    config: []
+
+  - name: autojump
+    package: autojump
+    binary: autojump
+    description: "Directory jumping tool — learn from cd commands to jump to frequently used directories"
+    homepage: "https://github.com/wting/autojump"
+    license: MIT
+    install_methods:
+      - method: apt
+        package: autojump
+      - method: brew
+        package: autojump
+    openclaw_usage:
+      replace: "cd (manual navigation)"
+      examples:
+        - "autojump /path/to/dir              # jump to directory"
+        - "autojump -a dir                   # add directory"
+        - "autojump --purge                   # remove non-existent dirs"
+        - "j dir                            # shorthand alias"
+      benefits: "Learn from cd history, instant navigation to frequent directories"
+    config: []
+
+  - name: zellij
+    package: zellij
+    binary: zellij
+    description: "Terminal multiplexer — modern tmux alternative with sensible defaults"
+    homepage: "https://zellij.dev/"
+    license: MIT
+    install_methods:
+      - method: brew
+        package: zellij
+      - method: cargo
+        package: zellij
+      - method: apt
+        package: zellij
+    openclaw_usage:
+      replace: "tmux (more complex)"
+      examples:
+        - "zellij                       # start new session"
+        - "zellij a                    # attach to session"
+        - "zellij options              # list options"
+        - "zellij run 'python app.py' # run command in pane"
+      benefits: "Modern Rust multiplexer, sensible defaults, floating panes, session sharing"
+    config: []

@@ -1,0 +1,82 @@
+category: testing
+description: "Testing frameworks and coverage tools for multiple languages"
+tools:
+  - name: bats
+    package: bats
+    binary: bats
+    description: "Bash Automated Testing System — unit testing framework for bash scripts"
+    homepage: "https://github.com/bats-core/bats-core/"
+    license: MIT
+    install_methods:
+      - method: apt
+        package: bats
+      - method: brew
+        package: bats-core
+      - method: pip
+        package: bats
+    openclaw_usage:
+      replace: "manual bash script testing"
+      examples:
+        - "bats test.bats                       # run tests"
+        - "bats --tap test.bats                 # TAP output"
+        - "bats --reporter tap test.bats        # specific reporter"
+        - "bats test1.bats test2.bats           # multiple files"
+      benefits: "Write automated tests for shell scripts, CI/CD integration, readable output"
+    config: []
+
+  - name: coverage
+    package: coverage
+    binary: coverage
+    description: "Python code coverage measurement — analyze test coverage"
+    homepage: "https://coverage.readthedocs.io/"
+    license: Apache-2.0
+    install_methods:
+      - method: pip
+        package: coverage
+    openclaw_usage:
+      replace: "manual coverage tracking"
+      examples:
+        - "coverage run -m pytest               # run with coverage"
+        - "coverage report                      # text report"
+        - "coverage html                        # HTML report"
+        - "coverage xml                         # XML report (Cobertura)"
+        - "coverage combine                      # combine runs"
+      benefits: "Measure Python test coverage, HTML reports, CI/CD integration, exclusions"
+    config: []
+
+  - name: junit2html
+    package: junit2html
+    binary: junit2html
+    description: "Convert JUnit XML reports to HTML — human-readable test reports"
+    homepage: "https://github.com/inorton/junit2html"
+    license: MIT
+    install_methods:
+      - method: pip
+        package: junit2html
+      - method: go
+        package: github.com/inorton/junit2html/cmd/junit2html@latest
+    openclaw_usage:
+      replace: "reading raw JUnit XML"
+      examples:
+        - "junit2html report.xml report.html   # convert"
+        - "junit2html --quiet report.xml       # silent mode"
+        - "junit2html --title 'My Tests' in.xml out.html"
+      benefits: "Human-readable test reports, trend visualization, team sharing"
+    config: []
+
+  - name: cricket
+    package: cricket
+    binary: cricket
+    description: "Python coverage GUI — visual coverage reports with browser interface"
+    homepage: "https://cricket.readthedocs.io/"
+    license: MIT
+    install_methods:
+      - method: pip
+        package: cricket
+    openclaw_usage:
+      replace: "coverage html (static)"
+      examples:
+        - "cricket &                            # start GUI"
+        - "cricket --cov 'app'                 # with specific coverage"
+      benefits: "Visual coverage browser, tree view of coverage, click to see line coverage"
+    config: []

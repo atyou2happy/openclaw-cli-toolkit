@@ -95,6 +95,10 @@ categories:
         enabled: false
       gping:
         enabled: true
+      mtr:
+        enabled: true
+      nmap:
+        enabled: false
 
   git:
     enabled: true
@@ -123,6 +127,10 @@ categories:
         enabled: true
       direnv:
         enabled: true
+      autojump:
+        enabled: true
+      zellij:
+        enabled: false
 
   dev:
     enabled: true
@@ -134,12 +142,16 @@ categories:
       hadolint:
         enabled: true
       actionlint:
-        enabled: false
+        enabled: true
       ruff:
         enabled: true
       just:
         enabled: true
       uv:
+        enabled: true
+      linkify:
+        enabled: true
+      buf:
         enabled: true
 
   security:
@@ -150,6 +162,10 @@ categories:
       sops:
         enabled: true
       pass:
+        enabled: false
+      bitwarden-cli:
+        enabled: false
+      vault:
         enabled: false
 
   archive:
@@ -260,7 +276,7 @@ categories:
       exiftool:
         enabled: true
       ffmpeg:
-        enabled: false
+        enabled: true
 
   diagram:
     enabled: true
@@ -269,6 +285,116 @@ categories:
         enabled: true
       graphviz:
         enabled: true
+
+  api-testing:
+    enabled: true
+    tools:
+      wrk:
+        enabled: true
+      hey:
+        enabled: true
+      oha:
+        enabled: true
+      hurl:
+        enabled: true
+      httpie-oauth:
+        enabled: false
+      step:
+        enabled: false
+      grpcurl:
+        enabled: true
+
+  text-processing:
+    enabled: true
+    tools:
+      sd:
+        enabled: true
+      gum:
+        enabled: true
+      jnv:
+        enabled: false
+      choose:
+        enabled: true
+      huniq:
+        enabled: false
+      grep-ast:
+        enabled: true
+      repgrep:
+        enabled: false
+      tabulate:
+        enabled: true
+      ugrep:
+        enabled: false
+
+  kubernetes:
+    enabled: false
+    tools:
+      kubectl:
+        enabled: true
+      helm:
+        enabled: true
+      k9s:
+        enabled: false
+      popeye:
+        enabled: false
+      stern:
+        enabled: true
+      kubectx:
+        enabled: false
+
+  golang:
+    enabled: true
+    tools:
+      golangci-lint:
+        enabled: true
+      staticcheck:
+        enabled: true
+      goimports:
+        enabled: true
+      godef:
+        enabled: true
+      gore:
+        enabled: false
+      ginkgo:
+        enabled: false
+
+  observability:
+    enabled: true
+    tools:
+      stern:
+        enabled: true
+      logcli:
+        enabled: false
+      promtool:
+        enabled: false
+      ctop:
+        enabled: true
+      glances:
+        enabled: true
+
+  git-helpers:
+    enabled: true
+    tools:
+      git-lfs:
+        enabled: true
+      ghq:
+        enabled: false
+      git-filter-repo:
+        enabled: false
+      myrepos:
+        enabled: false
+
+  testing:
+    enabled: true
+    tools:
+      bats:
+        enabled: true
+      coverage:
+        enabled: true
+      junit2html:
+        enabled: false
+      cricket:
+        enabled: false
 
 # Shell configuration
 shell:

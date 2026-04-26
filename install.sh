@@ -39,7 +39,8 @@ ${BOLD}Options:${NC}
   --version                  Show version
 
 ${BOLD}Categories:${NC} search, viewer, data, system, network, git,
-            terminal, dev, security, archive, docs, download, ai
+            terminal, dev, security, archive, docs, download, ai,
+            api-testing, text-processing
 
 ${BOLD}Examples:${NC}
   $0                          # Install all (resume from state)
@@ -206,9 +207,12 @@ install_one_tool() {
 		methods_arr=("apt" "brew" "pip")
 	fi
 
-	for method in "${methods_arr[@]}"; do
-		[[ -z "$method" ]] && continue
-		if try_install_method "$method" "${pkg:-$name}"; then
+	for method_entry in "${methods_arr[@]}"; do
+		[[ -z "$method_entry" ]] && continue
+		local method="${method_entry%%:*}"
+		local method_pkg="${method_entry#*:}"
+		[[ "$method_pkg" == "$method_entry" ]] && method_pkg="${pkg:-$name}"
+		if try_install_method "$method" "$method_pkg"; then
 			state_record "installed" "$name"
 			progress_step
 			return 0
@@ -228,7 +232,7 @@ install_tools_sequential() {
 	fi
 
 	for tool in "${TOOLS_LIST[@]}"; do
-		install_one_tool "$tool"
+		install_one_tool "$tool" || true
 	done
 
 	progress_done

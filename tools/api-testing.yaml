@@ -1,0 +1,142 @@
+category: api-testing
+description: "API testing, load testing, and HTTP benchmarking tools"
+tools:
+  - name: wrk
+    package: wrk
+    binary: wrk
+    description: "Modern HTTP benchmarking tool — generate significant load with multithreaded LuaJIT"
+    homepage: "https://github.com/wg/wrk"
+    license: Apache-2.0
+    install_methods:
+      - method: apt
+        package: wrk
+      - method: brew
+        package: wrk
+    openclaw_usage:
+      replace: "ab (ApacheBench), siege"
+      examples:
+        - "wrk -t4 -c100 -d30s https://api.example.com    # 4 threads, 100 connections, 30s"
+        - "wrk -t2 -c50 -d10s --latency https://api.com    # with latency histogram"
+        - "wrk -s post.lua -t2 -c50 -d10s https://api.com  # custom Lua script for POST"
+        - "wrk -t4 -c200 -d60s https://api.com/endpoint    # sustained load test"
+      benefits: "Extremely fast C-based HTTP benchmarking, Lua scripting for custom requests, latency statistics, multithreaded"
+
+  - name: hey
+    package: hey
+    binary: hey
+    description: "HTTP load generator — Go-based alternative to ab, inspired by rack-attack"
+    homepage: "https://github.com/rakyll/hey"
+    license: Apache-2.0
+    install_methods:
+      - method: brew
+        package: hey
+      - method: go
+        package: github.com/rakyll/hey@latest
+    openclaw_usage:
+      replace: "ab (ApacheBench)"
+      examples:
+        - "hey -n 200 -c 50 https://api.example.com         # 200 requests, 50 concurrent"
+        - "hey -z 30s -c 100 https://api.example.com        # run for 30 seconds"
+        - "hey -m POST -d '{\"key\":\"val\"}' https://api.com # POST with body"
+        - "hey -H 'Authorization: Bearer TOKEN' https://api  # with headers"
+      benefits: "Simple Go binary, no dependencies, supports all HTTP methods, latency distribution, histogram output"
+
+  - name: oha
+    package: oha
+    binary: oha
+    description: "HTTP load generator — Rust-based with real-time TUI and terminal charts"
+    homepage: "https://github.com/hatoo/oha"
+    license: MIT
+    install_methods:
+      - method: brew
+        package: oha
+      - method: cargo
+        package: oha
+    openclaw_usage:
+      replace: "ab, wrk, hey"
+      examples:
+        - "oha -n 1000 -c 50 https://api.example.com        # 1000 requests, 50 connections"
+        - "oha -z 30s -c 100 --latency-correction https://a  # 30s test with correction"
+        - "oha -j 4 -c 100 -n 5000 https://api.com          # 4 worker threads"
+        - "oha --disable-keepalive -n 100 https://api.com    # new connection per request"
+      benefits: "Real-time TUI with charts, Rust-fast, JSON output, jitter correction, dynamic URL replacement"
+
+  - name: hurl
+    package: hurl
+    binary: hurl
+    description: "HTTP request runner with plain-text HTTP definition language — run and test APIs"
+    homepage: "https://github.com/Orange-OpenSource/hurl"
+    license: Apache-2.0
+    install_methods:
+      - method: apt
+        package: hurl
+      - method: brew
+        package: hurl
+    openclaw_usage:
+      replace: "curl scripts, Postman collections, newman"
+      examples:
+        - "hurl session.hurl                               # run requests from file"
+        - "hurl --test api_tests.hurl                      # run as test suite"
+        - "hurl --json session.hurl                        # JSON output"
+        - "hurl --variable name=value session.hurl         # pass variables"
+      benefits: "Plain-text HTTP definition files, assertions, captures, chaining requests, test mode, HTML report"
+
+  - name: httpie-oauth
+    package: httpyac
+    binary: httpyac
+    description: "HTTP/REST CLI client — multi-file HTTP request runner with variables and auth"
+    homepage: "https://github.com/AnWeber/httpyac"
+    license: MIT
+    install_methods:
+      - method: pip
+        package: httpyac
+      - method: brew
+        package: httpyac
+    openclaw_usage:
+      replace: "curl + scripts, Postman CLI"
+      examples:
+        - "httpyac send api.http                           # send request from file"
+        - "httpyac send --all api.http                     # send all requests in file"
+        - "httpyac send --filter @auth api.http            # filter by line filter"
+        - "httpyac send --env prod api.http                # use environment"
+      benefits: "HTTP file format, environments, variables, OAuth/JWT support, response validation, VS Code integration"
+
+  - name: step
+    package: step-cli
+    binary: step
+    description: "Crypto and certificate management CLI — TLS/SSH/JWK/JWT/x509 Swiss army knife"
+    homepage: "https://github.com/smallstep/cli"
+    license: Apache-2.0
+    install_methods:
+      - method: brew
+        package: step
+      - method: github_release
+        package: smallstep/cli#step
+    openclaw_usage:
+      replace: "openssl, keytool, manual certificate management"
+      examples:
+        - "step certificate create root ca.crt ca.key      # create root CA"
+        - "step certificate verify --roots ca.crt cert.crt # verify certificate"
+        - "step crypto jwt sign --key key.jwk              # sign JWT"
+        - "step ssh certificate user@host id_ecdsa         # issue SSH cert"
+      benefits: "TLS certificate management, JWT/JWK operations, SSH certificates, ACME protocol, smallstep CA integration"
+
+  - name: grpcurl
+    package: grpcurl
+    binary: grpcurl
+    description: "Command-line gRPC client — like curl but for gRPC services"
+    homepage: "https://github.com/fullstorydev/grpcurl"
+    license: MIT
+    install_methods:
+      - method: brew
+        package: grpcurl
+      - method: go
+        package: github.com/fullstorydev/grpcurl/cmd/grpcurl@latest
+    openclaw_usage:
+      replace: "custom gRPC test clients"
+      examples:
+        - "grpcurl -plaintext localhost:5000 list          # list services"
+        - "grpcurl -plaintext localhost:5000 describe       # describe service"
+        - "grpcurl -d '{\"name\":\"test\"}' localhost:5000 api.Method # call method"
+        - "grpcurl -plaintext -import-path proto/ localhost:5000 list"
+      benefits: "gRPC service discovery, reflection, JSON input/output, TLS/plaintext, proto file support"

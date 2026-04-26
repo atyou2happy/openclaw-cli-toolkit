@@ -1,0 +1,185 @@
+category: text-processing
+description: "Text processing, transformation, and manipulation tools"
+tools:
+  - name: sd
+    package: sd
+    binary: sd
+    description: "Intuitive find & replace CLI — sed alternative with regex support and literal strings"
+    homepage: "https://github.com/chmln/sd"
+    license: MIT
+    install_methods:
+      - method: brew
+        package: sd
+      - method: cargo
+        package: sd
+    openclaw_usage:
+      replace: "sed -i, perl -pi"
+      examples:
+        - "sd 'old' 'new' file.txt                        # replace in file"
+        - "sd -p 'before' 'after' file.txt                 # literal (not regex) replace"
+        - "echo 'hello world' | sd 'world' 'OpenClaw'      # pipe mode"
+        - "sd 'from \\d+' 'to 42' file.txt                  # regex capture groups"
+        - "sd -f 'pattern.txt' 'replacement' file.txt       # read pattern from file"
+      benefits: "Rust-fast, literal mode (-p) avoids regex escaping, file in-place edit, stdin pipe, capture groups"
+
+  - name: gum
+    package: gum
+    binary: gum
+    description: "Glamorous shell scripts — TUI widgets for prompts, spinners, tables, markdown in terminal"
+    homepage: "https://github.com/charmbracelet/gum"
+    license: MIT
+    install_methods:
+      - method: brew
+        package: gum
+      - method: go
+        package: github.com/charmbracelet/gum@latest
+    openclaw_usage:
+      replace: "read/select/echo for interactive scripts, dialog, whiptail"
+      examples:
+        - "gum input --placeholder 'Enter name'            # text input"
+        - "gum choose 'Option A' 'Option B' 'Option C'     # single select"
+        - "gum confirm 'Proceed?' && echo 'OK'              # yes/no prompt"
+        - "gum spin --spinner dot --title 'Loading' -- sleep 5"
+        - "gum style --border double 'Important!'           # styled box"
+        - "gum table < data.tsv                             # render table"
+        - "gum write --width 60 > note.md                   # multi-line editor"
+      benefits: "Beautiful TUI widgets, prompts, spinners, tables, markdown rendering, styled output, shell scripting enhanced"
+
+  - name: jnv
+    package: jnv
+    binary: jnv
+    description: "Interactive JSON navigator and jq filter builder — live preview jq queries"
+    homepage: "https://github.com/ynqa/jnv"
+    license: MIT
+    install_methods:
+      - method: brew
+        package: jnv
+      - method: cargo
+        package: jnv
+    openclaw_usage:
+      replace: "jq interactive trial-and-error, online jq testers"
+      examples:
+        - "cat data.json | jnv                             # interactive JSON explorer"
+        - "jnv data.json                                   # open file directly"
+        - "curl -s api/data.json | jnv                     # explore API response"
+      benefits: "Interactive jq filter builder, live preview, syntax highlighting, auto-complete, explore large JSON easily"
+
+  - name: choose
+    package: choose
+    binary: choose
+    description: "Human-friendly and fast alternative to cut and awk for column extraction"
+    homepage: "https://github.com/theryangeary/choose"
+    license: GPL-3.0
+    install_methods:
+      - method: brew
+        package: choose
+      - method: cargo
+        package: choose
+    openclaw_usage:
+      replace: "cut -d, awk '{print $N}', column extraction"
+      examples:
+        - "echo 'a,b,c' | choose -f ',' 0                  # first field (0-indexed)"
+        - "echo 'a,b,c' | choose -f ',' 1:                 # from second field to end"
+        - "cat data.csv | choose -f ',' 0 2                 # fields 0 and 2"
+        - "echo 'a  b  c' | choose 1                        # field by whitespace"
+        - "cat file.txt | choose -f ':' -1                  # last field"
+      benefits: "0-indexed fields, range syntax (1:3), negative indexing, custom separator, Rust-fast, replaces cut/awk for column extraction"
+
+  - name: huniq
+    package: huniq
+    binary: huniq
+    description: "Fast duplicate line removal — much faster than sort -u or uniq"
+    homepage: "https://github.com/koraa/huniq"
+    license: MIT
+    install_methods:
+      - method: brew
+        package: huniq
+      - method: cargo
+        package: huniq
+    openclaw_usage:
+      replace: "sort -u, sort | uniq"
+      examples:
+        - "cat data.txt | huniq                             # remove duplicate lines"
+        - "cat a.txt b.txt | huniq                          # deduplicate across files"
+        - "rg -l 'pattern' | huniq                          # deduplicate file list"
+      benefits: "Order-preserving dedup, 10-100x faster than sort -u, minimal memory, pipe-friendly"
+
+  - name: grep-ast
+    package: grep-ast
+    binary: grep-ast
+    description: "Grep for source code with AST awareness — understands function/block boundaries"
+    homepage: "https://github.com/paul-gauthier/grep-ast"
+    license: Apache-2.0
+    install_methods:
+      - method: pip
+        package: grep-ast
+    openclaw_usage:
+      replace: "grep -C, ripgrep context lines"
+      examples:
+        - "grep-ast 'pattern' file.py                      # search with AST context"
+        - "grep-ast --language python 'class Foo' src/      # language-specific"
+        - "grep-ast 'TODO' src/                             # find TODOs with context"
+      benefits: "AST-aware context, shows enclosing function/class, language-specific parsing, better context than grep -C"
+
+  - name: repgrep
+    package: repgrep
+    binary: rgr
+    description: "Interactive ripgrep — ripgrep results with file preview and quick navigation"
+    homepage: "https://github.com/acheronfail/repgrep"
+    license: GPL-3.0
+    install_methods:
+      - method: brew
+        package: repgrep
+      - method: cargo
+        package: repgrep
+    openclaw_usage:
+      replace: "rg + manual file opening"
+      examples:
+        - "rgr 'pattern'                                    # interactive rg with preview"
+        - "rgr -t rust 'fn main'                            # search Rust files"
+        - "rgr --glob '*.yaml' 'key:'                       # search YAML files"
+      benefits: "Interactive ripgrep results, file preview, quick jump to editor, combines rg + fzf-like UX"
+
+  - name: tabulate
+    package: tabulate
+    binary: tabulate
+    description: "Python CLI to pretty-print tabular data in various formats (Markdown, RST, HTML, etc.)"
+    homepage: "https://github.com/astanin/python-tabulate"
+    license: MIT
+    install_methods:
+      - method: pip
+        package: tabulate
+      - method: apt
+        package: python3-tabulate
+      - method: brew
+        package: python-tabulate
+    openclaw_usage:
+      replace: "manual table formatting, column command"
+      examples:
+        - "cat data.csv | python3 -m tabulate               # pretty CSV as table"
+        - "cat data.csv | python3 -m tabulate -f markdown    # CSV to Markdown table"
+        - "cat data.csv | python3 -m tabulate -f rst         # CSV to RST table"
+        - "cat data.csv | python3 -m tabulate -f github      # GitHub-flavored table"
+        - "cat data.tsv | python3 -m tabulate -s 2           # tab-separated input"
+      benefits: "Many output formats (Markdown, RST, HTML, grid, etc.), auto-column-width, header support, pipe-friendly"
+
+  - name: ugrep
+    package: ugrep
+    binary: ug
+    description: "Ultra-fast text search with Unicode awareness — ripgrep-compatible, more features"
+    homepage: "https://github.com/Genivia/ugrep"
+    license: BSD-3-Clause
+    install_methods:
+      - method: brew
+        package: ugrep
+      - method: apt
+        package: ugrep
+    openclaw_usage:
+      replace: "grep, ripgrep (for Unicode-heavy text)"
+      examples:
+        - "ug 'pattern' /path                               # search like rg"
+        - "ug -r 'TODO|FIXME' src/                           # recursive with regex"
+        - "ug -Q 'literal string' /path                      # literal search"
+        - "ug --csv 'pattern' data.csv                       # search in CSV"
+        - "ug -t py 'pattern'                                # file type filter"
+      benefits: "Unicode-aware search, nested archive search (zip/tar.gz), PDF/DOCX search, ripgrep-compatible flags, faster on large files"

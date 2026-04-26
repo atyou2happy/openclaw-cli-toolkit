@@ -66,3 +66,49 @@ tools:
         - "pass generate email/new 20         # generate password"
       benefits: "GPG-encrypted passwords, Git versioning, extensibility"
     config: []
+
+  - name: bitwarden-cli
+    package: bitwarden-cli
+    binary: bw
+    description: "Bitwarden CLI — access your Bitwarden vault from the command line"
+    homepage: "https://github.com/bitwarden/clients"
+    license: GPL-3.0
+    install_methods:
+      - method: brew
+        package: bitwarden-cli
+      - method: npm
+        package: "@bitwarden/cli"
+    openclaw_usage:
+      replace: "Bitwarden web UI"
+      examples:
+        - "bw login                              # login"
+        - "bw sync                              # sync vault"
+        - "bw list items                        # list passwords"
+        - "bw get password github.com           # get password"
+        - "bw generate --length 20              # generate password"
+        - "bw encode                            # base64 encode"
+      benefits: "Script vault access, automate credential retrieval, CI/CD integration"
+    config: []
+
+  - name: vault
+    package: vault
+    binary: vault
+    description: "HashiCorp Vault CLI — manage secrets, encrypt data, access dynamic credentials"
+    homepage: "https://www.vaultproject.io/"
+    license: MPL-2.0
+    install_methods:
+      - method: brew
+        package: vault
+      - method: apt
+        package: vault
+    openclaw_usage:
+      replace: "environment variables, config files for secrets"
+      examples:
+        - "vault kv get secret/myapp            # get secret"
+        - "vault kv put secret/myapp key=value # put secret"
+        - "vault kv list secret/              # list secrets"
+        - "vault login -method=userpass       # login"
+        - "vault token create                   # create token"
+        - "vault status                        # check status"
+      benefits: "Centralized secrets, dynamic credentials, encryption as service, audit logging"
+    config: []

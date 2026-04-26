@@ -9,8 +9,8 @@
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"/></a>
-  <img src="https://img.shields.io/badge/Tools-87+-brightgreen.svg" alt="Tools: 87+"/>
-  <img src="https://img.shields.io/badge/Categories-19-blue.svg" alt="19 Categories"/>
+  <img src="https://img.shields.io/badge/Tools-140+-brightgreen.svg" alt="Tools: 140+"/>
+  <img src="https://img.shields.io/badge/Categories-26-blue.svg" alt="26 Categories"/>
   <img src="https://img.shields.io/badge/Shell-Bash%20%7C%20Zsh%20%7C%20Fish-orange.svg" alt="Shell Support"/>
   <a href="README_CN.md">中文文档</a>
 </p>
@@ -30,8 +30,10 @@ Every tool is:
 
 ## Features
 
-- **19 categories** of tools — search, viewing, data, system, network, git,              terminal, dev, security, archive, docs, download, ai, latex, formats,
-             container, database, media, diagram, container, database, media, diagram, formats, latex
+- **26 categories** of tools — search, viewing, data, system, network, git,
+             terminal, dev, security, archive, docs, download, ai, latex, formats,
+             container, database, media, diagram, api-testing, text-processing,
+             kubernetes, golang, observability, git-helpers, testing
 - **One-click install** — automatic system detection (WSL2 / Linux / macOS)
 - **Config-driven** — `config.yaml` controls exactly which tools get installed
 - **Shell-aware** — auto-detects bash / zsh / fish and configures accordingly
@@ -112,7 +114,7 @@ openclaw-cli-toolkit/
 │   ├── configurator.sh     # Shell aliases, tool configs, integrations
 │   ├── generator.py        # Generate openclaw-tools.yaml for agents
 │   └── parse_tools.py      # Parse tool YAML + config filtering
-├── tools/                  # Tool definitions (13 YAML files)
+├── tools/                  # Tool definitions (26 YAML files)
 │   ├── search.yaml
 │   ├── viewer.yaml
 │   ├── data.yaml
@@ -131,7 +133,14 @@ openclaw-cli-toolkit/
 │   ├── container.yaml
 │   ├── database.yaml
 │   ├── media.yaml
-│   └── diagram.yaml
+│   ├── diagram.yaml
+│   ├── api-testing.yaml
+│   ├── text-processing.yaml
+│   ├── kubernetes.yaml
+│   ├── golang.yaml
+│   ├── observability.yaml
+│   ├── git-helpers.yaml
+│   └── testing.yaml
 ├── tests/
 │   ├── test_install.sh     # Structure & syntax tests
 │   └── test_tools.sh       # Tool functionality tests
@@ -190,6 +199,13 @@ openclaw-cli-toolkit/
 | 🗄️ Database | sqlite3, usql | GUI database tools |
 | 🎨 Media | imagemagick, exiftool, ffmpeg | GUI media editors |
 | 📐 Diagram | d2, graphviz | manual diagram drawing |
+| 🧪 API Testing | wrk, hey, oha, hurl, grpcurl | ab, siege, manual API testing |
+| ✂️ Text Processing | sd, gum, choose, grep-ast, tabulate | sed, cut, manual text transforms |
+| ☸️ Kubernetes | kubectl, helm, k9s, stern | kubectl, helm |
+| 🦬 Go Dev | golangci-lint, goimports, staticcheck | go vet |
+| 📊 Observability | stern, ctop, glances | top, htop |
+| 🔀 Git Helpers | git-lfs, ghq, myrepos | git submodule |
+| 🧪 Testing | bats, coverage, junit2html | manual testing |
 
 **Installation priority**: `apt` > `brew` > `cargo` > `pip` > `go install`
 

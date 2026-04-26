@@ -1,0 +1,132 @@
+category: kubernetes
+description: "Kubernetes container orchestration tools — kubectl, helm, and cluster utilities"
+tools:
+  - name: kubectl
+    package: kubectl
+    binary: kubectl
+    description: "Kubernetes control CLI — manage clusters, deploy applications, inspect resources"
+    homepage: "https://kubernetes.io/docs/reference/kubectl/"
+    license: Apache-2.0
+    install_methods:
+      - method: apt
+        package: kubectl
+      - method: brew
+        package: kubectl
+    openclaw_usage:
+      replace: "kubectl (required for K8s)"
+      examples:
+        - "kubectl get pods -n default              # list pods"
+        - "kubectl apply -f deployment.yaml         # apply config"
+        - "kubectl describe pod myapp                # describe pod"
+        - "kubectl logs -f myapp-xxx -n mynamespace  # tail logs"
+        - "kubectl exec -it myapp -- /bin/sh         # shell into pod"
+        - "kubectl port-forward myapp 8080:80        # port forward"
+        - "kubectl top pods --sort-by=memory         # resource usage"
+      benefits: "Essential K8s management, AI agents can manage containerized applications"
+    config: []
+
+  - name: helm
+    package: helm
+    binary: helm
+    description: "Kubernetes package manager — install, upgrade, and manage K8s applications"
+    homepage: "https://helm.sh/"
+    license: Apache-2.0
+    install_methods:
+      - method: apt
+        package: helm
+      - method: brew
+        package: helm
+    openclaw_usage:
+      replace: "manual K8s manifest management"
+      examples:
+        - "helm install myapp ./chart               # install chart"
+        - "helm upgrade myapp ./chart               # upgrade release"
+        - "helm list                               # list releases"
+        - "helm values myapp > values.yaml          # dump values"
+        - "helm template ./chart                    # render templates"
+        - "helm repo add bitnami https://charts.bitnami.com"
+        - "helm search repo nginx                    # search charts"
+      benefits: "Deploy complex apps with one command, versioned releases, rollback support"
+    config: []
+
+  - name: k9s
+    package: k9s
+    binary: k9s
+    description: "Terminal UI for Kubernetes — navigate clusters with a powerful TUI"
+    homepage: "https://k9scli.io/"
+    license: Apache-2.0
+    install_methods:
+      - method: brew
+        package: k9s
+      - method: apt
+        package: k9s
+    openclaw_usage:
+      replace: "kubectl dashboard"
+      examples:
+        - "k9s                                   # launch TUI"
+        - "k9s --context prod                    # specific context"
+        - "k9s --namespace myns                  # specific namespace"
+      benefits: "Visual K8s management without browser, quick navigation, resource inspection"
+    config: []
+
+  - name: popeye
+    package: popeye
+    binary: popeye
+    description: "Kubernetes cluster sanitizer — scans clusters and reports potential issues"
+    homepage: "https://popeyecli.io/"
+    license: Apache-2.0
+    install_methods:
+      - method: brew
+        package: popeye
+      - method: go
+        package: github.com/derailed/popeye/cmd/popeye@latest
+    openclaw_usage:
+      replace: "manual K8s audit"
+      examples:
+        - "popeye -n default                     # scan namespace"
+        - "popeye --cluster-context mycluster   # scan cluster"
+        - "popeye -o json > report.json         # JSON output"
+      benefits: "Detect misconfigurations, unused resources, security issues in K8s clusters"
+    config: []
+
+  - name: stern
+    package: stern
+    binary: stern
+    description: "Multi-pod and multi-container log tailing for Kubernetes"
+    homepage: "https://github.com/stern/stern"
+    license: Apache-2.0
+    install_methods:
+      - method: brew
+        package: stern
+      - method: go
+        package: github.com/stern/stern@latest
+    openclaw_usage:
+      replace: "kubectl logs (limited to single pod)"
+      examples:
+        - "stern myapp                           # tail all myapp pods"
+        - "stern myapp -n mynamespace            # specific namespace"
+        - "stern myapp --since 10m               # last 10 minutes"
+        - "stern myapp -c main                   # specific container"
+        - "stern '(myapp|other)'                # regex match"
+      benefits: "Tail logs from multiple pods simultaneously, color-coded output, regex filtering"
+    config: []
+
+  - name: kubectx
+    package: kubectx
+    binary: kubectx
+    description: "Switch between Kubernetes contexts and namespaces with ease"
+    homepage: "https://github.com/ahmetb/kubectx"
+    license: Apache-2.0
+    install_methods:
+      - method: brew
+        package: kubectx
+    openclaw_usage:
+      replace: "kubectl config use-context"
+      examples:
+        - "kubectx                              # list contexts"
+        - "kubectx prod                         # switch to prod"
+        - "kubectx -                            # switch to previous"
+        - "kubens                              # list namespaces"
+        - "kubens default                       # switch namespace"
+      benefits: "Quick context/namespace switching, no long kubectl commands needed"
+    config: []

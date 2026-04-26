@@ -143,6 +143,8 @@ tools:
         package: lychee
       - method: brew
         package: lychee
+      - method: github_release
+        package: lycheeverse/lychee#lychee
     openclaw_usage:
       replace: "manual link verification"
       examples:

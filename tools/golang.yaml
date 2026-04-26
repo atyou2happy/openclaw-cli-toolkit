@@ -1,0 +1,140 @@
+category: golang
+description: "Go programming language tools — linting, formatting, and development utilities"
+tools:
+  - name: golangci-lint
+    package: golangci-lint
+    binary: golangci-lint
+    description: "Go linter aggregator — run multiple linters in one command"
+    homepage: "https://golangci-lint.run/"
+    license: BSD-3-Clause
+    install_methods:
+      - method: brew
+        package: golangci-lint
+      - method: go
+        package: github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+      - method: cargo
+        package: golangci-lint
+    openclaw_usage:
+      replace: "go vet, staticcheck (individual tools)"
+      examples:
+        - "golangci-lint run ./...               # lint all packages"
+        - "golangci-lint run --disable-all -E gosec ./...  # specific linter"
+        - "golangci-lint cache status            # check cache"
+        - "golangci-lint help linters           # list available linters"
+      benefits: "40+ linters in one tool, fast (caches results), auto-fixes many issues"
+    config: []
+
+  - name: staticcheck
+    package: staticcheck
+    binary: staticcheck
+    description: "Go static analysis — advanced static analysis for Go code"
+    homepage: "https://staticcheck.dev/"
+    license: MIT
+    install_methods:
+      - method: go
+        package: honnef.co/go/tools/cmd/staticcheck@latest
+    openclaw_usage:
+      replace: "go vet (limited scope)"
+      examples:
+        - "staticcheck ./...                     # analyze all packages"
+        - "staticcheck -f text ./...             # text output"
+        - "staticcheck -f json ./...            # JSON output"
+        - "staticcheck -f gccgo ./...           # GCCGo output"
+      benefits: "Finds bugs, performance issues, and code smells that go vet misses"
+    config: []
+
+  - name: goimports
+    package: goimports
+    binary: goimports
+    description: "Go import manager — formats Go code and manages imports automatically"
+    homepage: "https://pkg.go.dev/golang.org/x/tools/cmd/goimports"
+    license: BSD-3-Clause
+    install_methods:
+      - method: go
+        package: golang.org/x/tools/cmd/goimports@latest
+    openclaw_usage:
+      replace: "gofmt (only formatting)"
+      examples:
+        - "goimports -w file.go                # format and write"
+        - "goimports -l .                      # list files needing formatting"
+        - "goimports -d file.go                # show diff"
+      benefits: "Combines gofmt + adds/removes imports, keeps imports organized"
+    config: []
+
+  - name: godef
+    package: godef
+    binary: godef
+    description: "Go to definition — jump to definition of symbols in Go code"
+    homepage: "https://github.com/dominikh/go-tools/tree/master/cmd/godef"
+    license: BSD-3-Clause
+    install_methods:
+      - method: go
+        package: github.com/dominikh/go-tools/cmd/godef@latest
+    openclaw_usage:
+      replace: "manual file searching for definitions"
+      examples:
+        - "godef file.go:10                    # find definition at line 10"
+        - "godef -t file.go:10                 # show type"
+        - "echo 'main.Func' | godef           # pipe mode"
+      benefits: "Quickly navigate Go codebases, find symbol definitions"
+    config: []
+
+  - name: gore
+    package: gore
+    binary: gore
+    description: "Go REPL — interactive Read-Eval-Print loop for Go"
+    homepage: "https://github.com/x-motemen/gore"
+    license: MIT
+    install_methods:
+      - method: go
+        package: github.com/x-motemen/gore/cmd/gore@latest
+    openclaw_usage:
+      replace: "go run (for experimentation)"
+      examples:
+        - "gore                                 # start REPL"
+        - ":type <expr>                        # show type"
+        - ":import <pkg>                       # import package"
+        - ":print <expr>                       # show expression"
+      benefits: "Experiment with Go code interactively, test snippets without files"
+    config: []
+
+  - name: ginkgo
+    package: ginkgo
+    binary: ginkgo
+    description: "Go BDD testing framework — behavioral-driven development testing"
+    homepage: "https://onsi.github.io/ginkgo/"
+    license: MIT
+    install_methods:
+      - method: go
+        package: github.com/onsi/ginkgo/v2/ginkgo@latest
+    openclaw_usage:
+      replace: "go test (basic)"
+      examples:
+        - "ginkgo generate mytest              # generate test"
+        - "ginkgo                              # run tests"
+        - "ginkgo -v                           # verbose"
+        - "ginkgo --focus='TestMyFunc'        # run specific test"
+        - "ginkgo bootstrap                   # initialize package"
+      benefits: "BDD-style tests with readable specs, rich matchers, parallel execution"
+    config: []
+
+  - name: buf
+    package: buf
+    binary: buf
+    description: "Protocol buffers linter and formatter — validate and lint .proto files"
+    homepage: "https://buf.build/"
+    license: Apache-2.0
+    install_methods:
+      - method: brew
+        package: buf
+      - method: go
+        package: github.com/bufbuild/buf/cmd/buf@latest
+    openclaw_usage:
+      replace: "protoc (no linting)"
+      examples:
+        - "buf lint proto/                     # lint proto files"
+        - "buf format -w                       # format proto files"
+        - "buf breaking proto/ --against .gitref  # check breaking changes"
+        - "buf lint --config buf.yaml          # custom config"
+      benefits: "Catch protobuf issues early, enforce style guide, detect breaking changes"
+    config: []

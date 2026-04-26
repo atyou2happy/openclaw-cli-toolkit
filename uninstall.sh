@@ -63,7 +63,7 @@ uninstall_via_apt() {
 	local count=0
 	for tool in "${tools[@]}"; do
 		if dpkg -l "$tool" &>/dev/null 2>&1; then
-			sudo apt-get remove -y "$tool" 2>/dev/null && count=$((count + 1)) || true
+			apt-get remove -y "$tool" 2>/dev/null && count=$((count + 1)) || true
 		fi
 	done
 	ok "Removed $count packages via apt"

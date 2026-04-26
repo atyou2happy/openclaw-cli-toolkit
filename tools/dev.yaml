@@ -158,3 +158,43 @@ tools:
         - "uv pip sync requirements.txt              # sync exact versions"
         - "uv run --with pyyaml python3 script.py    # run with deps"
       benefits: "10-100x faster than pip, unified tool for install/venv/lock, drop-in pip replacement"
+
+  - name: linkify
+    package: lfy
+    binary: lfy
+    description: "Make file:line references clickable in terminal — pipe test output to get OSC8 hyperlinks"
+    homepage: "https://github.com/mikecsmith/linkify"
+    license: MIT
+    install_methods:
+      - method: go
+        package: github.com/mikecsmith/linkify/cmd/lfy@latest
+    openclaw_usage:
+      replace: "manual file navigation from test output"
+      examples:
+        - "go test ./... 2>&1 | lfy       # clickable Go test output"
+        - "pnpm test 2>&1 | lfy           # clickable Jest/Vitest output"
+        - "cargo test 2>&1 | lfy          # clickable Rust test output"
+        - "pytest 2>&1 | lfy              # clickable Python test output"
+        - "lfy --dry-run                   # show matched URLs as text"
+      benefits: "Click file:line to jump to editor, supports go test/jest/pytest/cargo test, nvim/VS Code/Zed integration"
+    config: []
+
+  - name: buf
+    package: buf
+    binary: buf
+    description: "Protocol buffers linter and formatter — validate and lint .proto files"
+    homepage: "https://buf.build/"
+    license: Apache-2.0
+    install_methods:
+      - method: brew
+        package: buf
+      - method: go
+        package: github.com/bufbuild/buf/cmd/buf@latest
+    openclaw_usage:
+      replace: "protoc (no linting)"
+      examples:
+        - "buf lint proto/                     # lint proto files"
+        - "buf format -w                       # format proto files"
+        - "buf breaking proto/ --against .gitref  # check breaking changes"
+        - "buf lint --config buf.yaml          # custom config"
+      benefits: "Catch protobuf issues early, enforce style guide, detect breaking changes"

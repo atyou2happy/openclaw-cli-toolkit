@@ -1,0 +1,109 @@
+category: observability
+description: "System monitoring, logging, and observability tools"
+tools:
+  - name: stern
+    package: stern
+    binary: stern
+    description: "Tail multiple pods and containers in Kubernetes with color-coded output"
+    homepage: "https://github.com/stern/stern"
+    license: Apache-2.0
+    install_methods:
+      - method: brew
+        package: stern
+      - method: go
+        package: github.com/stern/stern@latest
+    openclaw_usage:
+      replace: "kubectl logs (single pod only)"
+      examples:
+        - "stern myapp                           # tail all myapp pods"
+        - "stern myapp --since 10m               # last 10 minutes"
+        - "stern myapp -c main                   # specific container"
+        - "stern '(myapp|other)'                # regex match"
+      benefits: "Multi-pod log tailing, color-coded, regex filtering, timestamps"
+    config: []
+
+  - name: logcli
+    package: logcli
+    binary: logcli
+    description: "CLI for Grafana Loki — query and stream logs from Loki"
+    homepage: "https://grafana.com/docs/loki/latest/tools/logcli/"
+    license: AGPL-3.0
+    install_methods:
+      - method: brew
+        package: logcli
+      - method: go
+        package: github.com/grafana/loki/cmd/logcli@latest
+    openclaw_usage:
+      replace: "Grafana UI for log queries"
+      examples:
+        - "logcli query '{app=\"myapp\"}'        # query logs"
+        - "logcli query '{app=\"myapp\"}' --tail # stream live"
+        - "logcli query '{app=\"myapp\"}' --from 2024-01-01T00:00:00Z"
+        - "logcli labels                           # list available labels"
+      benefits: "Script log queries, automate log extraction, CI/CD integration"
+    config: []
+
+  - name: promtool
+    package: promtool
+    binary: promtool
+    description: "Prometheus CLI toolkit — validate configs, test rules, analyze metrics"
+    homepage: "https://prometheus.io/docs/prometheus/latest/configuration/unit_testing/"
+    license: Apache-2.0
+    install_methods:
+      - method: brew
+        package: prometheus
+      - method: go
+        package: github.com/prometheus/prometheus/cmd/promtool@latest
+    openclaw_usage:
+      replace: "manual Prometheus config validation"
+      examples:
+        - "promtool check config prometheus.yml    # validate config"
+        - "promtool test rules alerts.yml         # test alerting rules"
+        - "promtool dump metrics                  # dump metrics"
+        - "promtool tsdb analyze data/           # analyze TSDB"
+      benefits: "Validate configs before reload, test alerting rules, analyze time series"
+    config: []
+
+  - name: ctop
+    package: ctop
+    binary: ctop
+    description: "Top-like interface for container metrics — monitor Docker/Containerd metrics"
+    homepage: "https://github.com/bcicen/ctop"
+    license: MIT
+    install_methods:
+      - method: brew
+        package: ctop
+      - method: apt
+        package: ctop
+    openclaw_usage:
+      replace: "docker stats (basic)"
+      examples:
+        - "ctop                               # launch TUI"
+        - "ctop -d 5                         # 5 second refresh"
+        - "ctop -scale always                # always scale containers"
+      benefits: "Visual container monitoring, quick resource inspection, stream multiple containers"
+    config: []
+
+  - name: glances
+    package: glances
+    binary: glances
+    description: "Cross-platform system monitoring — CPU, memory, disk, network, processes"
+    homepage: "https://nicolargo.github.io/glances/"
+    license: LGPL-3.0
+    install_methods:
+      - method: apt
+        package: glances
+      - method: brew
+        package: glances
+      - method: pip
+        package: glances
+    openclaw_usage:
+      replace: "top, htop, free, df (multiple tools)"
+      examples:
+        - "glances                            # launch TUI"
+        - "glances --web                      # web server mode"
+        - "glances --export csv --output /tmp/metrics.csv"
+        - "glances -t 5                       # 5 second refresh"
+        - "glances -c 10                      # cpu warning at 10%"
+      benefits: "All-in-one monitoring, exports to CSV/JSON/REST, alerts, cross-platform"
+    config: []

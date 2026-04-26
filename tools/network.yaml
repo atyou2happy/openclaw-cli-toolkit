@@ -131,3 +131,46 @@ tools:
         - "gping google.com cloudflare.com          # ping multiple hosts"
         - "gping --buffer 30 google.com             # 30 data points"
       benefits: "Real-time latency graph, compare multiple hosts, visual network diagnostics"
+    config: []
+
+  - name: mtr
+    package: mtr
+    binary: mtr
+    description: "Network diagnostic tool — combines ping and traceroute into a single tool"
+    homepage: "https://www.bitwizard.nl/mtr/"
+    license: GPL-2.0
+    install_methods:
+      - method: apt
+        package: mtr
+      - method: brew
+        package: mtr
+    openclaw_usage:
+      replace: "ping + traceroute (two tools)"
+      examples:
+        - "mtr google.com                        # trace with statistics"
+        - "mtr -r google.com                   # report mode"
+        - "mtr -b google.com                   # both modes"
+        - "mtr -w google.com                   # wide report"
+      benefits: "Combines ping and traceroute, shows latency and packet loss per hop, real-time updates"
+    config: []
+
+  - name: nmap
+    package: nmap
+    binary: nmap
+    description: "Network exploration and security auditing tool — port scanner"
+    homepage: "https://nmap.org/"
+    license: GPL-2.0
+    install_methods:
+      - method: apt
+        package: nmap
+      - method: brew
+        package: nmap
+    openclaw_usage:
+      replace: "manual port checking"
+      examples:
+        - "nmap -sV localhost                  # version scan"
+        - "nmap -p 80,443 localhost          # scan ports"
+        - "nmap -O localhost                 # OS detection"
+        - "nmap -sP 192.168.1.0/24          # ping sweep"
+        - "nmap --top-ports 20 localhost     # top ports"
+      benefits: "Port scanning, service detection, OS detection, network inventory, security auditing"

@@ -1,0 +1,90 @@
+category: git-helpers
+description: "Git workflow enhancement tools — large files, repo management, history rewriting"
+tools:
+  - name: git-lfs
+    package: git-lfs
+    binary: git-lfs
+    description: "Git Large File Storage — manage large files in Git repositories"
+    homepage: "https://git-lfs.github.com/"
+    license: MIT
+    install_methods:
+      - method: apt
+        package: git-lfs
+      - method: brew
+        package: git-lfs
+    openclaw_usage:
+      replace: "git annex, submodule, or external storage"
+      examples:
+        - "git lfs install                       # initialize"
+        - "git lfs track '*.psd'               # track file types"
+        - "git lfs ls-files                    # list tracked files"
+        - "git lfs pull                        # pull LFS files"
+        - "git lfs fetch                       # fetch LFS objects"
+        - "git lfs push                        # push LFS objects"
+      benefits: "Store large files (images, binaries) in Git without repo bloat"
+    config: []
+
+  - name: ghq
+    package: ghq
+    binary: ghq
+    description: "Git repository management — clone, list, and organize Git repositories"
+    homepage: "https://github.com/x-motemen/ghq"
+    license: MIT
+    install_methods:
+      - method: brew
+        package: ghq
+      - method: go
+        package: github.com/x-motemen/ghq/cmd/ghq@latest
+    openclaw_usage:
+      replace: "manual git clone directory management"
+      examples:
+        - "ghq get github.com/user/repo       # clone to organized dir"
+        - "ghq list                          # list all repos"
+        - "ghq list --full-path             # show full paths"
+        - "ghq root                          # show root directory"
+      benefits: "Organized clone directory, quick repo access, prevents duplicate clones"
+    config: []
+
+  - name: git-filter-repo
+    package: git-filter-repo
+    binary: git-filter-repo
+    description: "History rewriting tool — rewrite Git history surgically"
+    homepage: "https://github.com/newren/git-filter-repo/"
+    license: MIT
+    install_methods:
+      - method: pip
+        package: git-filter-repo
+      - method: brew
+        package: git-filter-repo
+    openclaw_usage:
+      replace: "git filter-branch (complex)"
+      examples:
+        - "git filter-repo --path-rename 'old:new'  # rename path"
+        - "git filter-repo --path foo --invert-paths # remove file"
+        - "git filter-repo --commit-callback '...'"
+      benefits: "Fast history rewriting, remove large files, restructure repos"
+    config: []
+
+  - name: myrepos
+    package: myrepos
+    binary: mr
+    description: "Multi-repo management — operate on multiple repositories at once"
+    homepage: "https://myrepos.branchable.com/"
+    license: GPL-2.0
+    install_methods:
+      - method: apt
+        package: myrepos
+      - method: brew
+        package: myrepos
+      - method: pip
+        package: myrepos
+    openclaw_usage:
+      replace: "shell loops over git directories"
+      examples:
+        - "mr register                          # register current repo"
+        - "mr status                            # status all repos"
+        - "mr update                            # pull all repos"
+        - "mr checkout 'branch'                 # checkout branch in all"
+        - "mr log                               # log all repos"
+      benefits: "Manage hundreds of repos with single commands, scripted workflows"
+    config: []

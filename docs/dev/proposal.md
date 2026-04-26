@@ -1,81 +1,170 @@
-# Proposal: OpenClaw CLI Toolkit v2.0 — 全面升级
+# Proposal: OpenClaw CLI Toolkit v4.0 — Expand Tool Ecosystem
 
-> 项目代号: `openclaw-cli-toolkit` | 模式: Full | 开源: MIT
+> Project: `openclaw-cli-toolkit` | Mode: Full | License: MIT
 
-## 目标
+## 1. Summary & Vision
 
-将 OpenClaw CLI Toolkit 从 v1.0 升级到 v2.0，修复所有已知安全漏洞、架构缺陷、代码质量问题，并增加关键功能。
+Upgrade OpenClaw CLI Toolkit from v3.1.0 (21 categories, 107 tools) to v4.0 with **5 new categories** and **35+ new tools**, targeting 140+ tools total. Focus on tools that directly enhance AI coding agent capabilities: language-specific linters, build systems, testing frameworks, observability, and git workflow enhancers.
 
-## 问题清单
+**Design Philosophy**: Add depth over breadth. Each new tool must provide clear value to an AI agent doing software development tasks.
 
-### P0 — 安全漏洞（必须修复）
-| ID | 问题 | 影响 | 修复方案 |
-|----|------|------|---------|
-| SEC-1 | `state_record`/`parse_yaml_tools` 中shell变量拼接进Python代码 | 命令注入 | 改用环境变量或文件传递数据给Python |
-| SEC-2 | `sudo apt-get install -y` 无包验证 | 恶意包风险 | 添加 `--allow-downgrades` 和 apt源验证 |
+## 2. Problem Statement
 
-### P1 — 架构缺陷（核心重构）
-| ID | 问题 | 修复方案 |
-|----|------|---------|
-| ARCH-1 | install.sh 与 installer.sh 逻辑重复 | install.sh 只做编排，installer.sh 做具体安装 |
-| ARCH-2 | config.yaml 未被读取 | 用Python解析config.yaml过滤工具列表 |
-| ARCH-3 | 并行安装不工作 | 重构为Python驱动（或用xargs + 脚本文件） |
-| ARCH-4 | 每工具4次python3调用解析JSON | 一次解析所有工具，用bash数组存储 |
-| ARCH-5 | 只支持bash配置 | 添加zsh支持（检测shell类型） |
+Current gaps limiting AI agent effectiveness:
 
-### P2 — 代码质量（cleanup）
-| ID | 问题 | 修复方案 |
-|----|------|---------|
-| QUAL-1 | 15+ shellcheck warnings | 全部修复 |
-| QUAL-2 | 未使用变量 | 移除或正确使用 |
-| QUAL-3 | generator.py shutil函数内导入 | 移到模块级 |
-| QUAL-4 | dog 包已废弃 | 替换为 doggo |
-| QUAL-5 | 重复的日志/颜色函数定义 | 提取到 common.sh |
+| Gap | Impact | Solution |
+|-----|--------|----------|
+| No Go/Rust language tools | Can't assist effectively on Go/Rust projects | Add golangci-lint, staticcheck, rust-analyzer, cargo tools |
+| No Kubernetes tools | Can't work with containerized environments | Add kubectl, helm, k9s, popeye |
+| No observability/log tools | Can't debug production issues | Add stern, logcli, promtool |
+| No git workflow enhancers | Git operations less efficient | Add git-lfs, ghq, git-filter-repo |
+| No testing frameworks | Can't run/test code effectively | Add bats, coverage, junit2html |
+| No secrets management | Can't handle sensitive data securely | Add vault, bitwarden-cli |
 
-### P3 — 功能增强
-| ID | 功能 | 方案 |
-|----|------|------|
-| FEAT-1 | go install 安装方法 | 添加 go install 支持 |
-| FEAT-2 | 版本检查 | 安装后验证工具版本 |
-| FEAT-3 | CI/CD | 添加 GitHub Actions |
-| FEAT-4 | CHANGELOG | 添加 CHANGELOG.md |
-| FEAT-5 | 更完善的测试 | 添加 bats 测试框架 |
+## 3. New Categories
 
-## 升级后目录结构
+### 3.1 kubernetes (NEW)
 
-```
-openclaw-cli-toolkit/
-├── README.md
-├── README_CN.md
-├── CHANGELOG.md
-├── LICENSE
-├── install.sh                # 主入口（精简版，只做编排）
-├── uninstall.sh              # 卸载脚本
-├── config.yaml               # 工具选择配置
-├── openclaw-tools.yaml       # 生成的工具描述
-├── src/
-│   ├── common.sh             # 共享函数（日志、颜色、工具函数）
-│   ├── detector.sh           # 系统检测
-│   ├── installer.sh          # 安装逻辑（支持5种包管理器）
-│   ├── configurator.sh       # 工具配置（bash+zsh）
-│   ├── state.sh              # 状态管理（纯bash，无Python依赖）
-│   └── generator.py          # 生成 openclaw-tools.yaml
-├── tools/                    # 工具定义YAML（13类）
-├── .github/
-│   └── workflows/
-│       └── ci.yml            # CI: shellcheck + dry-run + generator
-├── docs/
-│   └── research.md
-└── tests/
-    ├── test_install.sh
-    ├── test_tools.sh
-    └── test_unit.sh          # 单元测试
-```
+**Rationale**: Kubernetes is standard for container orchestration. AI agents need kubectl, helm, and k9s to work with containerized applications.
 
-## 关键设计决策
+| Tool | Purpose | Install Methods |
+|------|---------|----------------|
+| kubectl | Kubernetes CLI | apt, brew |
+| helm | K8s package manager | apt, brew |
+| k9s | Terminal UI for K8s | brew, download |
+| popeye | K8s cluster sanitizer | brew, go |
+| stern | Tail K8s logs | brew, go |
+| kubectx | Switch K8s contexts/namespaces | brew |
 
-1. **状态管理改为纯bash** — 不再依赖python3写JSON文件，改用bash关联数组+简单文本文件
-2. **工具解析批量处理** — 一次python3调用解析所有YAML，输出为TSV格式供bash读取
-3. **common.sh抽取公共函数** — 日志、颜色、工具函数统一定义
-4. **config.yaml真正生效** — 用python3过滤工具列表
-5. **zsh支持** — 检测当前shell，为zsh生成对应配置
+### 3.2 golang (NEW)
+
+**Rationale**: Go is widely used (Docker, Kubernetes, etc). AI agents need Go-specific linting and formatting tools.
+
+| Tool | Purpose | Install Methods |
+|------|---------|----------------|
+| golangci-lint | Go linter aggregator | brew, go, cargo |
+| staticcheck | Go static analysis | go |
+| goimports | Format imports | go |
+| godef | Go to definition | go |
+| gore | Go REPL | go |
+| ginkgo | Go testing framework | go |
+
+### 3.3 observability (NEW)
+
+**Rationale**: AI agents debugging production need log aggregation and metrics tools.
+
+| Tool | Purpose | Install Methods |
+|------|---------|----------------|
+| stern | Tail multiple pods | brew, go |
+| logcli | Loki CLI | brew, go |
+| promtool | Prometheus CLI | brew, go |
+| ctop | Container metrics | brew, apt |
+| glances | System monitor | apt, brew, pip |
+
+### 3.4 git-helpers (NEW - extends git category)
+
+**Rationale**: Enhanced git workflows beyond what delta/lazygit provide.
+
+| Tool | Purpose | Install Methods |
+|------|---------|----------------|
+| git-lfs | Git Large File Storage | apt, brew |
+| ghq | Git remote management | brew, go |
+| git-filter-repo | Rewrite git history | pip, brew |
+| myrepos | Multi-repo management | brew, pip |
+
+### 3.5 testing (NEW)
+
+**Rationale**: AI agents need testing tools for various languages and frameworks.
+
+| Tool | Purpose | Install Methods |
+|------|---------|----------------|
+| bats | Bash testing framework | apt, brew, pip |
+| cricket | Python coverage UI | pip |
+| coverage | Python coverage CLI | pip |
+| junit2html | JUnit to HTML | pip, go |
+
+## 4. Depth Additions (Existing Categories)
+
+### 4.1 dev.yaml — Add Language-Specific Tools
+
+| Tool | Purpose | Install |
+|------|---------|---------|
+| buf | Protocol buffers linter | brew, go |
+| hadolint | Already present, ensure enabled | - |
+| actionlint | Already present, ensure enabled | - |
+
+### 4.2 git.yaml — Add Workflow Tools
+
+| Tool | Purpose | Install |
+|------|---------|---------|
+| git-lfs | Large file support | apt, brew |
+| ghq | Clone management | brew, go |
+
+### 4.3 terminal.yaml — Add Navigation Tools
+
+| Tool | Purpose | Install |
+|------|---------|---------|
+| autojump | Directory jumping | apt, brew |
+| zellij | Tmux alternative | brew, cargo |
+
+### 4.4 security.yaml — Add Secrets Management
+
+| Tool | Purpose | Install |
+|------|---------|---------|
+| bitwarden-cli | Bitwarden CLI | brew |
+| vault | HashiCorp Vault | brew, apt |
+
+### 4.5 network.yaml — Add Network Diagnostics
+
+| Tool | Purpose | Install |
+|------|---------|---------|
+| mtr | Traceroute + ping | apt, brew |
+| nmap | Network scanner | apt, brew |
+
+## 5. Tool Selection Criteria
+
+For each tool added:
+
+- ✅ **Free & open source** — no paid-only tools
+- ✅ **Active maintenance** — updated within 6 months OR long-stable project
+- ✅ **Multiple install methods** — at least 2 of apt/brew/cargo/pip/go
+- ✅ **Clear AI agent benefit** — enhances agent capabilities
+- ✅ **No external dependencies** — doesn't require cloud auth to install
+
+**Excluded tools**:
+- ❌ AWS/GCP/Azure CLIs — require auth setup, maintenance burden
+- ❌ Complex tools needing config — kubectl needs kubeconfig
+- ❌ Language runtimes — Node.js, Python are base system tools
+
+## 6. Success Metrics
+
+| Metric | v3.1.0 (Baseline) | v4.0 (Target) |
+|--------|-------------------|----------------|
+| Total tools | 107 | 140+ |
+| Categories | 21 | 26 |
+| New categories | — | 5 (kubernetes, golang, observability, git-helpers, testing) |
+| apt-available tools | ~50 | 65+ |
+| brew-available tools | ~90 | 120+ |
+
+## 7. Risk Assessment
+
+| Risk | Likelihood | Mitigation |
+|------|------------|------------|
+| Too many new tools = maintenance burden | Medium | Prioritize high-value tools only |
+| Some tools may not work on all platforms | Low | Multiple install methods per tool |
+| Version drift in YAML | Medium | CI validates YAML syntax |
+| Users overwhelmed by options | Low | Most new tools disabled by default in config.yaml |
+
+## 8. Implementation Scope
+
+**Phase 1** (This upgrade):
+- Create 5 new category YAML files
+- Add tools to 6 existing category YAML files
+- Update config.yaml with new categories
+- Update documentation (README, CHANGELOG)
+- Regenerate openclaw-tools.yaml
+
+**Phase 2** (Future):
+- Add Rust/C++/Java language tools
+- Add more observability integrations
+- Add package manager helpers (pipx, nix)

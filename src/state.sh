@@ -17,7 +17,11 @@ state_init() {
 
 state_record() {
 	local status="$1" tool="$2"
-	echo "$status:$tool" >>"$STATE_FILE"
+	local entry="${status}:${tool}"
+	if grep -qFx "$entry" "$STATE_FILE" 2>/dev/null; then
+		return 0
+	fi
+	echo "$entry" >>"$STATE_FILE"
 }
 
 state_is_done() {

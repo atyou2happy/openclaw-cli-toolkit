@@ -34,6 +34,8 @@ tools:
         package: usql
       - method: go
         package: github.com/xo/usql@latest
+      - method: github_release
+        package: xo/usql#usql_static=usql
     openclaw_usage:
       replace: "psql, mysql, sqlite3 — one CLI for all databases"
       examples:

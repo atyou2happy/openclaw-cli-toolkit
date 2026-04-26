@@ -5,6 +5,87 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.0.0] - 2026-04-26
+
+### Added — 5 New Categories
+
+- **Kubernetes** (`tools/kubernetes.yaml`):
+  - `kubectl` — Kubernetes control CLI (apt, brew)
+  - `helm` — K8s package manager (apt, brew)
+  - `k9s` — Terminal UI for Kubernetes (brew)
+  - `popeye` — K8s cluster sanitizer (brew, go)
+  - `stern` — Multi-pod log tailing (brew, go)
+  - `kubectx` — K8s context switcher (brew)
+
+- **Go Development** (`tools/golang.yaml`):
+  - `golangci-lint` — Go linter aggregator (brew, go, cargo)
+  - `staticcheck` — Go static analysis (go)
+  - `goimports` — Format imports (go)
+  - `godef` — Go to definition (go)
+  - `gore` — Go REPL (go)
+  - `ginkgo` — Go BDD testing (go)
+  - `buf` — Protocol buffers linter (brew, go)
+
+- **Observability** (`tools/observability.yaml`):
+  - `stern` — Tail K8s logs (brew, go)
+  - `logcli` — Loki CLI (brew, go)
+  - `promtool` — Prometheus CLI (brew, go)
+  - `ctop` — Container metrics (brew, apt)
+  - `glances` — System monitor (apt, brew, pip)
+
+- **Git Helpers** (`tools/git-helpers.yaml`):
+  - `git-lfs` — Git Large File Storage (apt, brew)
+  - `ghq` — Git remote management (brew, go)
+  - `git-filter-repo` — Rewrite git history (pip, brew)
+  - `myrepos` — Multi-repo management (brew, pip)
+
+- **Testing** (`tools/testing.yaml`):
+  - `bats` — Bash testing framework (apt, brew, pip)
+  - `coverage` — Python coverage CLI (pip)
+  - `junit2html` — JUnit to HTML converter (pip, go)
+  - `cricket` — Python coverage GUI (pip)
+
+### Added — Tools in Existing Categories
+
+- **terminal**: `autojump` — Directory jumping (apt, brew), `zellij` — Modern tmux alternative (brew, cargo)
+- **security**: `bitwarden-cli` — Bitwarden vault CLI (brew), `vault` — HashiCorp Vault CLI (brew, apt)
+- **network**: `mtr` — Traceroute + ping combined (apt, brew), `nmap` — Network scanner (apt, brew)
+
+### Changed
+
+- Now **26 categories, 140+ tools** total (was 21 categories, 107 tools)
+- `actionlint` now enabled by default
+- `ffmpeg` now enabled by default
+
+## [3.1.0] - 2026-04-14
+
+### Added — 2 New Categories
+
+- **API Testing & Load** (`tools/api-testing.yaml`):
+  - `wrk` — multithreaded HTTP benchmarking tool with Lua scripting (apt, brew)
+  - `hey` — Go-based HTTP load generator (brew, go)
+  - `oha` — Rust-based HTTP load generator with real-time TUI (brew, cargo)
+  - `hurl` — HTTP request runner with plain-text definition language (apt, brew)
+  - `httpyac` — multi-file HTTP request runner with variables and auth [disabled] (pip, brew)
+  - `step` — crypto and certificate management CLI (TLS/SSH/JWT/x509) [disabled] (brew, github_release)
+  - `grpcurl` — command-line gRPC client like curl (brew, go)
+- **Text Processing** (`tools/text-processing.yaml`):
+  - `sd` — intuitive find & replace, sed alternative (brew, cargo)
+  - `gum` — glamorous TUI widgets for shell scripts (brew, go)
+  - `jnv` — interactive JSON navigator with live jq preview [disabled] (brew, cargo)
+  - `choose` — human-friendly column extraction, cut alternative (brew, cargo)
+  - `huniq` — fast order-preserving duplicate line removal [disabled] (brew, cargo)
+  - `grep-ast` — AST-aware source code search with context (pip)
+  - `repgrep` — interactive ripgrep with file preview [disabled] (brew, cargo)
+  - `tabulate` — pretty-print tabular data in Markdown/RST/HTML (pip, apt, brew)
+  - `ugrep` — ultra-fast Unicode-aware text search [disabled] (apt, brew)
+
+### Changed
+
+- Now **21 categories, 107 tools** total (was 19 categories, 87+ tools)
+- `install.sh` usage text updated with new categories
+- `config.yaml` updated with api-testing and text-processing entries
+
 ## [3.0.0] - 2026-04-13
 
 ### Added — 4 New Categories
