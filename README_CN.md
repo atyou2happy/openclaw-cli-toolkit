@@ -103,48 +103,39 @@ openclaw-cli-toolkit/
 ├── uninstall.sh            # 卸载器
 ├── config.yaml             # 用户配置（启用/禁用工具）
 ├── VERSION                 # 版本号唯一来源
+├── Makefile                # 开发者便捷命令
+├── pyproject.toml          # Ruff + pytest 配置（仅开发用）
 ├── src/
+│   ├── paths.sh            # 集中路径管理
 │   ├── common.sh           # 日志、颜色、进度条、辅助函数
 │   ├── state.sh            # 纯 Bash 安装状态追踪
 │   ├── detector.sh         # OS / 架构 / 包管理器检测
-│   ├── installer.sh        # 工具安装逻辑（apt/brew/cargo/pip/go）
+│   ├── installer.sh        # 方法调度器 + 工具安装逻辑
+│   ├── methods/            # 模块化安装方法
+│   │   ├── apt.sh          #   apt-get install
+│   │   ├── brew.sh         #   brew install
+│   │   ├── cargo.sh        #   cargo install
+│   │   ├── pip.sh          #   pip install --user
+│   │   ├── go.sh           #   go install（含代理回退）
+│   │   └── github.sh       #   GitHub Release 二进制下载
 │   ├── configurator.sh     # Shell 别名、工具配置、集成
 │   ├── generator.py        # 生成 openclaw-tools.yaml
 │   └── parse_tools.py      # 解析工具 YAML + 配置过滤
 ├── tools/                  # 工具定义（26 个 YAML 文件）
-│   ├── search.yaml
-│   ├── viewer.yaml
-│   ├── data.yaml
-│   ├── system.yaml
-│   ├── network.yaml
-│   ├── git.yaml
-│   ├── terminal.yaml
-│   ├── dev.yaml
-│   ├── security.yaml
-│   ├── archive.yaml
-│   ├── docs.yaml
-│   ├── download.yaml
-│   ├── ai.yaml
-│   ├── latex.yaml
-│   ├── formats.yaml
-│   ├── container.yaml
-│   ├── database.yaml
-│   ├── media.yaml
-│   ├── diagram.yaml
-│   ├── api-testing.yaml
-│   ├── text-processing.yaml
-│   ├── kubernetes.yaml
-│   ├── golang.yaml
-│   ├── observability.yaml
-│   ├── git-helpers.yaml
-│   └── testing.yaml
 ├── tests/
 │   ├── test_install.sh     # 结构和语法测试
-│   └── test_tools.sh       # 工具功能测试
+│   ├── test_tools.sh       # 工具功能测试
+│   ├── test_structure.sh   # 项目完整性验证
+│   └── python/             # pytest 测试套件（229 个测试）
+│       ├── conftest.py
+│       ├── test_generator.py
+│       ├── test_parse_tools.py
+│       └── test_yaml_schema.py
 ├── docs/
-│   └── research.md         # 工具评估研究报告
+│   ├── research.md         # 工具评估研究报告
+│   └── dev/                # 开发规格文档
 ├── .github/workflows/
-│   └── ci.yml              # CI：shellcheck + 语法 + 测试 + dry-run
+│   └── ci.yml              # CI：shellcheck + 语法 + 测试 + pytest + dry-run
 ├── CHANGELOG.md
 ├── LICENSE
 └── README_CN.md            # 本文件

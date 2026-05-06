@@ -106,48 +106,39 @@ openclaw-cli-toolkit/
 ├── uninstall.sh            # Uninstaller
 ├── config.yaml             # User configuration (enable/disable tools)
 ├── VERSION                 # Single source of truth for version
+├── Makefile                # Developer convenience targets
+├── pyproject.toml          # Ruff + pytest config (dev-only)
 ├── src/
+│   ├── paths.sh            # Centralized path management
 │   ├── common.sh           # Logging, colors, progress bar, helpers
 │   ├── state.sh            # Pure-bash install state tracking
 │   ├── detector.sh         # OS / arch / package manager detection
-│   ├── installer.sh        # Tool installation logic (apt/brew/cargo/pip/go)
+│   ├── installer.sh        # Method dispatcher + tool install logic
+│   ├── methods/            # Modular install methods
+│   │   ├── apt.sh          #   apt-get install
+│   │   ├── brew.sh         #   brew install
+│   │   ├── cargo.sh        #   cargo install
+│   │   ├── pip.sh          #   pip install --user
+│   │   ├── go.sh           #   go install (with proxy fallback)
+│   │   └── github.sh       #   GitHub release binary download
 │   ├── configurator.sh     # Shell aliases, tool configs, integrations
 │   ├── generator.py        # Generate openclaw-tools.yaml for agents
 │   └── parse_tools.py      # Parse tool YAML + config filtering
 ├── tools/                  # Tool definitions (26 YAML files)
-│   ├── search.yaml
-│   ├── viewer.yaml
-│   ├── data.yaml
-│   ├── system.yaml
-│   ├── network.yaml
-│   ├── git.yaml
-│   ├── terminal.yaml
-│   ├── dev.yaml
-│   ├── security.yaml
-│   ├── archive.yaml
-│   ├── docs.yaml
-│   ├── download.yaml
-│   ├── ai.yaml
-│   ├── latex.yaml
-│   ├── formats.yaml
-│   ├── container.yaml
-│   ├── database.yaml
-│   ├── media.yaml
-│   ├── diagram.yaml
-│   ├── api-testing.yaml
-│   ├── text-processing.yaml
-│   ├── kubernetes.yaml
-│   ├── golang.yaml
-│   ├── observability.yaml
-│   ├── git-helpers.yaml
-│   └── testing.yaml
 ├── tests/
 │   ├── test_install.sh     # Structure & syntax tests
-│   └── test_tools.sh       # Tool functionality tests
+│   ├── test_tools.sh       # Tool functionality tests
+│   ├── test_structure.sh   # Project integrity validation
+│   └── python/             # pytest suite (229 tests)
+│       ├── conftest.py
+│       ├── test_generator.py
+│       ├── test_parse_tools.py
+│       └── test_yaml_schema.py
 ├── docs/
-│   └── research.md         # Tool evaluation research report
+│   ├── research.md         # Tool evaluation research report
+│   └── dev/                # Development specs
 ├── .github/workflows/
-│   └── ci.yml              # CI: shellcheck + syntax + test + dry-run
+│   └── ci.yml              # CI: shellcheck + syntax + test + pytest + dry-run
 ├── CHANGELOG.md
 ├── LICENSE
 └── README.md               # This file

@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.0.0] - 2026-05-07
+
+### Changed — Architecture Refactoring
+
+- **Modular install methods**: Split `src/installer.sh` (394 lines) into 6 independent modules under `src/methods/` (apt.sh, brew.sh, cargo.sh, pip.sh, go.sh, github.sh), with installer.sh as a thin dispatcher (~120 lines)
+- **Centralized paths**: New `src/paths.sh` consolidates all path/version calculations (previously duplicated across 5 files)
+- **Python code quality**: Fixed exception swallowing in `parse_tools.py` (bare `except: pass` → specific error types + stderr logging), replaced bare `open()` with `with` context managers, added full type annotations
+
+### Added
+
+- **Python test suite**: 229 pytest tests covering generator.py, parse_tools.py, and all 26 YAML schema validations
+- **Shell structure tests**: 27 tests for file existence, syntax, and project integrity
+- **Makefile**: Developer convenience targets (`make lint`, `make test`, `make check`, `make generate`)
+- **pyproject.toml**: Ruff + pytest configuration (dev-only, not for packaging)
+- **CI enhancement**: New `python-test` job in GitHub Actions for automated pytest runs
+
+### Fixed
+
+- Added `npm` to valid install methods (was used in security.yaml but not recognized by schema)
+
 ## [4.0.0] - 2026-04-26
 
 ### Added — 5 New Categories
