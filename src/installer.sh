@@ -2,11 +2,7 @@
 # shellcheck disable=SC2034
 set -euo pipefail
 
-INSTALLER_VERSION="$(cat "$(dirname "${BASH_SOURCE[0]}")/../VERSION" | tr -d '[:space:]')"
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-TOOLS_DIR="$(dirname "$SCRIPT_DIR")/tools"
-
-INSTALL_LOG="/tmp/openclaw-toolkit-install.log"
+INSTALL_LOG="${INSTALL_LOG:-/tmp/openclaw-toolkit-install.log}"
 
 INSTALLED_TOOLS=()
 FAILED_TOOLS=()
