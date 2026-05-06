@@ -8,6 +8,7 @@ a unified openclaw-tools.yaml that OpenClaw agents can directly read.
 import shutil
 import sys
 from pathlib import Path
+from typing import Any
 
 import yaml
 
@@ -19,12 +20,15 @@ VERSION_FILE = PROJECT_DIR / "VERSION"
 
 
 def get_version() -> str:
-    return VERSION_FILE.read_text().strip() if VERSION_FILE.exists() else "0.0.0"
+    """Read version from VERSION file, fallback to 0.0.0."""
+    if VERSION_FILE.exists():
+        return VERSION_FILE.read_text().strip()
+    return "0.0.0"
 
 
-def load_tool_definitions(tools_dir: Path) -> list[dict]:
+def load_tool_definitions(tools_dir: Path) -> list[dict[str, Any]]:
     """Load all tool YAML definitions from the tools directory."""
-    all_tools: list[dict] = []
+    all_tools: list[dict[str, Any]] = []
     for yaml_file in sorted(tools_dir.glob("*.yaml")):
         try:
             with open(yaml_file, "r", encoding="utf-8") as f:
@@ -35,6 +39,8 @@ def load_tool_definitions(tools_dir: Path) -> list[dict]:
                     tool["_category"] = category
                     tool["_source_file"] = yaml_file.name
                     all_tools.append(tool)
+        except yaml.YAMLError as e:
+            print(f"[WARN] Invalid YAML in {yaml_file}: {e}", file=sys.stderr)
         except Exception as e:
             print(f"[WARN] Failed to load {yaml_file}: {e}", file=sys.stderr)
     return all_tools
@@ -45,16 +51,16 @@ def check_tool_installed(binary: str) -> bool:
     return shutil.which(binary) is not None
 
 
-def generate_openclaw_entry(tool: dict) -> dict:
+def generate_openclaw_entry(tool: dict[str, Any]) -> dict[str, Any]:
     """Generate a single tool entry for openclaw-tools.yaml."""
-    name = tool.get("binary", tool.get("name", "unknown"))
-    category = tool.get("_category", "unknown")
-    description = tool.get("description", "")
-    usage_info = tool.get("openclaw_usage", {})
+    name = tool.get("binary", tool.get("name", "unknown")) or "unknown"
+    category = tool.get("_category", "unknown") or "unknown"
+    description = tool.get("description", "") or ""
+    usage_info = tool.get("openclaw_usage", {}) or {}
 
-    replaces = usage_info.get("replace", "")
-    examples = usage_info.get("examples", [])
-    benefits = usage_info.get("benefits", "")
+    replaces = usage_info.get("replace", "") or ""
+    examples = usage_info.get("examples", []) or []
+    benefits = usage_info.get("benefits", "") or ""
 
     if examples:
         primary_usage = (
@@ -65,9 +71,11 @@ def generate_openclaw_entry(tool: dict) -> dict:
     else:
         primary_usage = f"{name} <args>"
 
-    entry = {
+    tool_name = tool.get("name", name) or name
+
+    entry: dict[str, Any] = {
         "name": name,
-        "package_name": tool.get("name", name),
+        "package_name": tool_name,
         "category": category,
         "description": description,
         "usage": primary_usage,
@@ -75,8 +83,8 @@ def generate_openclaw_entry(tool: dict) -> dict:
         "replaces": replaces,
         "examples": examples,
         "install_methods": [
-            {"method": m.get("method"), "package": m.get("package", name)}
-            for m in tool.get("install_methods", [])
+            {"method": m.get("method"), "package": m.get("package", tool_name)}
+            for m in tool.get("install_methods", []) or []
         ],
     }
 
@@ -84,13 +92,13 @@ def generate_openclaw_entry(tool: dict) -> dict:
 
 
 def generate_output(
-    tools: list[dict], output_file: Path, only_installed: bool = False
-) -> dict:
+    tools: list[dict[str, Any]], output_file: Path, only_installed: bool = False
+) -> dict[str, Any]:
     """Generate the openclaw-tools.yaml output file."""
-    openclaw_tools: list[dict] = []
+    openclaw_tools: list[dict[str, Any]] = []
 
     for tool in tools:
-        binary = tool.get("binary", tool.get("name", ""))
+        binary = tool.get("binary", tool.get("name", "")) or ""
         if only_installed and not check_tool_installed(binary):
             continue
         entry = generate_openclaw_entry(tool)
@@ -98,7 +106,7 @@ def generate_output(
 
     categories = sorted(set(e.get("category", "other") for e in openclaw_tools))
 
-    output = {
+    output: dict[str, Any] = {
         "meta": {
             "version": get_version(),
             "description": "OpenClaw CLI Toolkit - Tool definitions for AI agent usage",
@@ -115,7 +123,8 @@ def generate_output(
         )
 
     print(
-        f"[OK] Generated {output_file} with {len(openclaw_tools)} tools across {len(categories)} categories"
+        f"[OK] Generated {output_file} with {len(openclaw_tools)} tools "
+        f"across {len(categories)} categories"
     )
     return output
 

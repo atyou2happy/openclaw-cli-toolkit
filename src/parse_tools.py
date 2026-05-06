@@ -17,16 +17,22 @@ import yaml
 
 
 def parse_tools(tools_dir: Path, config_file: str = "") -> None:
-    config = {}
+    """Parse all tool YAML files and print TSV to stdout."""
+    config: dict = {}
     if config_file:
         try:
-            config = yaml.safe_load(open(config_file))
-        except Exception:
+            with open(config_file, "r", encoding="utf-8") as fh:
+                config = yaml.safe_load(fh) or {}
+        except (yaml.YAMLError, OSError) as e:
+            print(f"[WARN] Failed to load config {config_file}: {e}", file=sys.stderr)
             config = {}
 
     for f in sorted(tools_dir.glob("*.yaml")):
         try:
-            data = yaml.safe_load(open(f))
+            with open(f, "r", encoding="utf-8") as fh:
+                data = yaml.safe_load(fh)
+            if not data or "tools" not in data:
+                continue
             category = data.get("category", f.stem)
             cat_cfg = config.get("categories", {}).get(category, {})
             if not cat_cfg.get("enabled", True):
@@ -48,11 +54,19 @@ def parse_tools(tools_dir: Path, config_file: str = "") -> None:
                     for m in t.get("install_methods", [])
                 )
                 print(f"{name}\t{binary}\t{pkg}\t{methods}\t{category}")
-        except Exception:
-            pass
+        except yaml.YAMLError as e:
+            print(f"[WARN] Invalid YAML in {f}: {e}", file=sys.stderr)
+        except (KeyError, TypeError) as e:
+            print(f"[WARN] Schema error in {f}: {e}", file=sys.stderr)
 
 
 if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print(f"Usage: {sys.argv[0]} <tools_dir> [config_file]", file=sys.stderr)
+        sys.exit(1)
     tools_dir = Path(sys.argv[1])
     config_file = sys.argv[2] if len(sys.argv) > 2 else ""
+    if not tools_dir.is_dir():
+        print(f"[ERROR] Not a directory: {tools_dir}", file=sys.stderr)
+        sys.exit(1)
     parse_tools(tools_dir, config_file)
